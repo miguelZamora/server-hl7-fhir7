@@ -1,0 +1,23 @@
+#version: "3.9"
+services:
+  fhir-api:
+    build: .
+    container_name: fhir-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mssql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:sqlserver://mssql:1433;databaseName=fhirDB
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD: YourStrong!Passw0rd
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: YourStrong!Passw0rd
+      ACCEPT_EULA: "Y"
