@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MedicationRequest - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-prescription-bottle"></i> Solicitud de Medicamento</h1><p>Prescripción médica (FHIR MedicationRequest)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<h2 class="section-title"><i class="fa-solid fa-pills"></i> Datos de la Prescripción</h2>
+<div class="grid-2">
+  <div class="form-group"><label>Paciente</label><input type="text" id="subject" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Médico Prescriptor</label><input type="text" id="requester" placeholder="Practitioner/example" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activa</option><option value="completed">Completada</option><option value="cancelled">Cancelada</option><option value="on-hold">En espera</option><option value="draft">Borrador</option></select></div>
+  <div class="form-group"><label>Intención</label><select id="intent"><option value="order">Orden</option><option value="proposal">Propuesta</option><option value="plan">Plan</option><option value="instance-order">Orden instancia</option></select></div>
+  <div class="form-group"><label>Prioridad</label><select id="priority"><option value="routine">Rutina</option><option value="urgent">Urgente</option><option value="asap">Lo antes posible</option><option value="stat">Inmediato</option></select></div>
+  <div class="form-group"><label>Medicamento</label><input type="text" id="medication" placeholder="Amoxicilina 500mg (código RxNorm)" required></div>
+  <div class="form-group"><label>Encuentro</label><input type="text" id="encounter" placeholder="Encounter/example"></div>
+  <div class="form-group"><label>Fecha de Solicitud</label><input type="datetime-local" id="authoredOn"></div>
+  <div class="form-group"><label>Dosis</label><input type="text" id="dose" placeholder="ej. 500 mg"></div>
+  <div class="form-group"><label>Frecuencia</label><input type="text" id="frequency" placeholder="ej. cada 8 horas"></div>
+  <div class="form-group"><label>Vía de Administración</label><select id="route"><option value="oral">Oral</option><option value="iv">Intravenosa</option><option value="im">Intramuscular</option><option value="sc">Subcutánea</option><option value="topical">Tópica</option><option value="sublingual">Sublingual</option></select></div>
+  <div class="form-group"><label>Duración del Tratamiento</label><input type="text" id="duration" placeholder="ej. 7 días"></div>
+  <div class="form-group full-width"><label>Instrucciones para el Paciente</label><textarea id="patientInstruction" placeholder="Tomar con alimentos, evitar alcohol..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Prescripción</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"MedicationRequest",id:"mr_"+Date.now().toString(36),status:document.getElementById('status').value,intent:document.getElementById('intent').value,priority:document.getElementById('priority').value,medication:{concept:{text:document.getElementById('medication').value}},subject:{reference:document.getElementById('subject').value},encounter:{reference:document.getElementById('encounter').value},authoredOn:document.getElementById('authoredOn').value,requester:{reference:document.getElementById('requester').value},dosageInstruction:[{text:document.getElementById('dose').value+' '+document.getElementById('frequency').value,route:{text:document.getElementById('route').value},patientInstruction:document.getElementById('patientInstruction').value}],dispenseRequest:{validityPeriod:{start:(new Date()).toISOString()}}};let db=JSON.parse(localStorage.getItem('fhir_medication_requests_db'))||[];db.push(fhir);localStorage.setItem('fhir_medication_requests_db',JSON.stringify(db));console.log("✅ MedicationRequest:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Prescripción';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script>
+</body></html>

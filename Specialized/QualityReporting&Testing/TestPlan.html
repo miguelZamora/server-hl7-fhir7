@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>TestPlan - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-vial-circle-check"></i> Plan de Pruebas</h1><p>Pruebas de software o clínicas (FHIR TestPlan)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Título</label><input type="text" id="title" placeholder="Prueba de integración API" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activo</option><option value="draft">Borrador</option></select></div>
+  <div class="form-group full-width"><label>Descripción</label><textarea id="description" placeholder="Detalles del plan de pruebas..."></textarea></div>
+  <div class="form-group full-width"><label>Caso de Prueba 1</label><input type="text" id="case1" placeholder="ej. Verificación de Login"></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Plan de Pruebas</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"TestPlan",status:document.getElementById('status').value,title:document.getElementById('title').value,description:document.getElementById('description').value};console.log("✅ TestPlan:",fhir);});</script></body></html>

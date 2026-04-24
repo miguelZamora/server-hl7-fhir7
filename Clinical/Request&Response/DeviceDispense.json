@@ -1,0 +1,13 @@
+{
+  "resourceType": "DeviceDispense",
+  "id": "example-disp",
+  "status": "completed",
+  "device": {
+    "concept": {
+      "text": "Nebulizer"
+    }
+  },
+  "subject": {
+    "reference": "Patient/example"
+  }
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MedicationAdministration - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-syringe"></i> Administración de Medicamento</h1><p>Registro de medicamento administrado (FHIR MedicationAdministration)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<h2 class="section-title"><i class="fa-solid fa-pills"></i> Datos de la Administración</h2>
+<div class="grid-2">
+  <div class="form-group"><label>Paciente</label><input type="text" id="subject" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Medicamento</label><input type="text" id="medication" placeholder="ej. Paracetamol 500mg" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="completed">Completada</option><option value="in-progress">En curso</option><option value="not-done">No realizada</option><option value="stopped">Suspendida</option></select></div>
+  <div class="form-group"><label>Fecha/Hora Inicio</label><input type="datetime-local" id="occurenceStart"></div>
+  <div class="form-group"><label>Fecha/Hora Fin</label><input type="datetime-local" id="occurenceEnd"></div>
+  <div class="form-group"><label>Performer (Enfermero/Médico)</label><input type="text" id="performer" placeholder="Practitioner/example"></div>
+  <div class="form-group"><label>Solicitud Original</label><input type="text" id="request" placeholder="MedicationRequest/example"></div>
+  <div class="form-group"><label>Encuentro</label><input type="text" id="encounter" placeholder="Encounter/example"></div>
+  <div class="form-group"><label>Dosis Administrada</label><input type="text" id="dose" placeholder="ej. 500 mg"></div>
+  <div class="form-group"><label>Vía</label><select id="route"><option value="oral">Oral</option><option value="iv">Intravenosa</option><option value="im">Intramuscular</option><option value="sc">Subcutánea</option></select></div>
+  <div class="form-group full-width"><label>Notas</label><textarea id="note" placeholder="Observaciones sobre la administración..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Administración</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"MedicationAdministration",id:"madm_"+Date.now().toString(36),status:document.getElementById('status').value,medication:{concept:{text:document.getElementById('medication').value}},subject:{reference:document.getElementById('subject').value},encounter:{reference:document.getElementById('encounter').value},occurencePeriod:{start:document.getElementById('occurenceStart').value,end:document.getElementById('occurenceEnd').value},request:{reference:document.getElementById('request').value},performer:[{actor:{reference:document.getElementById('performer').value}}],dosage:{route:{text:document.getElementById('route').value},dose:{value:document.getElementById('dose').value}},note:[{text:document.getElementById('note').value}]};let db=JSON.parse(localStorage.getItem('fhir_med_administrations_db'))||[];db.push(fhir);localStorage.setItem('fhir_med_administrations_db',JSON.stringify(db));console.log("✅ MedicationAdministration:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Administración';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script>
+</body></html>

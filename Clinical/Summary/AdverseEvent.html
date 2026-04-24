@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AdverseEvent - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-triangle-exclamation"></i> Evento Adverso</h1><p>Registro de eventos adversos clínicos (FHIR AdverseEvent)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<h2 class="section-title"><i class="fa-solid fa-circle-exclamation"></i> Datos del Evento</h2>
+<div class="grid-2">
+  <div class="form-group"><label>Paciente / Sujeto</label><input type="text" id="subject" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Fecha del Evento</label><input type="datetime-local" id="date"></div>
+  <div class="form-group"><label>Actuality</label><select id="actuality"><option value="actual">Real (ocurrió)</option><option value="potential">Potencial (riesgo)</option></select></div>
+  <div class="form-group"><label>Categoría</label><select id="category"><option value="wrong-patient">Paciente equivocado</option><option value="procedure-mishap">Error de procedimiento</option><option value="medication-mishap">Error de medicación</option><option value="device">Dispositivo</option><option value="unsafe-physical-environment">Ambiente inseguro</option></select></div>
+  <div class="form-group"><label>Código del Evento</label><input type="text" id="event" placeholder="SNOMED o texto libre"></div>
+  <div class="form-group"><label>Severidad</label><select id="severity"><option value="mild">Leve</option><option value="moderate">Moderada</option><option value="severe">Severa</option></select></div>
+  <div class="form-group"><label>Sospechoso (Causa)</label><input type="text" id="suspectEntity" placeholder="Medication/example o Substance/example"></div>
+  <div class="form-group"><label>Profesional Reportador</label><input type="text" id="recorder" placeholder="Practitioner/example"></div>
+  <div class="form-group full-width"><label>Descripción</label><textarea id="description" placeholder="Detalles del evento adverso..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Evento Adverso</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"AdverseEvent",id:"ae_"+Date.now().toString(36),status:"completed",actuality:document.getElementById('actuality').value,category:[{coding:[{code:document.getElementById('category').value}]}],code:{text:document.getElementById('event').value},subject:{reference:document.getElementById('subject').value},recorder:{reference:document.getElementById('recorder').value},date:document.getElementById('date').value,severity:{coding:[{code:document.getElementById('severity').value}]},suspectEntity:[{instance:{reference:document.getElementById('suspectEntity').value}}],description:document.getElementById('description').value};let db=JSON.parse(localStorage.getItem('fhir_adverse_events_db'))||[];db.push(fhir);localStorage.setItem('fhir_adverse_events_db',JSON.stringify(db));console.log("✅ AdverseEvent:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Evento Adverso';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script>
+</body></html>

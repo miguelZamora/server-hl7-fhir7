@@ -1,0 +1,16 @@
+{
+  "resourceType": "SupplyRequest",
+  "id": "example-supply",
+  "status": "active",
+  "item": {
+    "concept": {
+      "text": "Medical Masks"
+    }
+  },
+  "quantity": {
+    "value": 100
+  },
+  "requester": {
+    "reference": "Practitioner/example"
+  }
+}

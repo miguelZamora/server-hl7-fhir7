@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PlanDefinition - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-diagram-project"></i> Definición de Plan</h1><p>Protocolos y flujos de trabajo (FHIR PlanDefinition)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>URL</label><input type="text" id="url" placeholder="http://hl7.org/fhir/PlanDefinition/example" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activo</option><option value="draft">Borrador</option><option value="retired">Retirado</option></select></div>
+  <div class="form-group"><label>Título</label><input type="text" id="title" placeholder="Protocolo de Hipertensión" required></div>
+  <div class="form-group"><label>Tipo</label><select id="type"><option value="clinical-protocol">Protocolo Clínico</option><option value="order-set">Set de Órdenes</option></select></div>
+  <div class="form-group full-width"><label>Acción 1 (Texto)</label><input type="text" id="action1" placeholder="ej. Prescribir antihipertensivo"></div>
+  <div class="form-group full-width"><label>Acción 2 (Texto)</label><input type="text" id="action2" placeholder="ej. Seguimiento en 2 semanas"></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Plan</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"PlanDefinition",status:document.getElementById('status').value,url:document.getElementById('url').value,title:document.getElementById('title').value,type:{coding:[{code:document.getElementById('type').value}]},action:[]};['action1','action2'].forEach(id=>{const v=document.getElementById(id).value;if(v)fhir.action.push({title:v});});console.log("✅ PlanDefinition:",fhir);});</script></body></html>

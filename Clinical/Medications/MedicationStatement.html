@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MedicationStatement - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-clipboard"></i> Declaración de Medicación</h1><p>Historial de medicamentos del paciente (FHIR MedicationStatement)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Paciente</label><input type="text" id="subject" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Medicamento</label><input type="text" id="medication" placeholder="ej. Metformina 850mg" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="recorded">Registrado</option><option value="entered-in-error">Error</option><option value="draft">Borrador</option></select></div>
+  <div class="form-group"><label>Adherencia</label><select id="adherence"><option value="taking">Tomando</option><option value="not-taking">No tomando</option><option value="on-hold">En pausa</option><option value="stopped">Suspendido</option></select></div>
+  <div class="form-group"><label>Fecha de Referencia</label><input type="date" id="effectiveDate"></div>
+  <div class="form-group"><label>Fecha de Registro</label><input type="date" id="dateAsserted"></div>
+  <div class="form-group full-width"><label>Instrucción de Dosis</label><input type="text" id="dosage" placeholder="ej. 850mg cada 12 horas con alimentos"></div>
+  <div class="form-group full-width"><label>Razón / Diagnóstico</label><input type="text" id="reason" placeholder="CIE-10 o diagnóstico libre"></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Declaración</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"MedicationStatement",id:"ms_"+Date.now().toString(36),status:document.getElementById('status').value,adherence:{code:{coding:[{code:document.getElementById('adherence').value}]}},medication:{concept:{text:document.getElementById('medication').value}},subject:{reference:document.getElementById('subject').value},effectiveDateTime:document.getElementById('effectiveDate').value,dateAsserted:document.getElementById('dateAsserted').value,reason:[{concept:{text:document.getElementById('reason').value}}],dosage:[{text:document.getElementById('dosage').value}]};let db=JSON.parse(localStorage.getItem('fhir_med_statements_db'))||[];db.push(fhir);localStorage.setItem('fhir_med_statements_db',JSON.stringify(db));console.log("✅ MedicationStatement:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Declaración';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script></body></html>

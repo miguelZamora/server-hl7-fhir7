@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>ServiceRequest - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-file-medical"></i> Solicitud de Servicio</h1><p>Orden médica (FHIR ServiceRequest)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Paciente</label><input type="text" id="patient" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activo</option><option value="completed">Completado</option><option value="draft">Borrador</option></select></div>
+  <div class="form-group"><label>Intención</label><select id="intent"><option value="order">Orden</option><option value="plan">Plan</option></select></div>
+  <div class="form-group"><label>Código de Servicio (LOINC/SNOMED)</label><input type="text" id="code" placeholder="ej. ECG, Terapia" required></div>
+  <div class="form-group"><label>Fecha de Realización</label><input type="datetime-local" id="occurrence"></div>
+  <div class="form-group full-width"><label>Motivo</label><textarea id="reason" placeholder="Razón clínica de la solicitud..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Solicitud</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"ServiceRequest",status:document.getElementById('status').value,intent:document.getElementById('intent').value,code:{text:document.getElementById('code').value},subject:{reference:document.getElementById('patient').value},occurrenceDateTime:document.getElementById('occurrence').value,reason:[{concept:{text:document.getElementById('reason').value}}]};console.log("✅ ServiceRequest:",fhir);});</script></body></html>

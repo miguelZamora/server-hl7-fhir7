@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SupplyRequest - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-truck-medical"></i> Solicitud de Suministros</h1><p>Pedido de materiales (FHIR SupplyRequest)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Suministro Solicitado</label><input type="text" id="item" placeholder="ej. Mascarillas, Guantes" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activo</option><option value="completed">Completado</option></select></div>
+  <div class="form-group"><label>Cantidad</label><input type="number" id="quantity" value="1"></div>
+  <div class="form-group"><label>Solicitante</label><input type="text" id="requester" placeholder="Practitioner/example"></div>
+  <div class="form-group full-width"><label>Motivo del Pedido</label><textarea id="reason" placeholder="Uso previsto..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Solicitud</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"SupplyRequest",status:document.getElementById('status').value,item:{concept:{text:document.getElementById('item').value}},quantity:{value:parseFloat(document.getElementById('quantity').value)},requester:{reference:document.getElementById('requester').value}};console.log("✅ SupplyRequest:",fhir);});</script></body></html>

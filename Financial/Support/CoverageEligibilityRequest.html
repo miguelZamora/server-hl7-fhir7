@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>CoverageEligibilityRequest - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-file-signature"></i> Consulta de Elegibilidad</h1><p>Solicitud de cobertura (FHIR CoverageEligibilityRequest)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Paciente</label><input type="text" id="patient" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activo</option><option value="cancelled">Cancelado</option></select></div>
+  <div class="form-group"><label>Prioridad</label><select id="priority"><option value="stat">Inmediato</option><option value="normal">Normal</option></select></div>
+  <div class="form-group"><label>Fecha de Servicio</label><input type="date" id="serviced"></div>
+  <div class="form-group"><label>Aseguradora</label><input type="text" id="insurer" placeholder="Organization/example" required></div>
+  <div class="form-group"><label>Propósito</label><select id="purpose"><option value="auth-requirements">Requisitos de Aut.</option><option value="benefits">Beneficios</option><option value="validation">Validación</option></select></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Solicitud</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"CoverageEligibilityRequest",status:document.getElementById('status').value,priority:{coding:[{code:document.getElementById('priority').value}]},patient:{reference:document.getElementById('patient').value},servicedDate:document.getElementById('serviced').value,insurer:{reference:document.getElementById('insurer').value},purpose:[document.getElementById('purpose').value]};console.log("✅ CoverageEligibilityRequest:",fhir);});</script></body></html>

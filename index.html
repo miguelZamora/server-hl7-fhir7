@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FHIR Resource Manager - Menú Completo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/fhir-style.css">
+    <style>
+        .stats {
+            background: var(--glass);
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            border: 1px solid white;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+        }
+
+        /* ACORDEÓN PRINCIPAL */
+        .accordion {
+            margin-bottom: 1rem;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--glass);
+            border: 1px solid var(--border);
+        }
+
+        .accordion-header {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.08), rgba(56, 189, 248, 0.08));
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.15), rgba(56, 189, 248, 0.15));
+        }
+
+        .accordion-header.active {
+            border-bottom-color: var(--border);
+        }
+
+        .accordion-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .accordion-title i {
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+
+        .accordion-count {
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            padding: 0.2rem 0.7rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .accordion-header.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            padding: 0 1.5rem;
+        }
+
+        .accordion-content.show {
+            max-height: 5000px;
+            padding: 1rem 1.5rem;
+        }
+
+        /* SUBACORDEÓN */
+        .subaccordion {
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(14, 165, 233, 0.02);
+            border: 1px solid var(--border);
+        }
+
+        .subaccordion-header {
+            background: rgba(14, 165, 233, 0.04);
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+        }
+
+        .subaccordion-header:hover {
+            background: rgba(14, 165, 233, 0.08);
+        }
+
+        .subaccordion-header.active {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .subaccordion-title {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .subaccordion-title i {
+            font-size: 1rem;
+            color: var(--secondary);
+        }
+
+        .subaccordion-badge {
+            background: var(--border);
+            border-radius: 20px;
+            padding: 0.15rem 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .subaccordion-icon {
+            transition: transform 0.2s ease;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .subaccordion-header.active .subaccordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .subaccordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1rem;
+        }
+
+        .subaccordion-content.show {
+            max-height: 3000px;
+            padding: 1rem;
+        }
+
+        /* GRID DE TARJETAS - 4 COLUMNAS */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        @media (max-width: 1200px) {
+            .grid-cards {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .grid-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .grid-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* TARJETA DE RECURSO */
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 1rem;
+            transition: all 0.25s ease;
+            border: 1px solid var(--border);
+            text-decoration: none;
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 0.6rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(14, 165, 233, 0.1);
+            border-color: var(--primary);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        .card-info h3 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+            color: var(--primary-dark);
+        }
+
+        .card-info p {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .badge {
+            background: var(--border);
+            border-radius: 20px;
+            padding: 0.1rem 0.4rem;
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-left: 0.3rem;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .loader {
+            text-align: center;
+            padding: 3rem;
+            color: var(--primary);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>
+            <i class="fa-solid fa-database"
+                style="background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; color: transparent;"></i>
+            FHIR Resource Manager
+        </h1>
+        <div class="subtitle">
+            Gestión de recursos FHIR - Formularios de ingreso de datos
+        </div>
+
+        <div class="stats">
+            <div class="stat"><span class="stat-number" id="totalCount">0</span><span class="stat-label">Recursos
+                    disponibles</span></div>
+            <div class="stat"><i class="fa-solid fa-check-circle" style="color:#10B981;"></i><span
+                    class="stat-label">Todos con HTML, SQL y JS</span></div>
+            <div class="stat"><i class="fa-solid fa-refresh" id="refreshIcon"
+                    style="cursor: pointer; color: var(--primary);"></i><span class="stat-label">Recargar</span></div>
+        </div>
+
+        <div id="accordionContainer">
+            <div class="loader"><i class="fa-solid fa-spinner fa-spin"></i> Cargando recursos...</div>
+        </div>
+
+        <div class="footer">
+            <i class="fa-solid fa-database"></i> FHIR Resource Manager |
+            <i class="fa-solid fa-folder-tree"></i> Foundation → Base → Clinical → Financial → Specialized |
+            <i class="fa-solid fa-table"></i> SQL: data/SQL/todos_los_recursos.sql |
+            <i class="fa-solid fa-code"></i> JS: data/MONGODB/todos_los_inserts.js
+        </div>
+    </div>
+
+    <script>
+        let recursosData = null;
+
+        // Alternar acordeón principal
+        function toggleAccordion(header) {
+            header.classList.toggle('active');
+            const content = header.nextElementSibling;
+            content.classList.toggle('show');
+        }
+
+        // Alternar subacordeón
+        function toggleSubAccordion(header) {
+            header.classList.toggle('active');
+            const content = header.nextElementSibling;
+            content.classList.toggle('show');
+        }
+
+        // Función para corregir la ruta eliminando 'src/' si existe al inicio
+        function fixPath(originalPath) {
+            // Si la ruta empieza con 'src/', la removemos
+            if (originalPath && originalPath.startsWith('src/')) {
+                return originalPath.substring(4); // Elimina 'src/'
+            }
+            return originalPath;
+        }
+
+        function renderMenu(data) {
+            const container = document.getElementById('accordionContainer');
+            container.innerHTML = '';
+
+            // Ordenar secciones por 'order'
+            const orderedSections = [...data.sections].sort((a, b) => (a.order || 999) - (b.order || 999));
+
+            let totalCards = 0;
+
+            for (const section of orderedSections) {
+                // Calcular total de recursos de la sección
+                const sectionTotal = section.subsections.reduce((sum, sub) => sum + (sub.resources?.length || 0), 0);
+
+                // ACORDEÓN PRINCIPAL - Usa nameEs (traducción)
+                const accordion = document.createElement('div');
+                accordion.className = 'accordion';
+
+                const header = document.createElement('div');
+                header.className = 'accordion-header';
+                header.onclick = () => toggleAccordion(header);
+
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'accordion-title';
+                const sectionDisplayName = section.nameEs || section.name;
+                titleDiv.innerHTML = `<i class="fas ${section.icon}"></i><span>${sectionDisplayName}</span><span class="accordion-count">${sectionTotal}</span>`;
+
+                const iconSpan = document.createElement('i');
+                iconSpan.className = 'fa-solid fa-chevron-down accordion-icon';
+
+                header.appendChild(titleDiv);
+                header.appendChild(iconSpan);
+
+                const content = document.createElement('div');
+                content.className = 'accordion-content';
+
+                // SUBACORDEONES
+                for (const subsection of section.subsections) {
+                    const subAccordion = document.createElement('div');
+                    subAccordion.className = 'subaccordion';
+
+                    const subHeader = document.createElement('div');
+                    subHeader.className = 'subaccordion-header';
+                    subHeader.onclick = (e) => {
+                        e.stopPropagation();
+                        toggleSubAccordion(subHeader);
+                    };
+
+                    const subTitle = document.createElement('div');
+                    subTitle.className = 'subaccordion-title';
+                    const subDisplayName = subsection.nameEs || subsection.name;
+                    subTitle.innerHTML = `<i class="fas ${subsection.icon}"></i><span>${subDisplayName}</span><span class="subaccordion-badge">${subsection.resources?.length || 0}</span>`;
+
+                    const subIcon = document.createElement('i');
+                    subIcon.className = 'fa-solid fa-chevron-down subaccordion-icon';
+
+                    subHeader.appendChild(subTitle);
+                    subHeader.appendChild(subIcon);
+
+                    const subContent = document.createElement('div');
+                    subContent.className = 'subaccordion-content';
+
+                    // TARJETAS EN GRID 4 COLUMNAS
+                    if (subsection.resources && subsection.resources.length > 0) {
+                        const grid = document.createElement('div');
+                        grid.className = 'grid-cards';
+
+                        for (const resource of subsection.resources) {
+                            const card = document.createElement('a');
+                            card.className = 'card';
+                            // CORRECCIÓN AQUÍ: Aplicamos fixPath a la ruta original
+                            const originalPath = resource.path;
+                            const fixedPath = fixPath(originalPath);
+                            card.href = fixedPath;
+
+                            const resourceDisplayName = resource.nameEs || resource.name;
+                            card.innerHTML = `
+                            <div class="card-icon"><i class="fas ${resource.icon}"></i></div>
+                            <div class="card-info">
+                                <h3>${resourceDisplayName} <span class="badge">${resource.badge}</span></h3>
+                                <p>${resource.desc}</p>
+                            </div>
+                        `;
+                            grid.appendChild(card);
+                            totalCards++;
+                        }
+                        subContent.appendChild(grid);
+                    }
+
+                    subAccordion.appendChild(subHeader);
+                    subAccordion.appendChild(subContent);
+                    content.appendChild(subAccordion);
+                }
+
+                accordion.appendChild(header);
+                accordion.appendChild(content);
+                container.appendChild(accordion);
+            }
+
+            document.getElementById('totalCount').innerText = totalCards;
+
+            // Abrir el primer acordeón (Foundation) y su primer subacordeón
+            const firstAccordion = document.querySelector('.accordion-header');
+            if (firstAccordion) {
+                firstAccordion.classList.add('active');
+                firstAccordion.nextElementSibling.classList.add('show');
+            }
+
+            // Abrir el primer subacordeón del primer acordeón
+            const firstSubAccordion = document.querySelector('.subaccordion-header');
+            if (firstSubAccordion) {
+                firstSubAccordion.classList.add('active');
+                firstSubAccordion.nextElementSibling.classList.add('show');
+            }
+        }
+
+        async function loadResources() {
+            try {
+                const response = await fetch('recursos.json?t=' + Date.now());
+                recursosData = await response.json();
+                renderMenu(recursosData);
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('accordionContainer').innerHTML = '<div class="loader" style="color: red;"><i class="fa-solid fa-exclamation-triangle"></i> Error cargando recursos.json</div>';
+            }
+        }
+
+        document.getElementById('refreshIcon').onclick = () => {
+            document.getElementById('accordionContainer').innerHTML = '<div class="loader"><i class="fa-solid fa-spinner fa-spin"></i> Recargando...</div>';
+            loadResources();
+        };
+
+        loadResources();
+    </script>
+</body>
+
+</html>

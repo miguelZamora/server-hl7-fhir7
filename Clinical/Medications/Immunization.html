@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Immunization - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-syringe"></i> Inmunización / Vacuna</h1><p>Registro de vacunas administradas (FHIR Immunization)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<h2 class="section-title"><i class="fa-solid fa-shield-virus"></i> Datos de la Vacuna</h2>
+<div class="grid-2">
+  <div class="form-group"><label>Paciente</label><input type="text" id="patient" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Vacuna (CVX / SNOMED)</label><input type="text" id="vaccineCode" placeholder="ej. 140 - Influenza (CVX)" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="completed">Completada</option><option value="not-done">No realizada</option><option value="entered-in-error">Error</option></select></div>
+  <div class="form-group"><label>Fecha de Administración</label><input type="datetime-local" id="occurrenceDateTime" required></div>
+  <div class="form-group"><label>Lote</label><input type="text" id="lotNumber" placeholder="AAJN11K"></div>
+  <div class="form-group"><label>Fecha de Vencimiento del Lote</label><input type="date" id="expirationDate"></div>
+  <div class="form-group"><label>Sitio de Inyección</label><select id="site"><option value="LA">Brazo izquierdo</option><option value="RA">Brazo derecho</option><option value="LT">Muslo izquierdo</option><option value="RT">Muslo derecho</option></select></div>
+  <div class="form-group"><label>Vía</label><select id="route"><option value="IM">Intramuscular</option><option value="SC">Subcutánea</option><option value="ID">Intradérmica</option><option value="oral">Oral</option></select></div>
+  <div class="form-group"><label>Dosis (mL)</label><input type="number" id="doseQuantity" step="0.1" placeholder="0.5"></div>
+  <div class="form-group"><label>Vacunador</label><input type="text" id="performer" placeholder="Practitioner/example"></div>
+  <div class="form-group"><label>Número de Dosis en Serie</label><input type="number" id="doseNumber" min="1" placeholder="1"></div>
+  <div class="form-group"><label>¿Indicado por Paciente?</label><select id="primarySource"><option value="true">No (declarado por paciente)</option><option value="false">Sí (fuente primaria)</option></select></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Vacuna</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"Immunization",id:"imm_"+Date.now().toString(36),status:document.getElementById('status').value,vaccineCode:{coding:[{system:"http://hl7.org/fhir/sid/cvx",code:document.getElementById('vaccineCode').value}]},patient:{reference:document.getElementById('patient').value},occurrenceDateTime:document.getElementById('occurrenceDateTime').value,primarySource:document.getElementById('primarySource').value==='true',lotNumber:document.getElementById('lotNumber').value,expirationDate:document.getElementById('expirationDate').value,site:{coding:[{code:document.getElementById('site').value}]},route:{coding:[{code:document.getElementById('route').value}]},doseQuantity:{value:parseFloat(document.getElementById('doseQuantity').value)||0.5,unit:"mL"},performer:[{actor:{reference:document.getElementById('performer').value}}],protocolApplied:[{doseNumber:parseInt(document.getElementById('doseNumber').value)||1}]};let db=JSON.parse(localStorage.getItem('fhir_immunizations_db'))||[];db.push(fhir);localStorage.setItem('fhir_immunizations_db',JSON.stringify(db));console.log("✅ Immunization:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Vacuna';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script>
+</body></html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AllergyIntolerance - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-allergies"></i> Alergia / Intolerancia</h1><p>Registro de alergias e intolerancias (FHIR AllergyIntolerance)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<h2 class="section-title"><i class="fa-solid fa-flask-vial"></i> Sustancia y Tipo</h2>
+<div class="grid-2">
+  <div class="form-group"><label>Paciente (Referencia)</label><input type="text" id="patient" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Sustancia / Agente</label><input type="text" id="substance" placeholder="Penicillin (código SNOMED)" required></div>
+  <div class="form-group"><label>Tipo Clínico</label><select id="clinicalStatus"><option value="active">Activa</option><option value="inactive">Inactiva</option><option value="resolved">Resuelta</option></select></div>
+  <div class="form-group"><label>Estado de Verificación</label><select id="verificationStatus"><option value="confirmed">Confirmada</option><option value="unconfirmed">No confirmada</option><option value="refuted">Refutada</option></select></div>
+  <div class="form-group"><label>Tipo</label><select id="type"><option value="allergy">Alergia</option><option value="intolerance">Intolerancia</option></select></div>
+  <div class="form-group"><label>Categoría</label><select id="category"><option value="food">Alimento</option><option value="medication">Medicamento</option><option value="environment">Ambiental</option><option value="biologic">Biológico</option></select></div>
+  <div class="form-group"><label>Criticidad</label><select id="criticality"><option value="low">Baja</option><option value="high">Alta</option><option value="unable-to-assess">No evaluable</option></select></div>
+  <div class="form-group"><label>Fecha de Registro</label><input type="date" id="recordedDate"></div>
+  <div class="form-group full-width"><label>Manifestación / Reacción</label><input type="text" id="manifestation" placeholder="Anafilaxia, urticaria, etc."></div>
+  <div class="form-group full-width"><label>Notas</label><textarea id="note" placeholder="Observaciones adicionales..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar AllergyIntolerance</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"AllergyIntolerance",id:"ai_"+Date.now().toString(36),clinicalStatus:{coding:[{system:"http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",code:document.getElementById('clinicalStatus').value}]},verificationStatus:{coding:[{system:"http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",code:document.getElementById('verificationStatus').value}]},type:document.getElementById('type').value,category:[document.getElementById('category').value],criticality:document.getElementById('criticality').value,code:{text:document.getElementById('substance').value},patient:{reference:document.getElementById('patient').value},recordedDate:document.getElementById('recordedDate').value,reaction:[{manifestation:[{concept:{text:document.getElementById('manifestation').value}}]}],note:[{text:document.getElementById('note').value}]};let db=JSON.parse(localStorage.getItem('fhir_allergies_db'))||[];db.push(fhir);localStorage.setItem('fhir_allergies_db',JSON.stringify(db));console.log("✅ AllergyIntolerance:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar AllergyIntolerance';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script>
+</body></html>

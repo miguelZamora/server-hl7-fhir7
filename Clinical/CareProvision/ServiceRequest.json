@@ -1,0 +1,22 @@
+{
+  "resourceType": "ServiceRequest",
+  "id": "example-service",
+  "status": "active",
+  "intent": "order",
+  "code": {
+    "coding": [{
+      "system": "http://loinc.org",
+      "code": "10369-7",
+      "display": "Elect cardiogram"
+    }]
+  },
+  "subject": {
+    "reference": "Patient/example"
+  },
+  "occurrenceDateTime": "2023-10-15T10:00:00Z",
+  "reason": [{
+    "concept": {
+      "text": "Check for heart issues"
+    }
+  }]
+}

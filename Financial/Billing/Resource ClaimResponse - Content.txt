@@ -1,0 +1,428 @@
+ Resource ClaimResponse - Content 
+Financial Management icon Work Group	Maturity Level: 2	 Trial Use	Security Category: Patient	Compartments: Patient, Practitioner
+
+This resource provides the adjudication details from the processing of a Claim resource.
+
+13.7.1 Scope and Usage 
+The ClaimResponse resource provides application level adjudication results, or an application level error, which are the result of processing a submitted Claim resource where that Claim may be the functional corollary of a Claim, Predetermination or a Preauthorization.This resource is the only appropriate response to a Claim which a processing system recognizes as a Claim resource.
+
+This is the adjudicated response to a Claim, Predetermination or Preauthorization. The strength of the payment aspect of the response is matching to the strength of the original request. For a Claim the adjudication indicates payment which is intended to be made. For Preauthorization no payment will actually be made however funds may be reserved to settle a claim submitted later. For Predetermination no payment will actually be made and no assurance is given that the adjudication of a claim submitted later will match the adjudication provided, for example funds may have been exhausted in the interim. Only an actual claim may be expected to result in actual payment.
+
+The ClaimResponse resource may also be returned with the response for the submission of: Re-adjudication and Reversals.
+
+The ClaimResponse resource is an "event" resource from a FHIR workflow perspective - see Workflow Event.
+
+13.7.1.1 Additional Information 
+Additional information regarding electronic claims content and usage may be found at:
+
+Financial Resource Status Lifecycle: how .status is used in the financial resources.
+Secondary Use of Resources: how resources such as Claim, ClaimResponse and ExplanationOfBenefit may be used for reporting and data exchange for analytics, not just for eClaims exchange between providers and payors.
+Subrogation: how eClaims may handle patient insurance coverages when another insurer rather than the provider will settle the claim and potentially recover costs against specified coverages.
+Coordination of Benefit: how eClaims may handle multiple patient insurance coverages.
+RealTime Exchange and Obtaining Deferred Responsess: ClaimResponses may be obtained using Polling or FHIR REST (SEARCH).
+Attachments and Supporting Information: how eClaims may handle the provision of supporting information, whether provided by content or reference, within the eClaim resource when submitted to the payor or later in a resource which refers to the subject eClaim resource. This also includes how payors may request additional supporting information from providers.
+3-Tier Line Item Hierarchy: 3-tier hierarchy of Goods, products, and Services, to support simple to complex billing.
+Tax: Tax handling of Goods, products, and Services.
+13.7.2 Boundaries and Relationships 
+The ClaimResponse resource is used to provide the results of the adjudication and/or authorization of a set of healthcare-related products and services for a patient against the patient's insurance coverages, or to respond with what the adjudication would be for a supplied set of products or services should they be actually supplied to the patient.
+
+The ExplanationOfBenefit resource is for reporting out to patients or transferring data to patient centered applications, such as patient health Record (PHR) application, the ExplanationOfBenefit should be used instead of the Claim and ClaimResponse resources as those resources may contain provider and payer specific information which is not appropriate for sharing with the patient.
+
+When using the resources for reporting and transferring claims data, which may have originated in some standard other than FHIR, the Claim resource is useful if only the request side of the information exchange is of interest. If, however, both the request and the adjudication information is to be reported then the ExplanationOfBenefit should be used instead.
+
+When responding whether the patient's coverage is inforce, whether it is valid at this or a specified date, or returning the benefit details or preauthorization requirements associated with a coverage CoverageEligibilityResponse should be used instead and be the response to a CoverageEligibilityRequest.
+
+The eClaim domain includes a number of related resources
+ClaimResponse	A payor's adjudication and/or authorization response to the suite of services provided in a Claim. Typically the ClaimResponse references the Claim but does not duplicate the clinical or financial information provided in the claim.
+ExplanationOfBenefit	This resource combines the information from the Claim and the ClaimResponse, stripping out any provider or payor proprietary information, into a unified information model suitable for use for: patient reporting; transferring information to a Patient Health Record system; and, supporting complete claim and adjudication information exchange with regulatory and analytics organizations and other parts of the provider's organization.
+Claim	A suite of goods and services and insurances coverages under which adjudication or authorization is requested.
+CoverageEligibilityResponse	The response to a request to a payor, a CoverageEligibilityRequest, to: ascertain whether a coverage is in-force at the current or at a specified time; list the table of benefits; determine whether coverage is provided for specified categories or specific services; and whether preauthorization is required, and if so what supporting information would be required.
+13.7.3 References to this Resource 
+Implements: Event
+Resource References: Claim, itself, DeviceRequest, ExplanationOfBenefit, MedicationRequest... Show 4 more
+Extension References: Request Insurance
+13.7.4 Resource Content 
+StructureUMLXMLJSONTurtleR4 DiffAll
+Structure
+
+Name	Flags	Card.	Type	Description & Constraintsdoco
+.. ClaimResponse	TU		DomainResource	Response to a claim predetermination or preauthorization
+
+Elements defined in Ancestors: id, meta, implicitRules, language, text, contained, extension, modifierExtension
+... identifier		0..*	Identifier	Business Identifier for a claim response
+
+... traceNumber		0..*	Identifier	Number for tracking
+
+... status	?!Σ	1..1	code	active | cancelled | draft | entered-in-error
+Binding: Financial Resource Status Codes (Required)
+... type	Σ	1..1	CodeableConcept	More granular claim type
+Binding: Claim Type Codes (Extensible)
+... subType		0..1	CodeableConcept	More granular claim type
+Binding: Example Claim SubType Codes (Example)
+... use	Σ	1..1	code	claim | preauthorization | predetermination
+Binding: Use (Required)
+... patient	Σ	1..1	Reference(Patient)	The recipient of the products and services
+... created	Σ	1..1	dateTime	Response creation date
+... insurer	Σ	0..1	Reference(Organization)	Party responsible for reimbursement
+... requestor		0..1	Reference(Practitioner | PractitionerRole | Organization)	Party responsible for the claim
+... request	Σ	0..1	Reference(Claim)	Id of resource triggering adjudication
+... outcome	Σ	1..1	code	queued | complete | error | partial
+Binding: Claim Processing Codes (Required)
+... decision	Σ	0..1	CodeableConcept	Result of the adjudication
+Binding: Claim Adjudication Decision Codes (Example)
+... disposition		0..1	string	Disposition Message
+... preAuthRef		0..1	string	Preauthorization reference
+... preAuthPeriod		0..1	Period	Preauthorization reference effective period
+... event		0..*	BackboneElement	Event information
+
+.... type		1..1	CodeableConcept	Specific event
+Binding: Dates Type Codes (Example)
+.... when[x]		1..1		Occurance date or period
+..... whenDateTime			dateTime	
+..... whenPeriod			Period	
+... payeeType		0..1	CodeableConcept	Party to be paid any benefits payable
+Binding: Claim Payee Type Codes (Example)
+... encounter		0..*	Reference(Encounter)	Encounters associated with the listed treatments
+
+... diagnosisRelatedGroup		0..1	CodeableConcept	Package billing code
+Binding: Example Diagnosis Related Group Codes (Example)
+... item		0..*	BackboneElement	Adjudication for claim line items
+
+.... itemSequence		1..1	positiveInt	Claim item instance identifier
+.... traceNumber		0..*	Identifier	Number for tracking
+
+.... noteNumber		0..*	positiveInt	Applicable note numbers
+
+.... reviewOutcome		0..1	BackboneElement	Adjudication results
+..... decision		0..1	CodeableConcept	Result of the adjudication
+Binding: Claim Adjudication Decision Codes (Example)
+..... reason		0..*	CodeableConcept	Reason for result of the adjudication
+Binding: Claim Adjudication Decision Reason Codes (Example)
+
+..... preAuthRef		0..1	string	Preauthorization reference
+..... preAuthPeriod		0..1	Period	Preauthorization reference effective period
+.... adjudication		0..*	BackboneElement	Adjudication details
+
+..... category		1..1	CodeableConcept	Type of adjudication information
+Binding: Adjudication Value Codes (Example)
+..... reason		0..1	CodeableConcept	Explanation of adjudication outcome
+Binding: Adjudication Reason Codes (Example)
+..... amount		0..1	Money	Monetary amount
+..... quantity		0..1	Quantity	Non-monetary value
+.... detail		0..*	BackboneElement	Adjudication for claim details
+
+..... detailSequence		1..1	positiveInt	Claim detail instance identifier
+..... traceNumber		0..*	Identifier	Number for tracking
+
+..... noteNumber		0..*	positiveInt	Applicable note numbers
+
+..... reviewOutcome		0..1	see reviewOutcome	Detail level adjudication results
+..... adjudication		0..*	see adjudication	Detail level adjudication details
+
+..... subDetail		0..*	BackboneElement	Adjudication for claim sub-details
+
+...... subDetailSequence		1..1	positiveInt	Claim sub-detail instance identifier
+...... traceNumber		0..*	Identifier	Number for tracking
+
+...... noteNumber		0..*	positiveInt	Applicable note numbers
+
+...... reviewOutcome		0..1	see reviewOutcome	Subdetail level adjudication results
+...... adjudication		0..*	see adjudication	Subdetail level adjudication details
+
+... addItem		0..*	BackboneElement	Insurer added line items
+
+.... itemSequence		0..*	positiveInt	Item sequence number
+
+.... detailSequence		0..*	positiveInt	Detail sequence number
+
+.... subdetailSequence		0..*	positiveInt	Subdetail sequence number
+
+.... traceNumber		0..*	Identifier	Number for tracking
+
+.... provider		0..*	Reference(Practitioner | PractitionerRole | Organization)	Authorized providers
+
+.... revenue		0..1	CodeableConcept	Revenue or cost center code
+Binding: Example Revenue Center Codes (Example)
+.... productOrService		0..1	CodeableConcept	Billing, service, product, or drug code
+Binding: USCLS Codes (Example)
+.... productOrServiceEnd		0..1	CodeableConcept	End of a range of codes
+Binding: USCLS Codes (Example)
+.... request		0..*	Reference(DeviceRequest | MedicationRequest | NutritionOrder | ServiceRequest | SupplyRequest | VisionPrescription)	Request or Referral for Service
+
+.... modifier		0..*	CodeableConcept	Service/Product billing modifiers
+Binding: Modifier type Codes (Example)
+
+.... programCode		0..*	CodeableConcept	Program the product or service is provided under
+Binding: Example Program Reason Codes (Example)
+
+.... serviced[x]		0..1		Date or dates of service or product delivery
+..... servicedDate			date	
+..... servicedPeriod			Period	
+.... location[x]		0..1		Place of service or where product was supplied
+Binding: Example Service Place Codes (Example)
+..... locationCodeableConcept			CodeableConcept	
+..... locationAddress			Address	
+..... locationReference			Reference(Location)	
+.... quantity		0..1	SimpleQuantity	Count of products or services
+.... unitPrice		0..1	Money	Fee, charge or cost per item
+.... factor		0..1	decimal	Price scaling factor
+.... tax		0..1	Money	Total tax
+.... net		0..1	Money	Total item cost
+.... bodySite		0..*	BackboneElement	Anatomical location
+
+..... site		1..*	CodeableReference(BodyStructure)	Location
+Binding: Oral Site Codes (Example)
+
+..... subSite		0..*	CodeableConcept	Sub-location
+Binding: Surface Codes (Example)
+
+.... noteNumber		0..*	positiveInt	Applicable note numbers
+
+.... reviewOutcome		0..1	see reviewOutcome	Added items adjudication results
+.... adjudication		0..*	see adjudication	Added items adjudication
+
+.... detail		0..*	BackboneElement	Insurer added line details
+
+..... traceNumber		0..*	Identifier	Number for tracking
+
+..... revenue		0..1	CodeableConcept	Revenue or cost center code
+Binding: Example Revenue Center Codes (Example)
+..... productOrService		0..1	CodeableConcept	Billing, service, product, or drug code
+Binding: USCLS Codes (Example)
+..... productOrServiceEnd		0..1	CodeableConcept	End of a range of codes
+Binding: USCLS Codes (Example)
+..... modifier		0..*	CodeableConcept	Service/Product billing modifiers
+Binding: Modifier type Codes (Example)
+
+..... quantity		0..1	SimpleQuantity	Count of products or services
+..... unitPrice		0..1	Money	Fee, charge or cost per item
+..... factor		0..1	decimal	Price scaling factor
+..... tax		0..1	Money	Total tax
+..... net		0..1	Money	Total item cost
+..... noteNumber		0..*	positiveInt	Applicable note numbers
+
+..... reviewOutcome		0..1	see reviewOutcome	Added items detail level adjudication results
+..... adjudication		0..*	see adjudication	Added items detail adjudication
+
+..... subDetail		0..*	BackboneElement	Insurer added line items
+
+...... traceNumber		0..*	Identifier	Number for tracking
+
+...... revenue		0..1	CodeableConcept	Revenue or cost center code
+Binding: Example Revenue Center Codes (Example)
+...... productOrService		0..1	CodeableConcept	Billing, service, product, or drug code
+Binding: USCLS Codes (Example)
+...... productOrServiceEnd		0..1	CodeableConcept	End of a range of codes
+Binding: USCLS Codes (Example)
+...... modifier		0..*	CodeableConcept	Service/Product billing modifiers
+Binding: Modifier type Codes (Example)
+
+...... quantity		0..1	SimpleQuantity	Count of products or services
+...... unitPrice		0..1	Money	Fee, charge or cost per item
+...... factor		0..1	decimal	Price scaling factor
+...... tax		0..1	Money	Total tax
+...... net		0..1	Money	Total item cost
+...... noteNumber		0..*	positiveInt	Applicable note numbers
+
+...... reviewOutcome		0..1	see reviewOutcome	Added items subdetail level adjudication results
+...... adjudication		0..*	see adjudication	Added items subdetail adjudication
+
+... adjudication		0..*	see adjudication	Header-level adjudication
+
+... total	Σ	0..*	BackboneElement	Adjudication totals
+
+.... category	Σ	1..1	CodeableConcept	Type of adjudication information
+Binding: Adjudication Value Codes (Example)
+.... amount	Σ	1..1	Money	Financial total for the category
+... payment		0..1	BackboneElement	Payment Details
+.... type		1..1	CodeableConcept	Partial or complete payment
+Binding: Example Payment Type Codes (Example)
+.... adjustment		0..1	Money	Payment adjustment for non-claim issues
+.... adjustmentReason		0..1	CodeableConcept	Explanation for the adjustment
+Binding: Payment Adjustment Reason Codes (Example)
+.... date		0..1	date	Expected date of payment
+.... amount		1..1	Money	Payable amount after adjustment
+.... identifier		0..1	Identifier	Business identifier for the payment
+... fundsReserve		0..1	CodeableConcept	Funds reserved status
+Binding: Funds Reservation Codes (Example)
+... formCode		0..1	CodeableConcept	Printed form identifier
+Binding: Form Codes (Example)
+... form		0..1	Attachment	Printed reference or actual form
+... processNote		0..*	BackboneElement	Note concerning adjudication
+
+.... number		0..1	positiveInt	Note instance identifier
+.... type		0..1	CodeableConcept	Note purpose
+Binding: NoteType (Extensible)
+.... text		1..1	string	Note explanatory text
+.... language		0..1	CodeableConcept	Language of the text
+Binding: All Languages (Required)
+Additional Bindings	Purpose
+Common Languages	Starter Set
+
+... communicationRequest		0..*	Reference(CommunicationRequest)	Request for additional information
+
+... insurance		0..*	BackboneElement	Patient insurance information
+
+.... sequence		1..1	positiveInt	Insurance instance identifier
+.... focal		1..1	boolean	Coverage to be used for adjudication
+.... coverage		1..1	Reference(Coverage)	Insurance information
+.... businessArrangement		0..1	string	Additional provider contract number
+.... claimResponse		0..1	Reference(ClaimResponse)	Adjudication results
+... error		0..*	BackboneElement	Processing errors
+
+.... itemSequence		0..1	positiveInt	Item sequence number
+.... detailSequence		0..1	positiveInt	Detail sequence number
+.... subDetailSequence		0..1	positiveInt	Subdetail sequence number
+.... code	Σ	1..1	CodeableConcept	Error code detailing processing issues
+Binding: Adjudication Error Codes (Example)
+.... expression	Σ	0..*	string	FHIRPath of element(s) related to issue
+
+
+doco Documentation for this format icon
+See the Extensions for this resource
+
+ 
+
+Additional definitions: Master Definition XML + JSON, XML Schema/Schematron + JSON Schema, ShEx (for Turtle) + see the extensions, the spreadsheet version & the dependency analysis
+
+13.7.4.1 Terminology Bindings 
+Path	ValueSet	Type	Documentation
+ClaimResponse.status	FinancialResourceStatusCodes	Required	
+This value set includes Status codes.
+
+ClaimResponse.type	ClaimTypeCodes	Extensible	
+This value set includes Claim Type codes.
+
+ClaimResponse.subType	ExampleClaimSubTypeCodes	Example	
+This value set includes sample Claim SubType codes which are used to distinguish the claim types for example within type institutional there may be subtypes for emergency services, bed stay and transportation.
+
+ClaimResponse.use	Use	Required	
+The purpose of the Claim: predetermination, preauthorization, claim.
+
+ClaimResponse.outcome	ClaimProcessingCodes (a valid code from Claim Processing Outcome Codes)	Required	
+This value set includes Claim Processing Outcome codes.
+
+ClaimResponse.decision	ClaimAdjudicationDecisionsCodes (a valid code from Claim Adjudication Decision Codes)	Example	
+This value set includes Claim Adjudication Decision codes.
+
+ClaimResponse.event.type	DatesTypeCodes (a valid code from Dates Event Type Codes)	Example	
+This value set includes sample Dates Type codes.
+
+ClaimResponse.payeeType	ClaimPayeeTypeCodes	Example	
+This value set includes sample Payee Type codes.
+
+ClaimResponse.diagnosisRelatedGroup	ExampleDiagnosisRelatedGroupCodes	Example	
+This value set includes example Diagnosis Related Group codes.
+
+ClaimResponse.item.reviewOutcome.decision	ClaimAdjudicationDecisionsCodes (a valid code from Claim Adjudication Decision Codes)	Example	
+This value set includes Claim Adjudication Decision codes.
+
+ClaimResponse.item.reviewOutcome.reason	ClaimAdjudicationDecisionReasonCodes	Example	
+This value set includes example Claim Adjudication Decision Reason codes.
+
+ClaimResponse.item.adjudication.category	AdjudicationValueCodes	Example	
+This value set includes a smattering of Adjudication Value codes which includes codes to indicate the amounts eligible under the plan, the amount of benefit, copays etc.
+
+ClaimResponse.item.adjudication.reason	AdjudicationReasonCodes	Example	
+This value set includes smattering of Adjudication Reason codes.
+
+ClaimResponse.addItem.revenue	ExampleRevenueCenterCodes	Example	
+This value set includes sample Revenue Center codes.
+
+ClaimResponse.addItem.productOrService	USCLSCodes	Example	
+This value set includes a smattering of USCLS codes.
+
+ClaimResponse.addItem.productOrServiceEnd	USCLSCodes	Example	
+This value set includes a smattering of USCLS codes.
+
+ClaimResponse.addItem.modifier	ModifierTypeCodes	Example	
+This value set includes sample Modifier type codes.
+
+ClaimResponse.addItem.programCode	ExampleProgramReasonCodes	Example	
+This value set includes sample Program Reason Span codes.
+
+ClaimResponse.addItem.location[x]	ExampleServicePlaceCodes	Example	
+This value set includes a smattering of Service Place codes.
+
+ClaimResponse.addItem.bodySite.site	OralSiteCodes	Example	
+This value set includes a smattering of FDI oral site codes.
+
+ClaimResponse.addItem.bodySite.subSite	SurfaceCodes	Example	
+This value set includes a smattering of FDI tooth surface codes.
+
+ClaimResponse.addItem.detail.revenue	ExampleRevenueCenterCodes	Example	
+This value set includes sample Revenue Center codes.
+
+ClaimResponse.addItem.detail.productOrService	USCLSCodes	Example	
+This value set includes a smattering of USCLS codes.
+
+ClaimResponse.addItem.detail.productOrServiceEnd	USCLSCodes	Example	
+This value set includes a smattering of USCLS codes.
+
+ClaimResponse.addItem.detail.modifier	ModifierTypeCodes	Example	
+This value set includes sample Modifier type codes.
+
+ClaimResponse.addItem.detail.subDetail.revenue	ExampleRevenueCenterCodes	Example	
+This value set includes sample Revenue Center codes.
+
+ClaimResponse.addItem.detail.subDetail.productOrService	USCLSCodes	Example	
+This value set includes a smattering of USCLS codes.
+
+ClaimResponse.addItem.detail.subDetail.productOrServiceEnd	USCLSCodes	Example	
+This value set includes a smattering of USCLS codes.
+
+ClaimResponse.addItem.detail.subDetail.modifier	ModifierTypeCodes	Example	
+This value set includes sample Modifier type codes.
+
+ClaimResponse.total.category	AdjudicationValueCodes	Example	
+This value set includes a smattering of Adjudication Value codes which includes codes to indicate the amounts eligible under the plan, the amount of benefit, copays etc.
+
+ClaimResponse.payment.type	ExamplePaymentTypeCodes	Example	
+This value set includes example Payment Type codes.
+
+ClaimResponse.payment.adjustmentReason	PaymentAdjustmentReasonCodes	Example	
+This value set includes smattering of Payment Adjustment Reason codes.
+
+ClaimResponse.fundsReserve	FundsReservationCodes	Example	
+This value set includes sample funds reservation type codes.
+
+ClaimResponse.formCode	FormCodes	Example	
+This value set includes a sample set of Forms codes.
+
+ClaimResponse.processNote.type	NoteType	Extensible	
+The presentation types of notes.
+
+ClaimResponse.processNote.language	AllLanguages (a valid code from Tags for the Identification of Languages icon)	Required	
+This value set includes all possible codes from BCP-47 (see http://tools.ietf.org/html/bcp47)
+
+ 	Common Languages	starter	
+ClaimResponse.error.code	AdjudicationErrorCodes	Example	
+This value set includes a smattering of adjudication codes.
+
+
+13.7.5 Additional Information 
+The information presented in different backbone elements, such as .supportingInfo or .adjudication, has a different context based on the .category code presented in each, for example, adjudication occurrence may represent an amount paid by the patient while another may represent the amount paid to the provider.
+
+Additionally, there are several places in the resource which point to other sections of the resource via the use of a .sequence number in the referred-to element and an .elementSequence in the referring element. Sequence numbers appear in such element as .careTeam referred to by .careTeamSequence, .diagnosis referred to by .diagnosisSequence, .procedure referred to by .procedureSequence, .supportingInfo referred to by .informationSequence and .item referred to by .itemSequence.
+
+The .noteNumber element, which appears at the .item, .detail and .subDetail levels in the .item and .addItem structures, contains a list of numbers which match the value of the .number element in the .processNote structure. The process notes are indivdual chunks of text describing a situation associated with insurer explanation of adjudication results. Rather than repeating the same text in the adjudication of line item or detail, the insurer can provide the text once in the .processNote structure then include the associated number value in the list of .noteNumbers for each of the appropriate line items or details.
+
+13.7.6 Search Parameters 
+Search parameters for this resource. See also the full list of search parameters for this resource, and check the Extensions registry for search parameters on extensions related to this resource. The common parameters also apply. See Searching for more information about searching in REST, messaging, and services.
+
+Name	Type	Description	Expression	In Common
+created	date	The creation date	ClaimResponse.created	
+disposition	string	The contents of the disposition message	ClaimResponse.disposition	
+identifier	token	The identity of the ClaimResponse	ClaimResponse.identifier	65 Resources
+insurer	reference	The organization which generated this resource	ClaimResponse.insurer
+(Organization)	
+outcome	token	The processing outcome	ClaimResponse.outcome	
+patient	reference	The subject of care	ClaimResponse.patient
+(Patient)	66 Resources
+payment-date	date	The expected payment date	ClaimResponse.payment.date	
+request	reference	The claim reference	ClaimResponse.request
+(Claim)	
+requestor	reference	The Provider of the claim	ClaimResponse.requestor
+(Practitioner, Organization, PractitionerRole)	
+status	token	The status of the ClaimResponse	ClaimResponse.status	
+use	token	The type of claim	ClaimResponse.use

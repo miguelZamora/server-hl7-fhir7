@@ -1,0 +1,23 @@
+{
+  "resourceType": "VisionPrescription",
+  "id": "example-vision",
+  "status": "active",
+  "created": "2023-10-15",
+  "patient": {
+    "reference": "Patient/example"
+  },
+  "prescriber": {
+    "reference": "Practitioner/example"
+  },
+  "lensSpecification": [{
+    "product": {
+      "coding": [{
+        "display": "Lens"
+      }]
+    },
+    "eye": "right",
+    "sphere": -2.00,
+    "cylinder": -0.50,
+    "axis": 180
+  }]
+}

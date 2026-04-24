@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><title>CompartmentDefinition - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-layer-group"></i> CompartmentDefinition</h1><p>Definición de compartimentos de recursos (FHIR CompartmentDefinition)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<h2 class="section-title"><i class="fa-solid fa-tag"></i> Identificación</h2>
+<div class="grid-2"><div class="form-group"><label>URL</label><input type="text" id="url" placeholder="http://hl7.org/fhir/CompartmentDefinition/patient" required></div><div class="form-group"><label>Nombre</label><input type="text" id="name" placeholder="Base FHIR compartment definition for Patient" required></div></div>
+<h2 class="section-title"><i class="fa-solid fa-info-circle"></i> Estado</h2>
+<div class="grid-2"><div class="form-group"><label>Estado</label><select id="status"><option value="draft">Borrador</option><option value="active">Activo</option></select></div><div class="form-group"><label>Código</label><input type="text" id="code" placeholder="Patient" required></div></div>
+<div class="form-group full-width"><label>Descripción</label><textarea id="description" placeholder="Descripción del compartimento..."></textarea></div>
+<div class="form-group"><label>Búsqueda</label><select id="search"><option value="true">Sí</option><option value="false">No</option></select></div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar CompartmentDefinition</button></form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"CompartmentDefinition",id:"comp_"+Date.now().toString(36),url:document.getElementById('url').value,name:document.getElementById('name').value,status:document.getElementById('status').value,code:document.getElementById('code').value,description:document.getElementById('description').value,search:document.getElementById('search').value==='true',resource:[]};let db=JSON.parse(localStorage.getItem('fhir_compartments_db'))||[];db.push(fhir);localStorage.setItem('fhir_compartments_db',JSON.stringify(db));console.log("✅ CompartmentDefinition:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar CompartmentDefinition';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});</script></body></html>

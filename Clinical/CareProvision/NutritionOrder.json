@@ -1,0 +1,22 @@
+{
+  "resourceType": "NutritionOrder",
+  "id": "example-nutrition",
+  "status": "active",
+  "intent": "order",
+  "patient": {
+    "reference": "Patient/example"
+  },
+  "created": "2023-10-15T08:00:00Z",
+  "orderer": {
+    "reference": "Practitioner/example"
+  },
+  "oralDiet": {
+    "type": [{
+      "coding": [{
+        "system": "http://snomed.info/sct",
+        "code": "1151000175103",
+        "display": "Low sodium diet"
+      }]
+    }]
+  }
+}

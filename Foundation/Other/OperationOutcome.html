@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>OperationOutcome - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-circle-exclamation"></i> Resultado de Operación</h1><p>Errores y advertencias (FHIR OperationOutcome)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Severidad</label><select id="severity"><option value="error">Error</option><option value="warning">Advertencia</option><option value="information">Información</option></select></div>
+  <div class="form-group"><label>Código de Error</label><select id="code"><option value="processing">Error de Procesamiento</option><option value="security">Error de Seguridad</option><option value="not-found">No encontrado</option></select></div>
+  <div class="form-group full-width"><label>Detalle Literario</label><textarea id="diagnostics" placeholder="Descripción detallada del error..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Resultado</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"OperationOutcome",issue:[{severity:document.getElementById('severity').value,code:document.getElementById('code').value,diagnostics:document.getElementById('diagnostics').value}]};console.log("✅ OperationOutcome:",fhir);});</script></body></html>

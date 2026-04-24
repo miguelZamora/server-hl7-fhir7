@@ -1,0 +1,150 @@
+ Resource CoverageEligibilityRequest - Content 
+Financial Management icon Work Group	Maturity Level: 4	 Trial Use	Security Category: Patient	Compartments: Patient, Practitioner
+
+The CoverageEligibilityRequest provides patient and insurance coverage information to an insurer for them to respond, in the form of an CoverageEligibilityResponse, with information regarding whether the stated coverage is valid and in-force and optionally to provide the insurance details of the policy.
+
+13.2.1 Scope and Usage 
+The CoverageEligibilityRequest makes a request of an insurer asking them to provide, in the form of an CoverageEligibilityResponse, information regarding: (validation) whether the specified coverage(s) is valid and in-force; (discovery) what coverages the insurer has for the specified patient; (benefits) the benefits provided under the coverage; whether benefits exist under the specified coverage(s) for specified classes of services and products; and (auth-requirements) whether preauthorization is required, and if so what information may be required in that preauthorization, for the specified service classes or services.
+
+The CoverageEligibilityRequest resource is a "event" resource from a FHIR workflow perspective - see Workflow Event.
+
+13.2.1.1 Additional Information 
+Additional information regarding electronic coverage eligibility content and usage may be found at:
+
+Financial Resource Status Lifecycle: how .status is used in the financial resources.
+Subrogation: how eClaims may handle patient insurance coverages when another insurer rather than the provider will settle the claim and potentially recover costs against specified coverages.
+Coordination of Benefit: how eClaims may handle multiple patient insurance coverages.
+Batches: how eClaims may handle batches of eligibility, claims and responses.
+Attachments and Supporting Information: how eClaims may handle the provision of supporting information, whether provided by content or reference, within the eClaim resource when submitted to the payor or later in a resource which refers to the subject eClaim resource. This includes how payors how request additional supporting information from providers.
+13.2.2 Boundaries and Relationships 
+CoverageEligibilityRequest should be used when requesting whether the patient's coverage is inforce, whether it is valid at this or a specified date, or requesting the benefit details or preauthorization requirements associated with a coverage.
+
+The Claim resource should be used to request the adjudication and/or authorization of a set of healthcare-related goods and services for a patient against the patient's insurance coverages, or to request what the adjudication would be for a supplied set of goods or services should they be actually supplied to the patient.
+
+The Coverage resource contains the information typically found on the health insurance card for an individual used to identify the covered individual to the insurer and is referred to by the CoverageEligibilityRequest.
+
+The eClaim domain includes a number of related resources
+
+CoverageEligibilityRequest	Patient and insurance coverage information provided to an insurer for them to respond, in the form of an CoverageEligibilityResponse, with information regarding whether the stated coverage is valid and in-force and optionally to provide the insurance details of the policy.
+Claim	A suite of goods and services and insurances coverages under which adjudication or authorization is requested.
+Coverage	Provides the high-level identifiers and descriptors of an insurance plan, typically the information which would appear on an insurance card, which may be used to pay, in part or in whole, for the provision of health care products and services.
+13.2.3 References to this Resource 
+Implements: Request
+Resource References: CoverageEligibilityResponse, DocumentReference and GuidanceResponse
+13.2.4 Resource Content 
+StructureUMLXMLJSONTurtleR4 DiffAll
+Structure
+
+Name	Flags	Card.	Type	Description & Constraintsdoco
+.. CoverageEligibilityRequest	TU		DomainResource	CoverageEligibilityRequest resource
+
+Elements defined in Ancestors: id, meta, implicitRules, language, text, contained, extension, modifierExtension
+... identifier		0..*	Identifier	Business Identifier for coverage eligiblity request
+
+... status	?!Σ	1..1	code	active | cancelled | draft | entered-in-error
+Binding: Financial Resource Status Codes (Required)
+... priority		0..1	CodeableConcept	Desired processing priority
+Binding: Process Priority Codes (Example)
+... purpose	Σ	1..*	code	auth-requirements | benefits | discovery | validation
+Binding: Eligibility Request Purpose (Required)
+
+... patient	Σ	1..1	Reference(Patient)	Intended recipient of products and services
+... event		0..*	BackboneElement	Event information
+
+.... type		1..1	CodeableConcept	Specific event
+Binding: Dates Type Codes (Example)
+.... when[x]		1..1		Occurance date or period
+..... whenDateTime			dateTime	
+..... whenPeriod			Period	
+... serviced[x]		0..1		Estimated date or dates of service
+.... servicedDate			date	
+.... servicedPeriod			Period	
+... created	Σ	1..1	dateTime	Creation date
+... enterer		0..1	Reference(Practitioner | PractitionerRole)	Author
+... provider		0..1	Reference(Practitioner | PractitionerRole | Organization)	Party responsible for the request
+... insurer	Σ	1..1	Reference(Organization)	Coverage issuer
+... facility		0..1	Reference(Location)	Servicing facility
+... supportingInfo		0..*	BackboneElement	Supporting information
+
+.... sequence		1..1	positiveInt	Information instance identifier
+.... information		1..1	Reference(Any)	Data to be provided
+.... appliesToAll		0..1	boolean	Applies to all items
+... insurance		0..*	BackboneElement	Patient insurance information
+
+.... focal		0..1	boolean	Applicable coverage
+.... coverage		1..1	Reference(Coverage)	Insurance information
+.... businessArrangement		0..1	string	Additional provider contract number
+... item		0..*	BackboneElement	Item to be evaluated for eligibiity
+
+.... supportingInfoSequence		0..*	positiveInt	Applicable exception or supporting information
+
+.... category		0..1	CodeableConcept	Benefit classification
+Binding: Benefit Category Codes (Example)
+.... productOrService		0..1	CodeableConcept	Billing, service, product, or drug code
+Binding: USCLS Codes (Example)
+.... modifier		0..*	CodeableConcept	Product or service billing modifiers
+Binding: Modifier type Codes (Example)
+
+.... provider		0..1	Reference(Practitioner | PractitionerRole)	Perfoming practitioner
+.... quantity		0..1	SimpleQuantity	Count of products or services
+.... unitPrice		0..1	Money	Fee, charge or cost per item
+.... facility		0..1	Reference(Location | Organization)	Servicing facility
+.... diagnosis		0..*	BackboneElement	Applicable diagnosis
+
+..... diagnosis[x]		0..1		Nature of illness or problem
+Binding: ICD-10 Codes (Example)
+...... diagnosisCodeableConcept			CodeableConcept	
+...... diagnosisReference			Reference(Condition)	
+.... detail		0..*	Reference(Any)	Product or service details
+
+
+doco Documentation for this format icon
+See the Extensions for this resource
+
+ 
+
+Additional definitions: Master Definition XML + JSON, XML Schema/Schematron + JSON Schema, ShEx (for Turtle) + see the extensions, the spreadsheet version & the dependency analysis
+
+13.2.4.1 Terminology Bindings 
+Path	ValueSet	Type	Documentation
+CoverageEligibilityRequest.status	FinancialResourceStatusCodes	Required	
+This value set includes Status codes.
+
+CoverageEligibilityRequest.priority	ProcessPriorityCodes	Example	
+This value set includes the financial processing priority codes.
+
+CoverageEligibilityRequest.purpose	EligibilityRequestPurpose	Required	
+A code specifying the types of information being requested.
+
+CoverageEligibilityRequest.event.type	DatesTypeCodes (a valid code from Dates Event Type Codes)	Example	
+This value set includes sample Dates Type codes.
+
+CoverageEligibilityRequest.item.category	BenefitCategoryCodes	Example	
+This value set includes examples of Benefit Category codes.
+
+CoverageEligibilityRequest.item.productOrService	USCLSCodes	Example	
+This value set includes a smattering of USCLS codes.
+
+CoverageEligibilityRequest.item.modifier	ModifierTypeCodes	Example	
+This value set includes sample Modifier type codes.
+
+CoverageEligibilityRequest.item.diagnosis.diagnosis[x]	ICD10Codes (a valid code from ICD-10 icon)	Example	
+This value set includes sample ICD-10 codes.
+
+
+13.2.5 Search Parameters 
+Search parameters for this resource. See also the full list of search parameters for this resource, and check the Extensions registry for search parameters on extensions related to this resource. The common parameters also apply. See Searching for more information about searching in REST, messaging, and services.
+
+Name	Type	Description	Expression	In Common
+created	date	The creation date for the EOB	CoverageEligibilityRequest.created	
+enterer	reference	The party who is responsible for the request	CoverageEligibilityRequest.enterer
+(Practitioner, PractitionerRole)	
+facility	reference	Facility responsible for the goods and services	CoverageEligibilityRequest.facility
+(Location)	
+identifier	token	The business identifier of the Eligibility	CoverageEligibilityRequest.identifier	65 Resources
+patient	reference	The reference to the patient	CoverageEligibilityRequest.patient
+(Patient)	66 Resources
+provider	reference	The reference to the provider	CoverageEligibilityRequest.provider
+(Practitioner, Organization, PractitionerRole)	
+status	token	The status of the EligibilityRequest	CoverageEligibilityRequest.status	
+

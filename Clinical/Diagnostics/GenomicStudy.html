@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>GenomicStudy - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-helix"></i> Estudio Genómico</h1><p>Investigación sobre el genoma del paciente (FHIR GenomicStudy)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Sujeto (Paciente)</label><input type="text" id="patient" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="registered">Registrado</option><option value="available">Disponible</option><option value="cancelled">Cancelado</option></select></div>
+  <div class="form-group"><label>Tipo de Análisis</label><select id="type"><option value="dna">WGS (ADN Completo)</option><option value="wes">WES (Exoma Completo)</option></select></div>
+  <div class="form-group"><label>Fecha de Análisis</label><input type="date" id="date"></div>
+  <div class="form-group full-width"><label>Descripción del Estudio</label><textarea id="description" placeholder="Notas sobre el estudio genómico..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Estudio Genómico</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"GenomicStudy",status:document.getElementById('status').value,type:[{coding:[{code:document.getElementById('type').value}]}],subject:{reference:document.getElementById('patient').value},startDate:document.getElementById('date').value,description:document.getElementById('description').value};console.log("✅ GenomicStudy:",fhir);});</script></body></html>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><title>Linkage - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-link"></i> Linkage</h1><p>Enlaces entre recursos (FHIR Linkage)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<h2 class="section-title"><i class="fa-solid fa-user-md"></i> Autor</h2>
+<div class="grid-2"><div class="form-group full-width"><label>Referencia Autor</label><input type="text" id="authorRef" placeholder="Practitioner/f201" required></div></div>
+<h2 class="section-title"><i class="fa-solid fa-link"></i> Items</h2>
+<div class="grid-2"><div class="form-group full-width"><label>Items (tipo|referencia|display, separados por coma)</label><textarea id="items" placeholder="source|Condition/example|Severe burn of left ear, alternate|Condition/example-linkage|Severe burn of left ear" rows="3"></textarea></div></div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Linkage</button></form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const items=document.getElementById('items').value.split(',').filter(i=>i.trim());const itemsArr=items.map(i=>{const parts=i.split('|');return{type:parts[0]?.trim(),resource:{reference:parts[1]?.trim(),display:parts[2]?.trim()}}});const fhir={resourceType:"Linkage",id:"link_"+Date.now().toString(36),author:{reference:document.getElementById('authorRef').value},item:itemsArr};let db=JSON.parse(localStorage.getItem('fhir_linkages_db'))||[];db.push(fhir);localStorage.setItem('fhir_linkages_db',JSON.stringify(db));console.log("✅ Linkage:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Linkage';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});</script></body></html>

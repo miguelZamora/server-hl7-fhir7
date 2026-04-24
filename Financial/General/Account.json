@@ -1,0 +1,13 @@
+{
+  "resourceType": "Account",
+  "id": "example-acc",
+  "status": "active",
+  "name": "General Billing Account",
+  "subject": [{
+    "reference": "Patient/example"
+  }],
+  "owner": {
+    "reference": "Organization/example"
+  },
+  "description": "Primary healthcare account"
+}

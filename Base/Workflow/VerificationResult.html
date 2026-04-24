@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><title>VerificationResult - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-certificate"></i> VerificationResult</h1><p>Resultado de verificación (FHIR VerificationResult)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<h2 class="section-title"><i class="fa-solid fa-check-circle"></i> Estado</h2>
+<div class="grid-2"><div class="form-group"><label>Estado</label><select id="status"><option value="attested">Atestiguado</option><option value="validated">Validado</option><option value="in-process">En proceso</option><option value="failed">Fallido</option></select></div></div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar VerificationResult</button></form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"VerificationResult",id:"vr_"+Date.now().toString(36),status:document.getElementById('status').value};let db=JSON.parse(localStorage.getItem('fhir_verificationresults_db'))||[];db.push(fhir);localStorage.setItem('fhir_verificationresults_db',JSON.stringify(db));console.log("✅ VerificationResult:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar VerificationResult';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});</script></body></html>

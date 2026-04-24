@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocumentReference - FHIR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/fhir-style.css">
+</head>
+<body>
+<div class="form-container">
+    <header class="form-header">
+        <h1><i class="fa-solid fa-file-medical"></i> DocumentReference</h1>
+        <p>Referencia a documento clínico (FHIR DocumentReference)</p>
+    </header>
+    <form action="#" method="POST" id="resourceForm">
+        <h2 class="section-title"><i class="fa-solid fa-tag"></i> Identificación</h2>
+        <div class="grid-2">
+            <div class="form-group full-width"><label>Identificador (OID/URI)</label><input type="text" id="identifier" placeholder="urn:oid:129.6.58.92.88336" required></div>
+        </div>
+        <h2 class="section-title"><i class="fa-solid fa-info-circle"></i> Metadatos</h2>
+        <div class="grid-2">
+            <div class="form-group"><label>Estado</label><select id="status"><option value="current">Actual</option><option value="superseded">Reemplazado</option></select></div>
+            <div class="form-group"><label>Fecha</label><input type="datetime-local" id="date" required></div>
+        </div>
+        <div class="grid-2">
+            <div class="form-group full-width"><label>Tipo de Documento</label><input type="text" id="typeCode" placeholder="History and Physical" required></div>
+            <div class="form-group full-width"><label>Categoría (LOINC)</label><input type="text" id="categoryCode" placeholder="47039-3"></div>
+        </div>
+        <h2 class="section-title"><i class="fa-solid fa-user"></i> Paciente</h2>
+        <div class="grid-2">
+            <div class="form-group"><label>Referencia Paciente</label><input type="text" id="subjectRef" placeholder="Patient/a2" required></div>
+            <div class="form-group"><label>Nombre Paciente</label><input type="text" id="subjectDisplay" placeholder="DOE, John"></div>
+        </div>
+        <h2 class="section-title"><i class="fa-solid fa-user-md"></i> Autor(es)</h2>
+        <div class="grid-2">
+            <div class="form-group full-width"><label>Autores (referencias separadas por coma)</label><input type="text" id="authors" placeholder="Practitioner/a3, Practitioner/a4"></div>
+        </div>
+        <h2 class="section-title"><i class="fa-solid fa-file"></i> Contenido</h2>
+        <div class="grid-2">
+            <div class="form-group"><label>Título</label><input type="text" id="title" placeholder="Physical"></div>
+            <div class="form-group"><label>URL del Documento</label><input type="url" id="url" placeholder="http://localhost:9556/svc/fhir/Binary/..."></div>
+        </div>
+        <div class="form-group full-width"><label>Descripción</label><textarea id="description" placeholder="Descripción del documento..."></textarea></div>
+        <button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar DocumentReference</button>
+    </form>
+</div>
+<script>
+document.getElementById('resourceForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.querySelector('.btn-submit');
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
+    btn.style.background = '#10B981';
+    const authors = document.getElementById('authors').value.split(',').map(a => ({ reference: a.trim() }));
+    const fhir = {
+        resourceType: "DocumentReference",
+        id: "docref_" + Date.now().toString(36),
+        identifier: [{ system: "urn:ietf:rfc:3986", value: document.getElementById('identifier').value }],
+        status: document.getElementById('status').value,
+        type: { coding: [{ code: document.getElementById('typeCode').value }] },
+        category: [{ coding: [{ system: "http://loinc.org", code: document.getElementById('categoryCode').value }] }],
+        subject: { reference: document.getElementById('subjectRef').value, display: document.getElementById('subjectDisplay').value },
+        date: new Date(document.getElementById('date').value).toISOString(),
+        author: authors,
+        description: document.getElementById('description').value,
+        content: [{ attachment: { url: document.getElementById('url').value, title: document.getElementById('title').value } }]
+    };
+    let db = JSON.parse(localStorage.getItem('fhir_documentreferences_db')) || [];
+    db.push(fhir);
+    localStorage.setItem('fhir_documentreferences_db', JSON.stringify(db));
+    console.log("✅ DocumentReference:", fhir);
+    setTimeout(() => {
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> ¡Guardado!';
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fa-solid fa-save"></i> Guardar DocumentReference';
+            btn.style.background = 'var(--primary)';
+            e.target.reset();
+        }, 3000);
+    }, 800);
+});
+</script>
+</body>
+</html>

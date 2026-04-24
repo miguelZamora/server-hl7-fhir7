@@ -1,0 +1,56 @@
+{
+  "resourceType" : "SubstanceSourceMaterial",
+  "id" : "example",
+  "text" : {
+    "status" : "generated",
+    "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: SubstanceSourceMaterial</b><a name=\"example\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource SubstanceSourceMaterial &quot;example&quot; </p></div></div>"
+  }
+}
+
+{
+  "resourceType" : "SubstanceSourceMaterial",
+  // from Resource: id, meta, implicitRules, and language
+  // from DomainResource: text, contained, extension, and modifierExtension
+  "sourceMaterialClass" : { "CodeableConcept" }, // General high level classification of the source material specific to the origin of the material
+  "sourceMaterialType" : { "CodeableConcept" }, // The type of the source material shall be specified based on a controlled vocabulary. For vaccines, this subclause refers to the class of infectious agent
+  "sourceMaterialState" : { "CodeableConcept" }, // The state of the source material when extracted
+  "organismId" : { "Identifier" }, // The unique identifier associated with the source material parent organism shall be specified
+  "organismName" : "<string>", // The organism accepted Scientific name shall be provided based on the organism taxonomy
+  "parentSubstanceId" : [{ "Identifier" }], // The parent of the herbal drug Ginkgo biloba, Leaf is the substance ID of the substance (fresh) of Ginkgo biloba L. or Ginkgo biloba L. (Whole plant)
+  "parentSubstanceName" : ["<string>"], // The parent substance of the Herbal Drug, or Herbal preparation
+  "countryOfOrigin" : [{ "CodeableConcept" }], // The country where the plant material is harvested or the countries where the plasma is sourced from as laid down in accordance with the Plasma Master File. For “Plasma-derived substances” the attribute country of origin provides information about the countries used for the manufacturing of the Cryopoor plama or Crioprecipitate
+  "geographicalLocation" : ["<string>"], // The place/region where the plant is harvested or the places/regions where the animal source material has its habitat
+  "developmentStage" : { CodeableConcept }, // Stage of life for animals, plants, insects and microorganisms. This information shall be provided only when the substance is significantly different in these stages (e.g. foetal bovine serum)
+  "fractionDescription" : [{ // Many complex materials are fractions of parts of plants, animals, or minerals. Fraction elements are often necessary to define both Substances and Specified Group 1 Substances. For substances derived from Plants, fraction information will be captured at the Substance information level ( . Oils, Juices and Exudates). Additional information for Extracts, such as extraction solvent composition, will be captured at the Specified Substance Group 1 information level. For plasma-derived products fraction information will be captured at the Substance and the Specified Substance Group 1 levels
+    "fraction" : "<string>", // This element is capturing information about the fraction of a plant part, or human plasma for fractionation
+    "materialType" : { CodeableConcept } // The specific type of the material constituting the component. For Herbal preparations the particulars of the extracts (liquid/dry) is described in Specified Substance Group 1
+  }],
+  "organism" : { // This subclause describes the organism which the substance is derived from. For vaccines, the parent organism shall be specified based on these subclause elements. As an example, full taxonomy will be described for the Substance Name: ., Leaf
+    "family" : { CodeableConcept }, // The family of an organism shall be specified
+    "genus" : { CodeableConcept }, // The genus of an organism shall be specified; refers to the Latin epithet of the genus element of the plant/animal scientific name; it is present in names for genera, species and infraspecies
+    "species" : { CodeableConcept }, // The species of an organism shall be specified; refers to the Latin epithet of the species of the plant/animal; it is present in names for species and infraspecies
+    "intraspecificType" : { CodeableConcept }, // The Intraspecific type of an organism shall be specified
+    "intraspecificDescription" : "<string>", // The intraspecific description of an organism shall be specified based on a controlled vocabulary. For Influenza Vaccine, the intraspecific description shall contain the syntax of the antigen in line with the WHO convention
+    "author" : [{ // 4.9.13.6.1 Author type (Conditional)
+      "authorType" : { CodeableConcept }, // The type of author of an organism species shall be specified. The parenthetical author of an organism species refers to the first author who published the plant/animal name (of any rank). The primary author of an organism species refers to the first author(s), who validly published the plant/animal name
+      "authorDescription" : "<string>" // The author of an organism species shall be specified. The author year of an organism shall also be specified when applicable; refers to the year in which the first author(s) published the infraspecific plant/animal name (of any rank)
+    }],
+    "hybrid" : { // 4.9.13.8.1 Hybrid species maternal organism ID (Optional)
+      "maternalOrganismId" : "<string>", // The identifier of the maternal species constituting the hybrid organism shall be specified based on a controlled vocabulary. For plants, the parents aren’t always known, and it is unlikely that it will be known which is maternal and which is paternal
+      "maternalOrganismName" : "<string>", // The name of the maternal species constituting the hybrid organism shall be specified. For plants, the parents aren’t always known, and it is unlikely that it will be known which is maternal and which is paternal
+      "paternalOrganismId" : "<string>", // The identifier of the paternal species constituting the hybrid organism shall be specified based on a controlled vocabulary
+      "paternalOrganismName" : "<string>", // The name of the paternal species constituting the hybrid organism shall be specified
+      "hybridType" : { CodeableConcept } // The hybrid type of an organism shall be specified
+    },
+    "organismGeneral" : { // 4.9.13.7.1 Kingdom (Conditional)
+      "kingdom" : { CodeableConcept }, // The kingdom of an organism shall be specified
+      "phylum" : { CodeableConcept }, // The phylum of an organism shall be specified
+      "class" : { CodeableConcept }, // The class of an organism shall be specified
+      "order" : { CodeableConcept } // The order of an organism shall be specified,
+    }
+  },
+  "partDescription" : [{ // To do
+    "part" : { CodeableConcept }, // Entity of anatomical origin of source material within an organism
+    "partLocation" : { CodeableConcept } // The detailed anatomic location when the part can be extracted from different anatomical locations of the organism. Multiple alternative locations may apply
+  }]
+}

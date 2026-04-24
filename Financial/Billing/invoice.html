@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - FHIR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/fhir-style.css">
+</head>
+
+<body>
+    <div class="form-container">
+        <header class="form-header">
+            <h1><i class="fa-solid fa-file-invoice-dollar"></i> Factura Completa</h1>
+            <p>Facturación detallada (FHIR Invoice)</p>
+        </header>
+        <form action="#" method="POST" id="resourceForm">
+
+            <h2 class="section-title"><i class="fa-solid fa-info-circle"></i> Información General</h2>
+            <div class="grid-2">
+                <div class="form-group"><label>Identificador (Valor)</label><input type="text" id="identifier"
+                        placeholder="ej. 654321"></div>
+                <div class="form-group"><label>Estado</label><select id="status">
+                        <option value="issued">Emitida (Issued)</option>
+                        <option value="draft">Borrador</option>
+                        <option value="balanced">Saldada</option>
+                        <option value="cancelled">Cancelada</option>
+                    </select></div>
+                <div class="form-group"><label>Sujeto (Paciente)</label><input type="text" id="subject"
+                        placeholder="Patient/example" required></div>
+                <div class="form-group"><label>Receptor (Organización/Persona)</label><input type="text" id="recipient"
+                        placeholder="Organization/example"></div>
+                <div class="form-group"><label>Fecha de Creación</label><input type="datetime-local" id="creation">
+                </div>
+                <div class="form-group"><label>Período de Facturación</label><input type="date" id="periodDate"></div>
+            </div>
+
+            <h2 class="section-title"><i class="fa-solid fa-user-tie"></i> Participantes y Emisor</h2>
+            <div class="grid-2">
+                <div class="form-group"><label>Emisor (Organización)</label><input type="text" id="issuer"
+                        placeholder="Organization/main" required></div>
+                <div class="form-group"><label>Cuenta Asociada</label><input type="text" id="account"
+                        placeholder="Account/example"></div>
+                <div class="form-group"><label>Actor Participante</label><input type="text" id="participantActor"
+                        placeholder="Practitioner/example"></div>
+                <div class="form-group"><label>Rol Participante</label><input type="text" id="participantRole"
+                        placeholder="ej. Cardiólogo"></div>
+            </div>
+
+            <h2 class="section-title"><i class="fa-solid fa-money-bill-wave"></i> Totales y conceptos</h2>
+            <div class="grid-2">
+                <div class="form-group"><label>Total Neto</label><input type="number" id="totalNet" step="0.01"
+                        placeholder="0.00"></div>
+                <div class="form-group"><label>Total Bruto</label><input type="number" id="totalGross" step="0.01"
+                        placeholder="0.00" required></div>
+                <div class="form-group"><label>Moneda</label><select id="currency">
+                        <option value="EUR">Euro (EUR)</option>
+                        <option value="USD">Dólar (USD)</option>
+                        <option value="PEN">Sol (PEN)</option>
+                    </select></div>
+                <div class="form-group"><label>Términos de Pago</label><input type="text" id="paymentTerms"
+                        placeholder="ej. Pago a 30 días"></div>
+                <div class="form-group full-width"><label>Notas / Comentarios</label><textarea id="note"
+                        placeholder="Notas adicionales sobre la factura..."></textarea></div>
+            </div>
+
+            <button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Factura Completa</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('resourceForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const btn = document.querySelector('.btn-submit');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
+
+            const fhir = {
+                resourceType: "Invoice",
+                id: "inv_" + Date.now().toString(36),
+                identifier: [{ system: "http://myHospital.org/Invoices", value: document.getElementById('identifier').value }],
+                status: document.getElementById('status').value,
+                subject: { reference: document.getElementById('subject').value },
+                recipient: { reference: document.getElementById('recipient').value },
+                creation: document.getElementById('creation').value,
+                periodDate: document.getElementById('periodDate').value,
+                participant: [{
+                    role: { text: document.getElementById('participantRole').value },
+                    actor: { reference: document.getElementById('participantActor').value }
+                }],
+                issuer: { reference: document.getElementById('issuer').value },
+                account: { reference: document.getElementById('account').value },
+                totalNet: { value: parseFloat(document.getElementById('totalNet').value), currency: document.getElementById('currency').value },
+                totalGross: { value: parseFloat(document.getElementById('totalGross').value), currency: document.getElementById('currency').value },
+                paymentTerms: document.getElementById('paymentTerms').value,
+                note: [{ text: document.getElementById('note').value }]
+            };
+
+            let db = JSON.parse(localStorage.getItem('fhir_invoices_db')) || [];
+            db.push(fhir);
+            localStorage.setItem('fhir_invoices_db', JSON.stringify(db));
+
+            console.log("✅ Invoice Completa:", fhir);
+
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> ¡Guardado!';
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fa-solid fa-save"></i> Guardar Factura Completa';
+                    e.target.reset();
+                }, 3000);
+            }, 800);
+        });
+    </script>
+</body>
+
+</html>

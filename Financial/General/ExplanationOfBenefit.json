@@ -1,0 +1,19 @@
+{
+  "resourceType": "ExplanationOfBenefit",
+  "id": "example-eob",
+  "status": "active",
+  "type": {
+    "coding": [{
+      "code": "medical"
+    }]
+  },
+  "use": "claim",
+  "patient": {
+    "reference": "Patient/example"
+  },
+  "created": "2023-10-15",
+  "insurer": {
+    "reference": "Organization/example"
+  },
+  "outcome": "complete"
+}

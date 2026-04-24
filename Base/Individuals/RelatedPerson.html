@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persona Relacionada - FHIR RelatedPerson</title>
+    <meta name="description" content="Formulario FHIR RelatedPerson para registrar familiares y contactos de emergencia de pacientes.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/fhir-style.css">
+</head>
+<body>
+<div class="form-container">
+    <header class="form-header">
+        <h1><i class="fa-solid fa-people-arrows"></i> Persona Relacionada</h1>
+        <p>Familiar o Contacto de Emergencia (FHIR RelatedPerson)</p>
+    </header>
+
+    <form action="#" method="POST" id="resourceForm">
+
+        <!-- SECCIÓN: DATOS PERSONALES -->
+        <h2 class="section-title"><i class="fa-solid fa-user-circle"></i> Datos del Familiar</h2>
+        <div class="grid-2">
+            <div class="form-group">
+                <label for="given">Nombres</label>
+                <input type="text" id="given" name="given" placeholder="Bénédicte" required>
+            </div>
+            <div class="form-group">
+                <label for="family">Apellidos</label>
+                <input type="text" id="family" name="family" placeholder="du Marché" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">Género</label>
+                <select id="gender" name="gender">
+                    <option value="" disabled selected>Seleccione género</option>
+                    <option value="female">Femenino</option>
+                    <option value="male">Masculino</option>
+                    <option value="other">Otro</option>
+                    <option value="unknown">Desconocido</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="birthDate">Fecha de Nacimiento</label>
+                <input type="date" id="birthDate" name="birthDate">
+            </div>
+            <div class="form-group">
+                <label for="phone">Teléfono</label>
+                <input type="tel" id="phone" name="phone" placeholder="+33 (237) 998327">
+            </div>
+            <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="email" placeholder="contacto@ejemplo.com">
+            </div>
+        </div>
+
+        <!-- SECCIÓN: PACIENTE Y RELACIÓN -->
+        <h2 class="section-title"><i class="fa-solid fa-hospital-user"></i> Paciente Asociado y Relación</h2>
+        <div class="grid-2">
+            <div class="form-group">
+                <label for="patientRef">Referencia del Paciente</label>
+                <input type="text" id="patientRef" name="patientRef" placeholder="Patient/example" required>
+            </div>
+            <div class="form-group">
+                <label for="relationship">Tipo de Relación</label>
+                <select id="relationship" name="relationship">
+                    <option value="WIFE">Esposa</option>
+                    <option value="HUSBAND">Esposo</option>
+                    <option value="SON">Hijo</option>
+                    <option value="DAUGHTER">Hija</option>
+                    <option value="FATHER">Padre</option>
+                    <option value="MOTHER">Madre</option>
+                    <option value="BROTHER">Hermano</option>
+                    <option value="SISTER">Hermana</option>
+                    <option value="GRFTH">Abuelo</option>
+                    <option value="GRMTH">Abuela</option>
+                    <option value="N">Familiar (otro)</option>
+                    <option value="E">Contacto de emergencia</option>
+                    <option value="C">Tutor legal</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="periodStart">Vigencia Desde</label>
+                <input type="date" id="periodStart" name="periodStart">
+            </div>
+            <div class="form-group">
+                <label for="periodEnd">Vigencia Hasta</label>
+                <input type="date" id="periodEnd" name="periodEnd">
+            </div>
+        </div>
+
+        <!-- SECCIÓN: IDENTIFICADOR -->
+        <h2 class="section-title"><i class="fa-solid fa-id-card"></i> Identificación</h2>
+        <div class="grid-2">
+            <div class="form-group">
+                <label for="identifierSystem">Sistema de Identificación</label>
+                <select id="identifierSystem" name="identifierSystem">
+                    <option value="urn:oid:1.2.250.1.61">INSEE (Francia)</option>
+                    <option value="http://www.reniec.gob.pe/dni">DNI (Perú)</option>
+                    <option value="http://www.registrocivil.cl/rut">RUT (Chile)</option>
+                    <option value="urn:oid:1.2.840.114350.1.13.861">MRN</option>
+                    <option value="http://hl7.org/fhir/sid/passport-CHL">Pasaporte</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="identifier">Número de Identificación</label>
+                <input type="text" id="identifier" name="identifier" placeholder="272117510400399">
+            </div>
+            <div class="form-group">
+                <label for="active">Estado del Registro</label>
+                <select id="active" name="active">
+                    <option value="true">Activo</option>
+                    <option value="false">Inactivo</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- SECCIÓN: DIRECCIÓN -->
+        <h2 class="section-title"><i class="fa-solid fa-location-dot"></i> Dirección</h2>
+        <div class="grid-2">
+            <div class="form-group full-width">
+                <label for="addressLine">Calle y Número</label>
+                <input type="text" id="addressLine" name="addressLine" placeholder="43, Place du Marché Sainte Catherine">
+            </div>
+            <div class="form-group">
+                <label for="city">Ciudad</label>
+                <input type="text" id="city" name="city" placeholder="Paris">
+            </div>
+            <div class="form-group">
+                <label for="postalCode">Código Postal</label>
+                <input type="text" id="postalCode" name="postalCode" placeholder="75004">
+            </div>
+            <div class="form-group">
+                <label for="state">Estado / Región</label>
+                <input type="text" id="state" name="state" placeholder="Île-de-France">
+            </div>
+            <div class="form-group">
+                <label for="country">País</label>
+                <input type="text" id="country" name="country" placeholder="FRA">
+            </div>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn-submit">
+            <i class="fa-solid fa-save"></i> Guardar Persona Relacionada
+        </button>
+    </form>
+</div>
+
+<script>
+document.getElementById('resourceForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
+    btn.style.background = '#10B981';
+    btn.disabled = true;
+
+    const identifierValue = document.getElementById('identifier').value;
+
+    const fhir = {
+        resourceType: "RelatedPerson",
+        id: identifierValue || ("rp_" + Date.now().toString(36)),
+        active: document.getElementById('active').value === 'true',
+        identifier: identifierValue ? [{
+            use: "usual",
+            type: { text: document.getElementById('identifierSystem').value.split('/').pop() },
+            system: document.getElementById('identifierSystem').value,
+            value: identifierValue
+        }] : [],
+        patient: {
+            reference: document.getElementById('patientRef').value
+        },
+        relationship: [{
+            coding: [
+                {
+                    system: "http://terminology.hl7.org/CodeSystem/v2-0131",
+                    code: "N"
+                },
+                {
+                    system: "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                    code: document.getElementById('relationship').value
+                }
+            ]
+        }],
+        name: [{
+            family: document.getElementById('family').value,
+            given: [document.getElementById('given').value]
+        }],
+        telecom: [],
+        gender: document.getElementById('gender').value || undefined,
+        address: [{
+            line: [document.getElementById('addressLine').value].filter(Boolean),
+            city: document.getElementById('city').value,
+            state: document.getElementById('state').value,
+            postalCode: document.getElementById('postalCode').value,
+            country: document.getElementById('country').value
+        }]
+    };
+
+    // Período de relación
+    const pStart = document.getElementById('periodStart').value;
+    const pEnd   = document.getElementById('periodEnd').value;
+    if (pStart || pEnd) {
+        fhir.period = {};
+        if (pStart) fhir.period.start = pStart;
+        if (pEnd)   fhir.period.end   = pEnd;
+    }
+
+    // Fecha nacimiento
+    const bd = document.getElementById('birthDate').value;
+    if (bd) fhir.birthDate = bd;
+
+    // Telecom: phone
+    const phone = document.getElementById('phone').value;
+    if (phone) fhir.telecom.push({ system: "phone", value: phone, use: "mobile" });
+
+    // Telecom: email
+    const email = document.getElementById('email').value;
+    if (email) fhir.telecom.push({ system: "email", value: email });
+
+    // Guardar en localStorage (offline DB)
+    let db = JSON.parse(localStorage.getItem('fhir_relatedpersons_db')) || [];
+    db.push(fhir);
+    localStorage.setItem('fhir_relatedpersons_db', JSON.stringify(db));
+
+    console.log("✅ RelatedPerson guardado:", fhir);
+    console.log(`📦 Total en DB: ${db.length} persona(s) relacionada(s)`);
+
+    setTimeout(() => {
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> ¡Guardado exitosamente!';
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fa-solid fa-save"></i> Guardar Persona Relacionada';
+            btn.style.background = 'var(--primary)';
+            btn.disabled = false;
+            e.target.reset();
+        }, 3000);
+    }, 800);
+});
+</script>
+</body>
+</html>

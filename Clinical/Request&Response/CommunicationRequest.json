@@ -1,0 +1,12 @@
+{
+  "resourceType": "CommunicationRequest",
+  "id": "example-comm-req",
+  "status": "active",
+  "subject": {
+    "reference": "Patient/example"
+  },
+  "occurrenceDateTime": "2023-10-15T15:00:00Z",
+  "payload": [{
+    "contentString": "Please notify the patient about the lab results."
+  }]
+}

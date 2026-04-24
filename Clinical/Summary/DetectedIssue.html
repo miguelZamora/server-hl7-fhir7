@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>DetectedIssue - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-bug"></i> Problema Detectado</h1><p>Problema o conflicto detectado (FHIR DetectedIssue)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<h2 class="section-title"><i class="fa-solid fa-magnifying-glass-chart"></i> Detalles del Problema</h2>
+<div class="grid-2">
+  <div class="form-group"><label>Paciente / Sujeto</label><input type="text" id="subject" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Profesional Identificador</label><input type="text" id="author" placeholder="Practitioner/example"></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="final">Final</option><option value="preliminary">Preliminar</option><option value="entered-in-error">Error</option><option value="mitigated">Mitigado</option></select></div>
+  <div class="form-group"><label>Severidad</label><select id="severity"><option value="high">Alta</option><option value="moderate">Moderada</option><option value="low">Baja</option></select></div>
+  <div class="form-group"><label>Categoría</label><select id="category"><option value="DRG-ALLG">Alergia a droga</option><option value="DRG-INT">Interacción medicamentosa</option><option value="DRG-DUP">Medicamento duplicado</option><option value="TIME-HRS">Contraindicación temporal</option><option value="common-clinical-problem">Problema clínico general</option></select></div>
+  <div class="form-group"><label>Fecha de Identificación</label><input type="datetime-local" id="identified"></div>
+  <div class="form-group full-width"><label>Descripción del Problema</label><textarea id="detail" placeholder="Describa el problema detectado..."></textarea></div>
+  <div class="form-group full-width"><label>Mitigación / Acción Tomada</label><textarea id="mitigation" placeholder="Describa las acciones tomadas para resolver el problema..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Problema Detectado</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"DetectedIssue",id:"di_"+Date.now().toString(36),status:document.getElementById('status').value,category:[{coding:[{code:document.getElementById('category').value}]}],severity:document.getElementById('severity').value,subject:{reference:document.getElementById('subject').value},author:{reference:document.getElementById('author').value},identifiedDateTime:document.getElementById('identified').value,detail:document.getElementById('detail').value,mitigation:[{action:{text:document.getElementById('mitigation').value}}]};let db=JSON.parse(localStorage.getItem('fhir_detected_issues_db'))||[];db.push(fhir);localStorage.setItem('fhir_detected_issues_db',JSON.stringify(db));console.log("✅ DetectedIssue:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Problema Detectado';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script>
+</body></html>

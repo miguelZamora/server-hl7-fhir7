@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MedicationDispense - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-truck-fast"></i> Dispensación de Medicamento</h1><p>Entrega de medicamento en farmacia (FHIR MedicationDispense)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Paciente</label><input type="text" id="subject" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Medicamento</label><input type="text" id="medication" placeholder="ej. Amoxicilina 500mg" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="completed">Completada</option><option value="in-progress">En progreso</option><option value="cancelled">Cancelada</option><option value="on-hold">En espera</option></select></div>
+  <div class="form-group"><label>Solicitud Original</label><input type="text" id="authorizingPrescription" placeholder="MedicationRequest/example"></div>
+  <div class="form-group"><label>Cantidad Dispensada</label><input type="number" id="quantity" step="0.5" placeholder="1"></div>
+  <div class="form-group"><label>Unidad</label><input type="text" id="unit" placeholder="tabletas, cajas, frascos..."></div>
+  <div class="form-group"><label>Días de Suministro</label><input type="number" id="daysSupply" min="1" placeholder="7"></div>
+  <div class="form-group"><label>Fecha de Dispensación</label><input type="datetime-local" id="whenHandedOver"></div>
+  <div class="form-group full-width"><label>Instrucciones de Dosificación</label><input type="text" id="dosageInstruction" placeholder="ej. 1 tableta cada 8 horas por 7 días"></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Dispensación</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"MedicationDispense",id:"md_"+Date.now().toString(36),status:document.getElementById('status').value,medication:{concept:{text:document.getElementById('medication').value}},subject:{reference:document.getElementById('subject').value},authorizingPrescription:[{reference:document.getElementById('authorizingPrescription').value}],quantity:{value:parseFloat(document.getElementById('quantity').value)||1,unit:document.getElementById('unit').value},daysSupply:{value:parseInt(document.getElementById('daysSupply').value)||7},whenHandedOver:document.getElementById('whenHandedOver').value,dosageInstruction:[{text:document.getElementById('dosageInstruction').value}]};let db=JSON.parse(localStorage.getItem('fhir_med_dispenses_db'))||[];db.push(fhir);localStorage.setItem('fhir_med_dispenses_db',JSON.stringify(db));console.log("✅ MedicationDispense:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Dispensación';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script></body></html>

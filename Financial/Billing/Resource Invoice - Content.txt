@@ -1,0 +1,105 @@
+Resource Invoice - Content 
+Financial Management icon Work Group	Maturity Level: 0	 Trial Use	Security Category: Patient	Compartments: Device, Patient, Practitioner, RelatedPerson
+
+Invoice containing collected ChargeItems from an Account with calculated individual and total price for Billing purpose.
+
+8.33.1 Scope and Usage 
+Tracking Financial information is vital in Patient Administration and Finance systems in most Healthcare Organizations. An invoice is a financial document issued by a healthcare provider to a patient or a payer indicating the goods and services (ChargeItems) performed with their quantities and prices.
+
+Example implementations:
+
+Any solution that tracks billing information and needs to issue invoices
+Private Insurance Providers who want to deliver structured information to patients to increase cost transparency
+Patient apps that want to include information on the amount and reason of the charged costs for the healthcare services a patient received
+8.33.2 Boundaries and Relationships 
+The existing Claim resource is constricted to use cases where Claims are sent to insurances for reimbursement, in a message-like style. It neither references ChargeItems nor Accounts.
+
+Competing invoicing standards such as EDIFACT or X12 are aiming at inter-organizational exchange and do not offer human readable representations or traceable links to services rendered which is a requirement for invoicing towards patients. This resource is used where existing ChargeItems in an Account are collected to create an Invoice to be sent out to Individuals or Organizations in a structured way. The invoice is the hospital's view, whereas the Claim is the payer's view on the performed services.
+
+Since the individual ChargeItem resources that make up the line items of the Invoice do not carry any pricing information, ChargeItemDefinitions will have to be applied to the ChargeItems in order to calculate the price components for the Invoice depending on the context of the ChargeItem
+
+8.33.3 References to this Resource 
+Implements: Event
+Resource References: PaymentReconciliation
+8.33.4 Resource Content 
+StructureUMLXMLJSONTurtleR4 DiffAll
+Structure
+
+Name	Flags	Card.	Type	Description & Constraintsdoco
+.. Invoice	TU		DomainResource	Invoice containing ChargeItems from an Account
+
+Elements defined in Ancestors: id, meta, implicitRules, language, text, contained, extension, modifierExtension
+... identifier	Σ	0..*	Identifier	Business Identifier for item
+
+... status	?!Σ	1..1	code	draft | issued | balanced | cancelled | entered-in-error
+Binding: Invoice Status (Required)
+... cancelledReason		0..1	string	Reason for cancellation of this Invoice
+... type	Σ	0..1	CodeableConcept	Type of Invoice
+... subject	Σ	0..1	Reference(Patient | Group)	Recipient(s) of goods and services
+... recipient	Σ	0..1	Reference(Organization | Patient | RelatedPerson)	Recipient of this invoice
+... date		0..1	dateTime	DEPRICATED
+... creation	Σ	0..1	dateTime	When posted
+... period[x]	Σ	0..1		Billing date or period
+.... periodDate			date	
+.... periodPeriod			Period	
+... participant		0..*	BackboneElement	Participant in creation of this Invoice
+
+.... role		0..1	CodeableConcept	Type of involvement in creation of this Invoice
+.... actor		1..1	Reference(Practitioner | Organization | Patient | PractitionerRole | Device | RelatedPerson)	Individual who was involved
+... issuer		0..1	Reference(Organization)	Issuing Organization of Invoice
+... account		0..1	Reference(Account)	Account that is being balanced
+... lineItem		0..*	BackboneElement	Line items of this Invoice
+
+.... sequence		0..1	positiveInt	Sequence number of line item
+.... serviced[x]		0..1		Service data or period
+..... servicedDate			date	
+..... servicedPeriod			Period	
+.... chargeItem[x]		1..1		Reference to ChargeItem containing details of this line item or an inline billing code
+..... chargeItemReference			Reference(ChargeItem)	
+..... chargeItemCodeableConcept			CodeableConcept	
+.... priceComponent		0..*	MonetaryComponent	Components of total line item price
+
+... totalPriceComponent		0..*	MonetaryComponent	Components of Invoice total
+
+... totalNet	Σ	0..1	Money	Net total of this Invoice
+... totalGross	Σ	0..1	Money	Gross total of this Invoice
+... paymentTerms		0..1	markdown	Payment details
+... note		0..*	Annotation	Comments made about the invoice
+
+
+doco Documentation for this format icon
+See the Extensions for this resource
+
+ 
+
+Additional definitions: Master Definition XML + JSON, XML Schema/Schematron + JSON Schema, ShEx (for Turtle) + see the extensions, the spreadsheet version & the dependency analysis
+
+8.33.4.1 Terminology Bindings 
+Path	ValueSet	Type	Documentation
+Invoice.status	InvoiceStatus	Required	
+Codes identifying the lifecycle stage of an Invoice.
+
+
+8.33.5 Search Parameters 
+Search parameters for this resource. See also the full list of search parameters for this resource, and check the Extensions registry for search parameters on extensions related to this resource. The common parameters also apply. See Searching for more information about searching in REST, messaging, and services.
+
+Name	Type	Description	Expression	In Common
+account	reference	Account that is being balanced	Invoice.account
+(Account)	
+date	date	Invoice date / posting date	Invoice.date	27 Resources
+identifier	token	Business Identifier for item	Invoice.identifier	65 Resources
+issuer	reference	Issuing Organization of Invoice	Invoice.issuer
+(Organization)	
+participant	reference	Individual who was involved	Invoice.participant.actor
+(Practitioner, Organization, Device, Patient, PractitionerRole, RelatedPerson)	
+participant-role	token	Type of involvement in creation of this Invoice	Invoice.participant.role	
+patient	reference	Recipient(s) of goods and services	Invoice.subject.where(resolve() is Patient)
+(Patient)	66 Resources
+recipient	reference	Recipient of this invoice	Invoice.recipient
+(Organization, Patient, RelatedPerson)	
+status	token	draft | issued | balanced | cancelled | entered-in-error	Invoice.status	
+subject	reference	Recipient(s) of goods and services	Invoice.subject
+(Group, Patient)	
+totalgross	quantity	Gross total of this Invoice	Invoice.totalGross	
+totalnet	quantity	Net total of this Invoice	Invoice.totalNet	
+type	token	Type of Invoice	Invoice.type	11 Resources

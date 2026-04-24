@@ -1,0 +1,13 @@
+{
+  "resourceType": "GuidanceResponse",
+  "id": "example-guidance",
+  "status": "success",
+  "subject": {
+    "reference": "Patient/example"
+  },
+  "occurrenceDateTime": "2023-10-15T10:00:00Z",
+  "moduleUri": "http://hl7.org/fhir/PlanDefinition/example",
+  "result": {
+    "reference": "ServiceRequest/example-service"
+  }
+}

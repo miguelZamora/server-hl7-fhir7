@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>BodyStructure - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-human-capacity"></i> Estructura Corporal</h1><p>Definición de estructura anatómica (FHIR BodyStructure)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Paciente / Sujeto</label><input type="text" id="patient" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Estado</label><select id="active"><option value="true">Activo</option><option value="false">Inactivo</option></select></div>
+  <div class="form-group"><label>Morfología</label><input type="text" id="morphology" placeholder="ej. Tumor, Cicatriz" required></div>
+  <div class="form-group"><label>Ubicación Anatómica</label><input type="text" id="location" placeholder="ej. Brazo izquierdo" required></div>
+  <div class="form-group full-width"><label>Descripción Detallada</label><textarea id="description" placeholder="Descripción de la estructura anatómica..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Estructura</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"BodyStructure",active:document.getElementById('active').value==='true',morphology:{text:document.getElementById('morphology').value},location:{text:document.getElementById('location').value},patient:{reference:document.getElementById('patient').value},description:document.getElementById('description').value};console.log("✅ BodyStructure:",fhir);});</script></body></html>

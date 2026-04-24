@@ -1,0 +1,21 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+:root {
+    --primary: #8B5CF6; --primary-hover: #7C3AED; --primary-dark: #5B21B6;
+    --secondary: #A78BFA; --dark: #1E1B4B; --bg-gradient: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%);
+    --glass: rgba(255, 255, 255, 0.95); --border: #DDD6FE; --text-dark: #1E1B4B; --text-muted: #6D28D9;
+    --focus-ring: rgba(139, 92, 246, 0.3);
+}
+body { background: var(--bg-gradient); min-height: 100vh; display: flex; justify-content: center; padding: 3rem 1rem; color: var(--text-dark); }
+.form-container { width: 100%; max-width: 900px; background: var(--glass); border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); border: 1px solid white; overflow: hidden; }
+.form-header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 2.5rem; text-align: center; }
+.form-header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+form { padding: 3rem; }
+.section-title { font-size: 1.2rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid #E0F2FE; display: flex; align-items: center; gap: 0.5rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+label { font-size: 0.9rem; font-weight: 600; }
+input, select, textarea { padding: 0.875rem 1rem; border: 1px solid var(--border); border-radius: 10px; font-size: 1rem; }
+input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px var(--focus-ring); }
+.full-width { grid-column: span 2; }
+.btn-submit { background: var(--primary); color: white; border: none; padding: 1.2rem 2rem; font-size: 1.1rem; font-weight: 600; border-radius: 12px; cursor: pointer; width: 100%; display: flex; justify-content: center; align-items: center; gap: 0.75rem; margin-top: 1rem; box-shadow: 0 10px 20px rgba(139, 92, 246, 0.2); transition: 0.3s; }
+.btn-submit:hover { transform: translateY(-2px); background: var(--primary-hover); }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>DiagnosticReport - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-file-alt"></i> Reporte Diagnóstico</h1><p>Informe de laboratorio o imagen (FHIR DiagnosticReport)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<h2 class="section-title"><i class="fa-solid fa-microscope"></i> Datos del Reporte</h2>
+<div class="grid-2">
+  <div class="form-group"><label>Paciente</label><input type="text" id="subject" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Encuentro</label><input type="text" id="encounter" placeholder="Encounter/example"></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="final">Final</option><option value="preliminary">Preliminar</option><option value="registered">Registrado</option><option value="partial">Parcial</option><option value="amended">Enmendado</option></select></div>
+  <div class="form-group"><label>Categoría</label><select id="category"><option value="LAB">Laboratorio</option><option value="RAD">Radiología</option><option value="PAT">Patología</option><option value="CT">Tomografía</option></select></div>
+  <div class="form-group"><label>Código / Tipo de Estudio</label><input type="text" id="code" placeholder="LOINC: 24323-8 - Comprehensive metabolic panel" required></div>
+  <div class="form-group"><label>Fecha Efectiva</label><input type="datetime-local" id="effectiveDateTime"></div>
+  <div class="form-group"><label>Fecha de Emisión</label><input type="datetime-local" id="issued"></div>
+  <div class="form-group"><label>Profesional Responsable</label><input type="text" id="performer" placeholder="Practitioner/example"></div>
+  <div class="form-group full-width"><label>Conclusión / Diagnóstico</label><textarea id="conclusion" placeholder="Conclusiones del reporte diagnóstico..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Reporte</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"DiagnosticReport",id:"dr_"+Date.now().toString(36),status:document.getElementById('status').value,category:[{coding:[{system:"http://terminology.hl7.org/CodeSystem/v2-0074",code:document.getElementById('category').value}]}],code:{text:document.getElementById('code').value},subject:{reference:document.getElementById('subject').value},encounter:{reference:document.getElementById('encounter').value},effectiveDateTime:document.getElementById('effectiveDateTime').value,issued:document.getElementById('issued').value,performer:[{reference:document.getElementById('performer').value}],conclusion:document.getElementById('conclusion').value};let db=JSON.parse(localStorage.getItem('fhir_diagnostic_reports_db'))||[];db.push(fhir);localStorage.setItem('fhir_diagnostic_reports_db',JSON.stringify(db));console.log("✅ DiagnosticReport:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Reporte';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script>
+</body></html>

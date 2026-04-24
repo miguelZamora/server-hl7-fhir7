@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>EnrollmentResponse - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-user-check"></i> Respuesta de Inscripción</h1><p>Confirmación de afiliación (FHIR EnrollmentResponse)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Solicitud Original</label><input type="text" id="request" placeholder="EnrollmentRequest/example" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activo</option><option value="cancelled">Cancelado</option></select></div>
+  <div class="form-group"><label>Resultado</label><select id="outcome"><option value="queued">En cola</option><option value="complete">Completado</option><option value="error">Error</option></select></div>
+  <div class="form-group"><label>Aseguradora</label><input type="text" id="organization" placeholder="Organization/example" required></div>
+  <div class="form-group full-width"><label>Detalles / Disposición</label><textarea id="disposition" placeholder="Comentarios sobre la inscripción..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Respuesta</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"EnrollmentResponse",status:document.getElementById('status').value,outcome:document.getElementById('outcome').value,request:{reference:document.getElementById('request').value},organization:{reference:document.getElementById('organization').value},disposition:document.getElementById('disposition').value};console.log("✅ EnrollmentResponse:",fhir);});</script></body></html>

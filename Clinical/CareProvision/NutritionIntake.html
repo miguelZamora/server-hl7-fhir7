@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>NutritionIntake - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-bowl-food"></i> Registro de Ingesta</h1><p>Alimentos consumidos (FHIR NutritionIntake)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Paciente</label><input type="text" id="patient" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="completed">Completado</option><option value="in-progress">En progreso</option></select></div>
+  <div class="form-group"><label>Ítem Consumido</label><input type="text" id="consumedItem" placeholder="ej. Desayuno estándar" required></div>
+  <div class="form-group"><label>Cantidad (Calorías/Gramos)</label><input type="number" id="amount" placeholder="500"></div>
+  <div class="form-group"><label>Fecha/Hora</label><input type="datetime-local" id="occurrence"></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Registro</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"NutritionIntake",status:document.getElementById('status').value,patient:{reference:document.getElementById('patient').value},consumedItem:[{type:{text:document.getElementById('consumedItem').value},amount:{value:parseFloat(document.getElementById('amount').value)}}],occurrenceDateTime:document.getElementById('occurrence').value};console.log("✅ NutritionIntake:",fhir);});</script></body></html>

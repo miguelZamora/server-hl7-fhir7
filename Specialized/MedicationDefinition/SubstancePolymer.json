@@ -1,0 +1,49 @@
+{
+  "resourceType" : "SubstancePolymer",
+  "id" : "example",
+  "text" : {
+    "status" : "generated",
+    "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: SubstancePolymer</b><a name=\"example\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource SubstancePolymer &quot;example&quot; </p></div></div>"
+  }
+}
+
+{
+  "resourceType" : "SubstancePolymer",
+  // from Resource: id, meta, implicitRules, and language
+  // from DomainResource: text, contained, extension, and modifierExtension
+  "identifier" : { Identifier }, // A business idenfier for this polymer, but typically this is handled by a SubstanceDefinition identifier
+  "class" : { CodeableConcept }, // Overall type of the polymer
+  "geometry" : { CodeableConcept }, // Polymer geometry, e.g. linear, branched, cross-linked, network or dendritic
+  "copolymerConnectivity" : [{ CodeableConcept }], // Descrtibes the copolymer sequence type (polymer connectivity)
+  "modification" : "<string>", // Todo - this is intended to connect to a repeating full modification structure, also used by Protein and Nucleic Acid . String is just a placeholder
+  "monomerSet" : [{ // Todo
+    "ratioType" : { CodeableConcept }, // Captures the type of ratio to the entire polymer, e.g. Monomer/Polymer ratio, SRU/Polymer Ratio
+    "startingMaterial" : [{ // The starting materials - monomer(s) used in the synthesis of the polymer
+      "code" : { CodeableConcept }, // The type of substance for this starting material
+      "category" : { CodeableConcept }, // Substance high level category, e.g. chemical substance
+      "isDefining" : <boolean>, // Used to specify whether the attribute described is a defining element for the unique identification of the polymer
+      "amount" : { Quantity } // A percentage
+    }]
+  }],
+  "repeat" : [{ // Specifies and quantifies the repeated units and their configuration
+    "averageMolecularFormula" : "<string>", // A representation of an (average) molecular formula from a polymer
+    "repeatUnitAmountType" : { CodeableConcept }, // How the quantitative amount of Structural Repeat Units is captured (e.g. Exact, Numeric, Average)
+    "repeatUnit" : [{ // An SRU - Structural Repeat Unit
+      "unit" : "<string>", // Structural repeat units are essential elements for defining polymers
+      "orientation" : { CodeableConcept }, // The orientation of the polymerisation, e.g. head-tail, head-head, random
+      "amount" : <integer>, // Number of repeats of this unit
+      "degreeOfPolymerisation" : [{ // Applies to homopolymer and block co-polymers where the degree of polymerisation within a block can be described
+        "type" : { CodeableConcept }, // The type of the degree of polymerisation shall be described, e.g. SRU/Polymer Ratio
+        "average" : <integer>, // An average amount of polymerisation
+        "low" : <integer>, // A low expected limit of the amount
+        "high" : <integer> // A high expected limit of the amount
+      }],
+      "structuralRepresentation" : [{ // A graphical structure for this SRU
+        "type" : { CodeableConcept }, // The type of structure (e.g. Full, Partial, Representative)
+        "representation" : "<string>", // The structural representation as text string in a standard format e.g. InChI, SMILES, MOLFILE, CDX, SDF, PDB, mmCIF
+        "format" : { CodeableConcept }, // The format of the representation e.g. InChI, SMILES, MOLFILE, CDX, SDF, PDB, mmCIF
+        "attachment" : { Attachment } // An attached file with the structural representation
+      }]
+    }]
+  }]
+}

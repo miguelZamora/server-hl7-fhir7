@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PaymentNotice - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-bell-concierge"></i> Aviso de Pago</h1><p>Notificación de pago emitido (FHIR PaymentNotice)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Referencia (Claim/Invoice)</label><input type="text" id="request" placeholder="Claim/example" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activo</option><option value="cancelled">Cancelado</option></select></div>
+  <div class="form-group"><label>Fecha de Pago</label><input type="date" id="paymentDate" required></div>
+  <div class="form-group"><label>Monto</label><input type="number" id="amount" step="0.01" required></div>
+  <div class="form-group"><label>Moneda</label><select id="currency"><option value="USD">USD</option><option value="PEN">PEN</option></select></div>
+  <div class="form-group"><label>Beneficiario</label><input type="text" id="payee" placeholder="Organization/example"></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Aviso</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"PaymentNotice",status:document.getElementById('status').value,request:{reference:document.getElementById('request').value},paymentDate:document.getElementById('paymentDate').value,amount:{value:parseFloat(document.getElementById('amount').value),currency:document.getElementById('currency').value},recipient:{reference:document.getElementById('payee').value}};console.log("✅ PaymentNotice:",fhir);});</script></body></html>

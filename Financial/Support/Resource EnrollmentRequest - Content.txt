@@ -1,0 +1,56 @@
+Resource EnrollmentRequest - Content 
+Financial Management icon Work Group	Maturity Level: 0	 Trial Use	Security Category: Patient	Compartments: Patient
+
+This resource provides the insurance enrollment details to the insurer regarding a specified coverage.
+
+13.4.1 Scope and Usage 
+This resource has not yet undergone proper review by FM. At this time it is a 'stub', is known to be incomplete, and is to be considered as a draft.
+
+The EnrollmentRequest resource allows for the addition and removal of plan subscribers and their dependents to health insurance coverage.
+
+Todo
+
+13.4.2 References to this Resource 
+Implements: Request
+Resource References: DocumentReference, EnrollmentResponse and GuidanceResponse
+13.4.3 Resource Content 
+StructureUMLXMLJSONTurtleR4 DiffAll
+Structure
+
+Name	Flags	Card.	Type	Description & Constraintsdoco
+.. EnrollmentRequest	TU		DomainResource	Enroll in coverage
+
+Elements defined in Ancestors: id, meta, implicitRules, language, text, contained, extension, modifierExtension
+... identifier		0..*	Identifier	Business Identifier
+
+... status	?!Σ	0..1	code	active | cancelled | draft | entered-in-error
+Binding: Financial Resource Status Codes (Required)
+... created		0..1	dateTime	Creation date
+... insurer		0..1	Reference(Organization)	Target
+... provider		0..1	Reference(Practitioner | PractitionerRole | Organization)	Responsible practitioner
+... candidate		0..1	Reference(Patient)	The subject to be enrolled
+... coverage		0..1	Reference(Coverage)	Insurance information
+
+doco Documentation for this format icon
+See the Extensions for this resource
+
+ 
+
+Additional definitions: Master Definition XML + JSON, XML Schema/Schematron + JSON Schema, ShEx (for Turtle) + see the extensions, the spreadsheet version & the dependency analysis
+
+13.4.3.1 Terminology Bindings 
+Path	ValueSet	Type	Documentation
+EnrollmentRequest.status	FinancialResourceStatusCodes	Required	
+This value set includes Status codes.
+
+
+13.4.4 Search Parameters 
+Search parameters for this resource. See also the full list of search parameters for this resource, and check the Extensions registry for search parameters on extensions related to this resource. The common parameters also apply. See Searching for more information about searching in REST, messaging, and services.
+
+Name	Type	Description	Expression	In Common
+identifier	token	The business identifier of the Enrollment	EnrollmentRequest.identifier	65 Resources
+patient	reference	The party to be enrolled	EnrollmentRequest.candidate
+(Patient)	66 Resources
+status	token	The status of the enrollment	EnrollmentRequest.status	
+subject	reference	The party to be enrolled	EnrollmentRequest.candidate
+(Patient)	

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Procedure - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-scalpel"></i> Procedimiento</h1><p>Intervención o procedimiento médico (FHIR Procedure)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<h2 class="section-title"><i class="fa-solid fa-clipboard-list"></i> Datos del Procedimiento</h2>
+<div class="grid-2">
+  <div class="form-group"><label>Paciente</label><input type="text" id="patient" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Código del Procedimiento</label><input type="text" id="code" placeholder="SNOMED: 80146002 - Appendectomy" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="completed">Completado</option><option value="in-progress">En curso</option><option value="not-done">No realizado</option><option value="entered-in-error">Error</option><option value="stopped">Suspendido</option></select></div>
+  <div class="form-group"><label>Categoría</label><select id="category"><option value="surgical">Quirúrgico</option><option value="diagnostic">Diagnóstico</option><option value="nursing">Enfermería</option><option value="lab">Laboratorio</option></select></div>
+  <div class="form-group"><label>Fecha/Hora Inicio</label><input type="datetime-local" id="performedStart"></div>
+  <div class="form-group"><label>Fecha/Hora Fin</label><input type="datetime-local" id="performedEnd"></div>
+  <div class="form-group"><label>Profesional Responsable</label><input type="text" id="performer" placeholder="Practitioner/example"></div>
+  <div class="form-group"><label>Ubicación</label><input type="text" id="location" placeholder="Location/example"></div>
+  <div class="form-group"><label>Encuentro Asociado</label><input type="text" id="encounter" placeholder="Encounter/example"></div>
+  <div class="form-group"><label>Diagnóstico de Base</label><input type="text" id="reasonCode" placeholder="CIE-10 o texto libre"></div>
+  <div class="form-group full-width"><label>Resultado / Notas</label><textarea id="note" placeholder="Descripción del resultado del procedimiento..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Procedimiento</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"Procedure",id:"proc_"+Date.now().toString(36),status:document.getElementById('status').value,category:{coding:[{code:document.getElementById('category').value}]},code:{text:document.getElementById('code').value},subject:{reference:document.getElementById('patient').value},encounter:{reference:document.getElementById('encounter').value},performedPeriod:{start:document.getElementById('performedStart').value,end:document.getElementById('performedEnd').value},performer:[{actor:{reference:document.getElementById('performer').value}}],location:{reference:document.getElementById('location').value},reasonCode:[{text:document.getElementById('reasonCode').value}],note:[{text:document.getElementById('note').value}]};let db=JSON.parse(localStorage.getItem('fhir_procedures_db'))||[];db.push(fhir);localStorage.setItem('fhir_procedures_db',JSON.stringify(db));console.log("✅ Procedure:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Procedimiento';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script>
+</body></html>

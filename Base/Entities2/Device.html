@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device - FHIR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/fhir-style.css">
+</head>
+<body>
+<div class="form-container">
+    <header class="form-header">
+        <h1><i class="fa-solid fa-microchip"></i> Device</h1>
+        <p>Dispositivo médico (FHIR Device)</p>
+    </header>
+    <form action="#" method="POST" id="resourceForm">
+        <h2 class="section-title"><i class="fa-solid fa-tag"></i> Identificación</h2>
+        <div class="grid-2">
+            <div class="form-group"><label>Número Serial</label><input type="text" id="serialNumber" placeholder="5091100966" required></div>
+            <div class="form-group"><label>Fabricante</label><input type="text" id="manufacturer" placeholder="A&amp;D Medical"></div>
+            <div class="form-group"><label>Modelo</label><input type="text" id="modelNumber" placeholder="UA-767PBT-C"></div>
+            <div class="form-group"><label>Nombre</label><input type="text" id="name" placeholder="AND BP UA-767PBT-C"></div>
+        </div>
+        <h2 class="section-title"><i class="fa-solid fa-barcode"></i> UDI</h2>
+        <div class="grid-2">
+            <div class="form-group full-width"><label>Device Identifier (UDI)</label><input type="text" id="udiDeviceId" placeholder="39183189818"></div>
+            <div class="form-group full-width"><label>Carrier HRF</label><input type="text" id="udiCarrier" placeholder="(01)39183189818(21)5091100966"></div>
+        </div>
+        <h2 class="section-title"><i class="fa-solid fa-chart-line"></i> Tipo</h2>
+        <div class="grid-2">
+            <div class="form-group"><label>Tipo de Dispositivo</label><input type="text" id="type" placeholder="Personal Health Device"></div>
+            <div class="form-group"><label>Versión</label><input type="text" id="version" placeholder="1.0"></div>
+        </div>
+        <button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Device</button>
+    </form>
+</div>
+<script>
+document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"Device",id:"dev_"+Date.now().toString(36),manufacturer:document.getElementById('manufacturer').value,serialNumber:document.getElementById('serialNumber').value,modelNumber:document.getElementById('modelNumber').value,name:[{value:document.getElementById('name').value,type:"user-friendly-name"}],type:[{text:document.getElementById('type').value}],udiCarrier:[{deviceIdentifier:document.getElementById('udiDeviceId').value,carrierHRF:document.getElementById('udiCarrier').value,entryType:"unknown"}],version:[{value:document.getElementById('version').value}]};let db=JSON.parse(localStorage.getItem('fhir_devices_db'))||[];db.push(fhir);localStorage.setItem('fhir_devices_db',JSON.stringify(db));console.log("✅ Device:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Device';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script>
+</body>
+</html>

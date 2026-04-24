@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary - FHIR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/fhir-style.css">
+</head>
+<body>
+<div class="form-container">
+    <header class="form-header">
+        <h1><i class="fa-solid fa-file-code"></i> Binary</h1>
+        <p>Datos binarios (FHIR Binary)</p>
+    </header>
+    <form action="#" method="POST" id="resourceForm">
+        <h2 class="section-title"><i class="fa-solid fa-tag"></i> Identificación</h2>
+        <div class="grid-2">
+            <div class="form-group"><label>ID</label><input type="text" id="binaryId" placeholder="example" required></div>
+            <div class="form-group"><label>Tipo de Contenido</label><input type="text" id="contentType" placeholder="application/pdf" required></div>
+        </div>
+        <h2 class="section-title"><i class="fa-solid fa-shield"></i> Contexto de Seguridad</h2>
+        <div class="grid-2">
+            <div class="form-group full-width"><label>Referencia Security Context</label><input type="text" id="securityContext" placeholder="DocumentReference/example"></div>
+        </div>
+        <h2 class="section-title"><i class="fa-solid fa-database"></i> Datos</h2>
+        <div class="grid-2">
+            <div class="form-group full-width"><label>Datos (Base64)</label><textarea id="data" rows="5" placeholder="JVBERi0xLjUNJeLjz9MNCjEwIDAgb2Jq..."></textarea></div>
+        </div>
+        <div class="form-group full-width">
+            <label>O subir archivo</label>
+            <input type="file" id="fileInput" accept=".pdf,.txt,.jpg,.png">
+        </div>
+        <button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Binary</button>
+    </form>
+</div>
+<script>
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const base64 = event.target.result.split(',')[1] || event.target.result;
+                document.getElementById('data').value = base64;
+                if (!document.getElementById('contentType').value) {
+                    document.getElementById('contentType').value = file.type;
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('resourceForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = document.querySelector('.btn-submit');
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
+        btn.style.background = '#10B981';
+        
+        const fhir = {
+            resourceType: "Binary",
+            id: document.getElementById('binaryId').value || "bin_" + Date.now().toString(36),
+            contentType: document.getElementById('contentType').value,
+            data: document.getElementById('data').value
+        };
+        
+        if (document.getElementById('securityContext').value) {
+            fhir.securityContext = { reference: document.getElementById('securityContext').value };
+        }
+        
+        let db = JSON.parse(localStorage.getItem('fhir_binaries_db')) || [];
+        db.push(fhir);
+        localStorage.setItem('fhir_binaries_db', JSON.stringify(db));
+        console.log("✅ Binary:", fhir);
+        
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> ¡Guardado!';
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fa-solid fa-save"></i> Guardar Binary';
+                btn.style.background = 'var(--primary)';
+                e.target.reset();
+            }, 3000);
+        }, 800);
+    });
+</script>
+</body>
+</html>

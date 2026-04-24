@@ -1,0 +1,14 @@
+{
+  "resourceType": "DeviceRequest",
+  "id": "example-device-req",
+  "status": "active",
+  "intent": "order",
+  "code": {
+    "concept": {
+      "text": "Wheelchair"
+    }
+  },
+  "subject": {
+    "reference": "Patient/example"
+  }
+}

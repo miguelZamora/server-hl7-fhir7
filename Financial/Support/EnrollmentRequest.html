@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>EnrollmentRequest - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-user-plus"></i> Inscripción (Enrollment)</h1><p>Solicitud de afiliación (FHIR EnrollmentRequest)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Candidato / Paciente</label><input type="text" id="candidate" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activo</option><option value="cancelled">Cancelado</option></select></div>
+  <div class="form-group"><label>Aseguradora</label><input type="text" id="insurer" placeholder="Organization/example" required></div>
+  <div class="form-group"><label>Cobertura Solicitada</label><input type="text" id="coverage" placeholder="Coverage/example" required></div>
+  <div class="form-group"><label>Fecha de Creación</label><input type="date" id="created"></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Inscripción</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"EnrollmentRequest",status:document.getElementById('status').value,created:document.getElementById('created').value,insurer:{reference:document.getElementById('insurer').value},candidate:{reference:document.getElementById('candidate').value},coverage:{reference:document.getElementById('coverage').value}};console.log("✅ EnrollmentRequest:",fhir);});</script></body></html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Condition - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-stethoscope"></i> Condición / Diagnóstico</h1><p>Problema o diagnóstico clínico (FHIR Condition)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<h2 class="section-title"><i class="fa-solid fa-notes-medical"></i> Datos del Diagnóstico</h2>
+<div class="grid-2">
+  <div class="form-group"><label>Paciente</label><input type="text" id="patient" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Código CIE-10 / SNOMED</label><input type="text" id="code" placeholder="ej. 44054006 (Diabetes mellitus)" required></div>
+  <div class="form-group"><label>Estado Clínico</label><select id="clinicalStatus"><option value="active">Activo</option><option value="recurrence">Recurrente</option><option value="relapse">Recaída</option><option value="inactive">Inactivo</option><option value="remission">Remisión</option><option value="resolved">Resuelto</option></select></div>
+  <div class="form-group"><label>Verificación</label><select id="verificationStatus"><option value="confirmed">Confirmado</option><option value="unconfirmed">No confirmado</option><option value="provisional">Provisional</option><option value="differential">Diferencial</option></select></div>
+  <div class="form-group"><label>Categoría</label><select id="category"><option value="problem-list-item">Lista de problemas</option><option value="encounter-diagnosis">Diagnóstico del encuentro</option></select></div>
+  <div class="form-group"><label>Severidad</label><select id="severity"><option value="severe">Severa</option><option value="moderate">Moderada</option><option value="mild">Leve</option></select></div>
+  <div class="form-group"><label>Fecha de Inicio</label><input type="date" id="onsetDate"></div>
+  <div class="form-group"><label>Fecha de Resolución</label><input type="date" id="abatementDate"></div>
+  <div class="form-group"><label>Profesional que Registra</label><input type="text" id="recorder" placeholder="Practitioner/example"></div>
+  <div class="form-group"><label>Encuentro Asociado</label><input type="text" id="encounter" placeholder="Encounter/example"></div>
+  <div class="form-group full-width"><label>Notas Clínicas</label><textarea id="note" placeholder="Descripción detallada del diagnóstico..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Condición</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"Condition",id:"cond_"+Date.now().toString(36),clinicalStatus:{coding:[{system:"http://terminology.hl7.org/CodeSystem/condition-clinical",code:document.getElementById('clinicalStatus').value}]},verificationStatus:{coding:[{system:"http://terminology.hl7.org/CodeSystem/condition-ver-status",code:document.getElementById('verificationStatus').value}]},category:[{coding:[{system:"http://terminology.hl7.org/CodeSystem/condition-category",code:document.getElementById('category').value}]}],severity:{coding:[{system:"http://snomed.info/sct",code:document.getElementById('severity').value}]},code:{text:document.getElementById('code').value},subject:{reference:document.getElementById('patient').value},encounter:{reference:document.getElementById('encounter').value},onsetDateTime:document.getElementById('onsetDate').value,abatementDateTime:document.getElementById('abatementDate').value,recorder:{reference:document.getElementById('recorder').value},note:[{text:document.getElementById('note').value}]};let db=JSON.parse(localStorage.getItem('fhir_conditions_db'))||[];db.push(fhir);localStorage.setItem('fhir_conditions_db',JSON.stringify(db));console.log("✅ Condition:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Condición';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script>
+</body></html>

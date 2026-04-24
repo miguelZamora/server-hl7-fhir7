@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><title>Task - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-list-check"></i> Task</h1><p>Tarea / Orden de trabajo (FHIR Task)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<h2 class="section-title"><i class="fa-solid fa-tag"></i> Identificación</h2>
+<div class="grid-2"><div class="form-group"><label>Identificador</label><input type="text" id="identifier" placeholder="20170201-001" required></div><div class="form-group"><label>Estado</label><select id="status"><option value="in-progress">En progreso</option><option value="completed">Completada</option><option value="cancelled">Cancelada</option></select></div></div>
+<h2 class="section-title"><i class="fa-solid fa-user"></i> Paciente y Solicitante</h2>
+<div class="grid-2"><div class="form-group"><label>Paciente Ref</label><input type="text" id="patientRef" placeholder="Patient/example"></div><div class="form-group"><label>Solicitante Ref</label><input type="text" id="requesterRef" placeholder="Practitioner/example"></div></div>
+<h2 class="section-title"><i class="fa-solid fa-clipboard"></i> Descripción</h2>
+<div class="form-group full-width"><label>Descripción</label><textarea id="description" placeholder="Create order for getting specimen..."></textarea></div>
+<div class="form-group full-width"><label>Nota</label><textarea id="note" placeholder="Notas adicionales..."></textarea></div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Task</button></form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"Task",id:"task_"+Date.now().toString(36),identifier:[{value:document.getElementById('identifier').value}],status:document.getElementById('status').value,intent:"order",description:document.getElementById('description').value,for:{reference:document.getElementById('patientRef').value},requester:{reference:document.getElementById('requesterRef').value},note:[{text:document.getElementById('note').value}]};let db=JSON.parse(localStorage.getItem('fhir_tasks_db'))||[];db.push(fhir);localStorage.setItem('fhir_tasks_db',JSON.stringify(db));console.log("✅ Task:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Task';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});</script></body></html>

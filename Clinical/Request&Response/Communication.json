@@ -1,0 +1,20 @@
+{
+  "resourceType": "Communication",
+  "id": "example-comm",
+  "status": "completed",
+  "category": [{
+    "coding": [{
+      "code": "notification"
+    }]
+  }],
+  "subject": {
+    "reference": "Patient/example"
+  },
+  "sent": "2023-10-15T12:00:00Z",
+  "recipient": [{
+    "reference": "Patient/example"
+  }],
+  "payload": [{
+    "contentString": "Your appointment is confirmed."
+  }]
+}

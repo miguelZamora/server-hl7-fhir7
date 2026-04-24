@@ -1,0 +1,14 @@
+{
+  "resourceType": "InsurancePlan",
+  "id": "example-plan",
+  "status": "active",
+  "name": "Silver Health Plan",
+  "type": [{
+    "coding": [{
+      "code": "medical"
+    }]
+  }],
+  "administrator": {
+    "reference": "Organization/example"
+  }
+}

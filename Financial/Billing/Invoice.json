@@ -1,0 +1,122 @@
+{
+  "resourceType": "Invoice",
+  "id": "example",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Example of Invoice</div>"
+  },
+  "identifier": [
+    {
+      "system": "http://myHospital.org/Invoices",
+      "value": "654321"
+    }
+  ],
+  "status": "issued",
+  "subject": {
+    "reference": "Patient/example"
+  },
+  "creation": "2017-01-25T08:00:00+01:00",
+  "periodDate": "2017-01-25",
+  "participant": [
+    {
+      "role": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "17561000",
+            "display": "Cardiologist"
+          }
+        ]
+      },
+      "actor": {
+        "reference": "Practitioner/example"
+      }
+    }
+  ],
+  "issuer": {
+    "identifier": {
+      "system": "http://myhospital/NamingSystem/departments",
+      "value": "CARD_INTERMEDIATE_CARE"
+    }
+  },
+  "account": {
+    "reference": "Account/example"
+  },
+  "totalNet": {
+    "value": 40,
+    "currency": "EUR"
+  },
+  "totalGross": {
+    "value": 48,
+    "currency": "EUR"
+  }
+}
+
+
+{doco
+  "resourceType": "Invoice",
+  // from Resource: id, meta, implicitRules, and language
+  // from DomainResource: text, contained, extension, and modifierExtension
+  "identifier": [
+    { Identifier
+    }
+  ], // Business Identifier for item
+  "status": "<code>", // R!  draft | issued | balanced | cancelled | entered-in-error
+  "cancelledReason": "<string>", // Reason for cancellation of this Invoice
+  "type": { CodeableConcept
+  }, // Type of Invoice
+  "subject": { Reference(Group|Patient)
+  }, // Recipient(s) of goods and services
+  "recipient": { Reference(Organization|Patient|RelatedPerson)
+  }, // Recipient of this invoice
+  "date": "<dateTime>", // DEPRICATED
+  "creation": "<dateTime>", // When posted
+  // period[x]: Billing date or period. One of these 2:
+  "periodDate": "<date>",
+  "periodPeriod": { Period
+  },
+  "participant": [
+    { // Participant in creation of this Invoice
+      "role": { CodeableConcept
+      }, // Type of involvement in creation of this Invoice
+      "actor": { Reference(Device|Organization|Patient|Practitioner|
+    PractitionerRole|RelatedPerson)
+      } // R!  Individual who was involved
+    }
+  ],
+  "issuer": { Reference(Organization)
+  }, // Issuing Organization of Invoice
+  "account": { Reference(Account)
+  }, // Account that is being balanced
+  "lineItem": [
+    { // Line items of this Invoice
+      "sequence": "<positiveInt>", // Sequence number of line item
+      // serviced[x]: Service data or period. One of these 2:
+      "servicedDate": "<date>",
+      "servicedPeriod": { Period
+      },
+      // chargeItem[x]: 
+      Reference to ChargeItem containing details of this line item or an inline billing code. One of these 2: "chargeItemReference": { Reference(ChargeItem)
+      },
+      "chargeItemCodeableConcept": { CodeableConcept
+      },
+      "priceComponent": [
+        { MonetaryComponent
+        }
+      ] // Components of total line item price
+    }
+  ],
+  "totalPriceComponent": [
+    { MonetaryComponent
+    }
+  ], // Components of Invoice total
+  "totalNet": { Money
+  }, // Net total of this Invoice
+  "totalGross": { Money
+  }, // Gross total of this Invoice
+  "paymentTerms": "<markdown>", // Payment details
+  "note": [
+    { Annotation
+    }
+  ] // Comments made about the invoice
+}

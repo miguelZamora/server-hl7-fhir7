@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>CareTeam - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-people-group"></i> Equipo de Cuidado</h1><p>Equipo multidisciplinario (FHIR CareTeam)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Paciente / Sujeto</label><input type="text" id="subject" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Nombre del Equipo</label><input type="text" id="name" placeholder="ej. Equipo Oncología - Piso 3"></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activo</option><option value="proposed">Propuesto</option><option value="suspended">Suspendido</option><option value="inactive">Inactivo</option></select></div>
+  <div class="form-group"><label>Encuentro</label><input type="text" id="encounter" placeholder="Encounter/example"></div>
+  <div class="form-group"><label>Período Inicio</label><input type="date" id="periodStart"></div>
+  <div class="form-group"><label>Período Fin</label><input type="date" id="periodEnd"></div>
+  <div class="form-group"><label>Miembro 1 (Referencia)</label><input type="text" id="member1" placeholder="Practitioner/ejemplo"></div>
+  <div class="form-group"><label>Rol Miembro 1</label><input type="text" id="role1" placeholder="ej. Médico tratante"></div>
+  <div class="form-group"><label>Miembro 2 (Referencia)</label><input type="text" id="member2" placeholder="Practitioner/ejemplo2"></div>
+  <div class="form-group"><label>Rol Miembro 2</label><input type="text" id="role2" placeholder="ej. Enfermera Jefe"></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Equipo</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const participants=[];const m1=document.getElementById('member1').value;const m2=document.getElementById('member2').value;if(m1)participants.push({role:[{text:document.getElementById('role1').value}],member:{reference:m1}});if(m2)participants.push({role:[{text:document.getElementById('role2').value}],member:{reference:m2}});const fhir={resourceType:"CareTeam",id:"ct_"+Date.now().toString(36),status:document.getElementById('status').value,name:document.getElementById('name').value,subject:{reference:document.getElementById('subject').value},encounter:{reference:document.getElementById('encounter').value},period:{start:document.getElementById('periodStart').value,end:document.getElementById('periodEnd').value},participant:participants};let db=JSON.parse(localStorage.getItem('fhir_care_teams_db'))||[];db.push(fhir);localStorage.setItem('fhir_care_teams_db',JSON.stringify(db));console.log("✅ CareTeam:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Equipo';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script></body></html>

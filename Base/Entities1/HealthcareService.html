@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><title>HealthcareService - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-hospital"></i> HealthcareService</h1><p>Servicio de salud ofrecido (FHIR HealthcareService)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2"><div class="form-group full-width"><label>Nombre del Servicio</label><input type="text" id="name" placeholder="Consulting psychologists" required></div></div>
+<div class="grid-2"><div class="form-group"><label>Activo</label><select id="active"><option value="true">Sí</option><option value="false">No</option></select></div><div class="form-group"><label>Organización</label><input type="text" id="providedBy" placeholder="Organization/f001"></div></div>
+<div class="grid-2"><div class="form-group full-width"><label>Comentario</label><textarea id="comment" placeholder="Descripción del servicio..."></textarea></div></div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Servicio</button></form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"HealthcareService",id:"hs_"+Date.now().toString(36),active:document.getElementById('active').value==='true',name:document.getElementById('name').value,providedBy:{reference:document.getElementById('providedBy').value},comment:document.getElementById('comment').value};let db=JSON.parse(localStorage.getItem('fhir_healthcareservices_db'))||[];db.push(fhir);localStorage.setItem('fhir_healthcareservices_db',JSON.stringify(db));console.log("✅ HealthcareService:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Servicio';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});</script>
+</body></html>

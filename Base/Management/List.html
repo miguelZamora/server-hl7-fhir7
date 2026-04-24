@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><title>List - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-list"></i> List</h1><p>Lista de recursos (FHIR List)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<h2 class="section-title"><i class="fa-solid fa-user"></i> Sujeto</h2>
+<div class="grid-2"><div class="form-group"><label>Paciente Ref</label><input type="text" id="subjectRef" placeholder="Patient/example" required></div><div class="form-group"><label>Estado</label><select id="status"><option value="current">Actual</option><option value="retired">Retirada</option></select></div></div>
+<h2 class="section-title"><i class="fa-solid fa-sliders"></i> Modo y Fuente</h2>
+<div class="grid-2"><div class="form-group"><label>Modo</label><select id="mode"><option value="changes">Cambios</option><option value="snapshot">Instantánea</option></select></div><div class="form-group"><label>Fecha</label><input type="datetime-local" id="date"></div></div>
+<div class="form-group full-width"><label>Items (Referencias separadas por coma)</label><input type="text" id="items" placeholder="Condition/example, Condition/example2"></div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar List</button></form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const items=document.getElementById('items').value.split(',').map(i=>i.trim());const entries=items.map(i=>({item:{reference:i}}));const fhir={resourceType:"List",id:"list_"+Date.now().toString(36),status:document.getElementById('status').value,mode:document.getElementById('mode').value,subject:[{reference:document.getElementById('subjectRef').value}],date:document.getElementById('date').value,entry:entries};let db=JSON.parse(localStorage.getItem('fhir_lists_db'))||[];db.push(fhir);localStorage.setItem('fhir_lists_db',JSON.stringify(db));console.log("✅ List:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar List';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});</script></body></html>

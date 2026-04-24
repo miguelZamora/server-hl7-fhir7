@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>NutritionOrder - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-utensils"></i> Orden de Nutrición</h1><p>Dieta y alimentación (FHIR NutritionOrder)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Paciente</label><input type="text" id="patient" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activo</option><option value="draft">Borrador</option></select></div>
+  <div class="form-group"><label>Tipo de Dieta</label><input type="text" id="oralDiet" placeholder="ej. Dieta baja en sodio" required></div>
+  <div class="form-group"><label>Alergias Alimentarias</label><input type="text" id="allergy" placeholder="ej. Gluten"></div>
+  <div class="form-group full-width"><label>Instrucciones</label><textarea id="instructions" placeholder="Detalles de la preparación..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Orden de Nutrición</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"NutritionOrder",status:document.getElementById('status').value,patient:{reference:document.getElementById('patient').value},oralDiet:{type:[{text:document.getElementById('oralDiet').value}]},note:[{text:document.getElementById('instructions').value}]};console.log("✅ NutritionOrder:",fhir);});</script></body></html>

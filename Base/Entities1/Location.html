@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><title>Location - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-location-dot"></i> Location</h1><p>Ubicación física (FHIR Location)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2"><div class="form-group full-width"><label>Nombre</label><input type="text" id="name" placeholder="South Wing, second floor" required></div></div>
+<div class="grid-2"><div class="form-group"><label>Estado</label><select id="status"><option value="active">Activo</option><option value="inactive">Inactivo</option></select></div><div class="form-group"><label>Tipo</label><input type="text" id="type" placeholder="Wing"></div></div>
+<div class="grid-2"><div class="form-group"><label>Dirección</label><input type="text" id="address" placeholder="Galapagosweg 91, Building A"></div><div class="form-group"><label>Ciudad</label><input type="text" id="city" placeholder="Den Burg"></div></div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Location</button></form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"Location",id:"loc_"+Date.now().toString(36),status:document.getElementById('status').value,name:document.getElementById('name').value,address:{line:[document.getElementById('address').value],city:document.getElementById('city').value}};let db=JSON.parse(localStorage.getItem('fhir_locations_db'))||[];db.push(fhir);localStorage.setItem('fhir_locations_db',JSON.stringify(db));console.log("✅ Location:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Location';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});</script>
+</body></html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Account - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-wallet"></i> Cuenta Financiera</h1><p>Gestión de saldos y cobros (FHIR Account)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Nombre de la Cuenta</label><input type="text" id="name" placeholder="ej. Cuenta Principal" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activa</option><option value="inactive">Inactiva</option></select></div>
+  <div class="form-group"><label>Sujeto (Paciente)</label><input type="text" id="patient" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Propietario (Organización)</label><input type="text" id="owner" placeholder="Organization/example"></div>
+  <div class="form-group full-width"><label>Descripción</label><textarea id="description" placeholder="Uso de la cuenta..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Cuenta</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"Account",status:document.getElementById('status').value,name:document.getElementById('name').value,subject:[{reference:document.getElementById('patient').value}],owner:{reference:document.getElementById('owner').value},description:document.getElementById('description').value};console.log("✅ Account:",fhir);});</script></body></html>

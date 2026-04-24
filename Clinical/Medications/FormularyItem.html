@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>FormularyItem - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-list-ul"></i> Ítem de Vademécum</h1><p>Medicamento en catálogo (FHIR FormularyItem)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Código de Medicamento</label><input type="text" id="code" placeholder="ej. ACETAM-500" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activo</option><option value="inactive">Inactivo</option></select></div>
+  <div class="form-group full-width"><label>Disponibilidad / Restricciones</label><textarea id="note" placeholder="ej. Solo para uso hospitalario..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Ítem</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"FormularyItem",status:document.getElementById('status').value,code:{text:document.getElementById('code').value}};console.log("✅ FormularyItem:",fhir);});</script></body></html>

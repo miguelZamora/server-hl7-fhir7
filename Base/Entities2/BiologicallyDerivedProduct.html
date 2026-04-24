@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiologicallyDerivedProduct - FHIR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/fhir-style.css">
+</head>
+<body>
+<div class="form-container">
+    <header class="form-header">
+        <h1><i class="fa-solid fa-droplet"></i> BiologicallyDerivedProduct</h1>
+        <p>Producto biológico derivado (FHIR BiologicallyDerivedProduct)</p>
+    </header>
+    <form action="#" method="POST" id="resourceForm">
+        <h2 class="section-title"><i class="fa-solid fa-tag"></i> Identificación</h2>
+        <div class="grid-2">
+            <div class="form-group full-width"><label>Identificador</label><input type="text" id="identifier" placeholder="A9999E0398A999921123456A00000" required></div>
+            <div class="form-group"><label>Código Producto</label><input type="text" id="productCode" placeholder="E0398"></div>
+            <div class="form-group"><label>División</label><input type="text" id="division" placeholder="A00000"></div>
+        </div>
+        <h2 class="section-title"><i class="fa-solid fa-calendar"></i> Fechas y Estado</h2>
+        <div class="grid-2">
+            <div class="form-group"><label>Fecha Expiración</label><input type="datetime-local" id="expirationDate"></div>
+            <div class="form-group"><label>Estado Producto</label><select id="productStatus"><option value="available">Disponible</option><option value="used">Usado</option><option value="expired">Expirado</option></select></div>
+        </div>
+        <h2 class="section-title"><i class="fa-solid fa-thermometer-half"></i> Almacenamiento</h2>
+        <div class="grid-2">
+            <div class="form-group"><label>Temperatura Mínima (°C)</label><input type="number" step="0.1" id="tempLow" value="1"></div>
+            <div class="form-group"><label>Temperatura Máxima (°C)</label><input type="number" step="0.1" id="tempHigh" value="6"></div>
+        </div>
+        <h2 class="section-title"><i class="fa-solid fa-flask"></i> Propiedades</h2>
+        <div class="grid-2">
+            <div class="form-group"><label>Tipo de Sangre</label><select id="bloodType"><option value="62">A RhD Positive</option><option value="63">A RhD Negative</option><option value="64">B RhD Positive</option><option value="65">B RhD Negative</option><option value="66">AB RhD Positive</option><option value="67">AB RhD Negative</option><option value="68">O RhD Positive</option><option value="69">O RhD Negative</option></select></div>
+            <div class="form-group"><label>Tipo Donante</label><select id="donorType"><option value="V">Voluntario</option><option value="F">Familiar</option><option value="A">Autólogo</option></select></div>
+        </div>
+        <div class="form-group"><label>Facilidad Procesamiento</label><input type="text" id="processingFacility" placeholder="Organization/A9999"></div>
+        <button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Producto Biológico</button>
+    </form>
+</div>
+<script>
+document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"BiologicallyDerivedProduct",id:"bdp_"+Date.now().toString(36),identifier:[{value:document.getElementById('identifier').value}],productCode:{coding:[{code:document.getElementById('productCode').value}]},division:document.getElementById('division').value,productStatus:{code:document.getElementById('productStatus').value},expirationDate:document.getElementById('expirationDate').value,storageTempRequirements:{low:{value:parseFloat(document.getElementById('tempLow').value),unit:"degrees C"},high:{value:parseFloat(document.getElementById('tempHigh').value),unit:"degrees C"}},property:[{type:{coding:[{code:"ABORhD"}]},valueCodeableConcept:{coding:[{system:"https://www.isbt128.org/uri/ABORhD",code:document.getElementById('bloodType').value}]}},{type:{coding:[{code:"Donor"}]},valueCodeableConcept:{coding:[{system:"https://www.isbt128.org/uri/CollectionType",code:document.getElementById('donorType').value}]}}],processingFacility:[{reference:document.getElementById('processingFacility').value}]};let db=JSON.parse(localStorage.getItem('fhir_bioproducts_db'))||[];db.push(fhir);localStorage.setItem('fhir_bioproducts_db',JSON.stringify(db));console.log("✅ BiologicallyDerivedProduct:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Producto Biológico';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script>
+</body>
+</html>

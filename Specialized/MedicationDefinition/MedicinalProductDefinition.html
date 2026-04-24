@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MedicinalProductDefinition - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-capsules"></i> Definición de Producto Medicinal</h1><p>Registro regulatorio de medicamentos (FHIR MedicinalProductDefinition)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Nombre del Producto</label><input type="text" id="name" placeholder="ej. Paracetamol 500mg" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activo</option><option value="inactive">Inactivo</option></select></div>
+  <div class="form-group"><label>Tipo de Domino</label><select id="domain"><option value="human">Humano</option><option value="veterinary">Veterinario</option></select></div>
+  <div class="form-group full-width"><label>Información Regulatoria</label><textarea id="note" placeholder="Detalles de registro sanitario..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Producto</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"MedicinalProductDefinition",status:document.getElementById('status').value,name:[{productName:document.getElementById('name').value}],domain:{coding:[{code:document.getElementById('domain').value}]}};console.log("✅ MedicinalProductDefinition:",fhir);});</script></body></html>

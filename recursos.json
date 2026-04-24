@@ -1,0 +1,1485 @@
+{
+    "version":  "1.0",
+    "sections":  [
+                     {
+                         "name":  "Foundation",
+                         "nameEs":  "FundaciÃ³n",
+                         "icon":  "fa-layer-group",
+                         "order":  1,
+                         "subsections":  [
+                                             {
+                                                 "name":  "Conformance",
+                                                 "nameEs":  "Conformidad",
+                                                 "icon":  "fa-check-double",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "CapabilityStatement",
+                                                                       "nameEs":  "DeclaraciÃ³n de Capacidades",
+                                                                       "badge":  "N",
+                                                                       "desc":  "DeclaraciÃ³n de capacidades del servidor",
+                                                                       "icon":  "fa-server",
+                                                                       "path":  "Foundation/Conformance/CapabilityStatement.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "StructureDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de Estructura",
+                                                                       "badge":  "N",
+                                                                       "desc":  "DefiniciÃ³n de estructuras de datos",
+                                                                       "icon":  "fa-cube",
+                                                                       "path":  "Foundation/Conformance/StructureDefinition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ImplementationGuide",
+                                                                       "nameEs":  "GuÃ­a de ImplementaciÃ³n",
+                                                                       "badge":  "4",
+                                                                       "desc":  "GuÃ­a para implementar FHIR",
+                                                                       "icon":  "fa-book-open",
+                                                                       "path":  "Foundation/Conformance/ImplementationGuide.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "SearchParameter",
+                                                                       "nameEs":  "ParÃ¡metro de BÃºsqueda",
+                                                                       "badge":  "5",
+                                                                       "desc":  "Define parÃ¡metros para bÃºsqueda",
+                                                                       "icon":  "fa-search",
+                                                                       "path":  "Foundation/Conformance/SearchParameter.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "MessageDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de Mensaje",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Define estructura de mensajes",
+                                                                       "icon":  "fa-envelope",
+                                                                       "path":  "Foundation/Conformance/MessageDefinition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "OperationDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de OperaciÃ³n",
+                                                                       "badge":  "N",
+                                                                       "desc":  "Define operaciones personalizadas",
+                                                                       "icon":  "fa-cogs",
+                                                                       "path":  "Foundation/Conformance/OperationDefinition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "CompartmentDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de Compartimento",
+                                                                       "badge":  "3",
+                                                                       "desc":  "Define compartimentos de recursos",
+                                                                       "icon":  "fa-layer-group",
+                                                                       "path":  "Foundation/Conformance/CompartmentDefinition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "StructureMap",
+                                                                       "nameEs":  "Mapa de Estructuras",
+                                                                       "badge":  "4",
+                                                                       "desc":  "TransformaciÃ³n entre estructuras",
+                                                                       "icon":  "fa-code-branch",
+                                                                       "path":  "Foundation/Conformance/StructureMap.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "GraphDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de Grafo",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Define grafos de recursos",
+                                                                       "icon":  "fa-project-diagram",
+                                                                       "path":  "Foundation/Conformance/GraphDefinition.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "Terminology",
+                                                 "nameEs":  "TerminologÃ­a",
+                                                 "icon":  "fa-tag",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "CodeSystem",
+                                                                       "nameEs":  "Sistema de CÃ³digos",
+                                                                       "badge":  "N",
+                                                                       "desc":  "Define sistemas de codificaciÃ³n",
+                                                                       "icon":  "fa-code",
+                                                                       "path":  "Foundation/Terminology/CodeSystem.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ValueSet",
+                                                                       "nameEs":  "Conjunto de Valores",
+                                                                       "badge":  "N",
+                                                                       "desc":  "Define conjuntos de valores",
+                                                                       "icon":  "fa-list-ul",
+                                                                       "path":  "Foundation/Terminology/ValueSet.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ConceptMap",
+                                                                       "nameEs":  "Mapa de Conceptos",
+                                                                       "badge":  "3",
+                                                                       "desc":  "Mapeo entre cÃ³digos",
+                                                                       "icon":  "fa-map",
+                                                                       "path":  "Foundation/Terminology/ConceptMap.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "NamingSystem",
+                                                                       "nameEs":  "Sistema de Nomenclatura",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Define sistemas de identificaciÃ³n",
+                                                                       "icon":  "fa-tag",
+                                                                       "path":  "Foundation/Terminology/NamingSystem.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "TerminologyCapabilities",
+                                                                       "nameEs":  "Capacidades TerminolÃ³gicas",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Capacidades de terminologÃ­a",
+                                                                       "icon":  "fa-cogs",
+                                                                       "path":  "Foundation/Terminology/TerminologyCapabilities.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "Security",
+                                                 "nameEs":  "Seguridad",
+                                                 "icon":  "fa-shield-haltered",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "Provenance",
+                                                                       "nameEs":  "Procedencia",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Trazabilidad de los datos",
+                                                                       "icon":  "fa-history",
+                                                                       "path":  "Foundation/Security/Provenance.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "AuditEvent",
+                                                                       "nameEs":  "Evento de AuditorÃ­a",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Registro de eventos",
+                                                                       "icon":  "fa-clipboard-list",
+                                                                       "path":  "Foundation/Security/AuditEvent.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Consent",
+                                                                       "nameEs":  "Consentimiento",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Consentimiento del paciente",
+                                                                       "icon":  "fa-file-signature",
+                                                                       "path":  "Foundation/Security/Consent.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Permission",
+                                                                       "nameEs":  "Permiso",
+                                                                       "badge":  "0",
+                                                                       "desc":  "GestiÃ³n de permisos",
+                                                                       "icon":  "fa-lock",
+                                                                       "path":  "Foundation/Security/Permission.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "Documents",
+                                                 "nameEs":  "Documentos",
+                                                 "icon":  "fa-file-alt",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "Composition",
+                                                                       "nameEs":  "ComposiciÃ³n",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Documento clÃ­nico estructurado",
+                                                                       "icon":  "fa-file",
+                                                                       "path":  "Foundation/Documents/Composition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "DocumentReference",
+                                                                       "nameEs":  "Referencia a Documento",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Referencia a documentos",
+                                                                       "icon":  "fa-file-medical",
+                                                                       "path":  "Clinical/Diagnostics/DocumentReference.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "Other",
+                                                 "nameEs":  "Otros",
+                                                 "icon":  "fa-ellipsis-h",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "Basic",
+                                                                       "nameEs":  "BÃ¡sico",
+                                                                       "badge":  "3",
+                                                                       "desc":  "Recurso genÃ©rico",
+                                                                       "icon":  "fa-circle",
+                                                                       "path":  "Foundation/Other/Basic.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Binary",
+                                                                       "nameEs":  "Binario",
+                                                                       "badge":  "N",
+                                                                       "desc":  "Datos binarios",
+                                                                       "icon":  "fa-file-code",
+                                                                       "path":  "Foundation/Other/Binary.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Bundle",
+                                                                       "nameEs":  "Lote",
+                                                                       "badge":  "N",
+                                                                       "desc":  "ColecciÃ³n de recursos",
+                                                                       "icon":  "fa-layer-group",
+                                                                       "path":  "Foundation/Other/Bundle.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Linkage",
+                                                                       "nameEs":  "Enlace",
+                                                                       "badge":  "0",
+                                                                       "desc":  "Enlaces entre recursos",
+                                                                       "icon":  "fa-link",
+                                                                       "path":  "Foundation/Other/Linkage.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "MessageHeader",
+                                                                       "nameEs":  "Cabecera de Mensaje",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Cabecera de mensajes",
+                                                                       "icon":  "fa-envelope-open-text",
+                                                                       "path":  "Foundation/Other/MessageHeader.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "OperationOutcome",
+                                                                       "nameEs":  "Resultado de OperaciÃ³n",
+                                                                       "badge":  "N",
+                                                                       "desc":  "Resultado de operaciones",
+                                                                       "icon":  "fa-exclamation-triangle",
+                                                                       "path":  "Foundation/Other/OperationOutcome.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Parameters",
+                                                                       "nameEs":  "ParÃ¡metros",
+                                                                       "badge":  "N",
+                                                                       "desc":  "ParÃ¡metros de operaciÃ³n",
+                                                                       "icon":  "fa-sliders-h",
+                                                                       "path":  "Foundation/Other/Parameters.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Subscription",
+                                                                       "nameEs":  "SuscripciÃ³n",
+                                                                       "badge":  "3",
+                                                                       "desc":  "SuscripciÃ³n a notificaciones",
+                                                                       "icon":  "fa-bell",
+                                                                       "path":  "Foundation/Other/Subscription.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "SubscriptionStatus",
+                                                                       "nameEs":  "Estado de SuscripciÃ³n",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Estado de suscripciones",
+                                                                       "icon":  "fa-bell-slash",
+                                                                       "path":  "Foundation/Other/SubscriptionStatus.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "SubscriptionTopic",
+                                                                       "nameEs":  "Tema de SuscripciÃ³n",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Temas para suscripciones",
+                                                                       "icon":  "fa-topic",
+                                                                       "path":  "Foundation/Other/SubscriptionTopic.html"
+                                                                   }
+                                                               ]
+                                             }
+                                         ]
+                     },
+                     {
+                         "name":  "Base",
+                         "nameEs":  "Base",
+                         "icon":  "fa-database",
+                         "order":  2,
+                         "subsections":  [
+                                             {
+                                                 "name":  "Individuals",
+                                                 "nameEs":  "Individuos",
+                                                 "icon":  "fa-user",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "Patient",
+                                                                       "nameEs":  "Paciente",
+                                                                       "badge":  "N",
+                                                                       "desc":  "InformaciÃ³n del paciente",
+                                                                       "icon":  "fa-bed-pulse",
+                                                                       "path":  "Base/Individuals/Patient.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Practitioner",
+                                                                       "nameEs":  "Profesional",
+                                                                       "badge":  "5",
+                                                                       "desc":  "Profesional de la salud",
+                                                                       "icon":  "fa-user-doctor",
+                                                                       "path":  "Base/Individuals/Practitioner.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "PractitionerRole",
+                                                                       "nameEs":  "Rol del Profesional",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Roles y especialidades",
+                                                                       "icon":  "fa-user-tag",
+                                                                       "path":  "Base/Individuals/PractitionerRole.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "RelatedPerson",
+                                                                       "nameEs":  "Persona Relacionada",
+                                                                       "badge":  "5",
+                                                                       "desc":  "Familiar o contacto",
+                                                                       "icon":  "fa-family",
+                                                                       "path":  "Base/Individuals/RelatedPerson.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Person",
+                                                                       "nameEs":  "Persona",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Registro general de persona",
+                                                                       "icon":  "fa-users",
+                                                                       "path":  "Base/Individuals/Person.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Group",
+                                                                       "nameEs":  "Grupo",
+                                                                       "badge":  "3",
+                                                                       "desc":  "Grupos de entidades",
+                                                                       "icon":  "fa-users-rectangle",
+                                                                       "path":  "Base/Individuals/Group.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "Entities #1",
+                                                 "nameEs":  "Entidades #1",
+                                                 "icon":  "fa-building",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "Organization",
+                                                                       "nameEs":  "OrganizaciÃ³n",
+                                                                       "badge":  "5",
+                                                                       "desc":  "Organizaciones",
+                                                                       "icon":  "fa-building",
+                                                                       "path":  "Base/Entities1/Organization.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "OrganizationAffiliation",
+                                                                       "nameEs":  "AfiliaciÃ³n",
+                                                                       "badge":  "1",
+                                                                       "desc":  "AfiliaciÃ³n entre organizaciones",
+                                                                       "icon":  "fa-handshake",
+                                                                       "path":  "Base/Entities1/OrganizationAffiliation.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "HealthcareService",
+                                                                       "nameEs":  "Servicio de Salud",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Servicios ofrecidos",
+                                                                       "icon":  "fa-hospital",
+                                                                       "path":  "Base/Entities1/HealthcareService.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Endpoint",
+                                                                       "nameEs":  "Punto de ConexiÃ³n",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Puntos de conexiÃ³n tÃ©cnica",
+                                                                       "icon":  "fa-plug",
+                                                                       "path":  "Base/Entities1/Endpoint.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Location",
+                                                                       "nameEs":  "UbicaciÃ³n",
+                                                                       "badge":  "5",
+                                                                       "desc":  "Ubicaciones fÃ­sicas",
+                                                                       "icon":  "fa-location-dot",
+                                                                       "path":  "Base/Entities1/Location.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "Entities #2",
+                                                 "nameEs":  "Entidades #2",
+                                                 "icon":  "fa-flask",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "Substance",
+                                                                       "nameEs":  "Sustancia",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Sustancias quÃ­micas",
+                                                                       "icon":  "fa-flask",
+                                                                       "path":  "Base/Entities2/Substance.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "BiologicallyDerivedProduct",
+                                                                       "nameEs":  "Producto BiolÃ³gico",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Productos derivados biolÃ³gicos",
+                                                                       "icon":  "fa-droplet",
+                                                                       "path":  "Base/Entities2/BiologicallyDerivedProduct.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Device",
+                                                                       "nameEs":  "Dispositivo",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Dispositivos mÃ©dicos",
+                                                                       "icon":  "fa-microchip",
+                                                                       "path":  "Base/Entities2/Device.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "DeviceMetric",
+                                                                       "nameEs":  "MÃ©trica de Dispositivo",
+                                                                       "badge":  "1",
+                                                                       "desc":  "MÃ©tricas de dispositivos",
+                                                                       "icon":  "fa-chart-simple",
+                                                                       "path":  "Base/Entities2/DeviceMetric.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "NutritionProduct",
+                                                                       "nameEs":  "Producto Nutricional",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Productos nutricionales",
+                                                                       "icon":  "fa-apple-alt",
+                                                                       "path":  "Base/Entities2/NutritionProduct.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "Workflow",
+                                                 "nameEs":  "Flujo de Trabajo",
+                                                 "icon":  "fa-diagram-project",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "Task",
+                                                                       "nameEs":  "Tarea",
+                                                                       "badge":  "3",
+                                                                       "desc":  "Tareas y Ã³rdenes",
+                                                                       "icon":  "fa-list-check",
+                                                                       "path":  "Base/Workflow/Task.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Transport",
+                                                                       "nameEs":  "Transporte",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Transporte de suministros",
+                                                                       "icon":  "fa-truck",
+                                                                       "path":  "Base/Workflow/Transport.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Appointment",
+                                                                       "nameEs":  "Cita",
+                                                                       "badge":  "3",
+                                                                       "desc":  "Citas mÃ©dicas",
+                                                                       "icon":  "fa-calendar-check",
+                                                                       "path":  "Base/Workflow/Appointment.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "AppointmentResponse",
+                                                                       "nameEs":  "Respuesta a Cita",
+                                                                       "badge":  "3",
+                                                                       "desc":  "Respuestas a citas",
+                                                                       "icon":  "fa-reply",
+                                                                       "path":  "Base/Workflow/AppointmentResponse.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Schedule",
+                                                                       "nameEs":  "Horario",
+                                                                       "badge":  "3",
+                                                                       "desc":  "Horarios de disponibilidad",
+                                                                       "icon":  "fa-calendar-week",
+                                                                       "path":  "Base/Workflow/Schedule.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Slot",
+                                                                       "nameEs":  "Espacio",
+                                                                       "badge":  "3",
+                                                                       "desc":  "Espacios de agenda",
+                                                                       "icon":  "fa-clock",
+                                                                       "path":  "Base/Workflow/Slot.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "VerificationResult",
+                                                                       "nameEs":  "VerificaciÃ³n",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Resultados de verificaciÃ³n",
+                                                                       "icon":  "fa-certificate",
+                                                                       "path":  "Base/Workflow/VerificationResult.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "Management",
+                                                 "nameEs":  "GestiÃ³n",
+                                                 "icon":  "fa-chart-simple",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "Encounter",
+                                                                       "nameEs":  "Encuentro",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Encuentros clÃ­nicos",
+                                                                       "icon":  "fa-hospital-user",
+                                                                       "path":  "Base/Management/Encounter.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "EncounterHistory",
+                                                                       "nameEs":  "Historial de Encuentro",
+                                                                       "badge":  "0",
+                                                                       "desc":  "Historial de encuentros",
+                                                                       "icon":  "fa-clock-rotate-left",
+                                                                       "path":  "Base/Management/EncounterHistory.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "EpisodeOfCare",
+                                                                       "nameEs":  "Episodio de AtenciÃ³n",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Episodios de cuidado",
+                                                                       "icon":  "fa-chart-line",
+                                                                       "path":  "Base/Management/EpisodeOfCare.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Flag",
+                                                                       "nameEs":  "Alerta",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Alertas y banderas",
+                                                                       "icon":  "fa-flag",
+                                                                       "path":  "Base/Management/Flag.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "List",
+                                                                       "nameEs":  "Lista",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Listas de recursos",
+                                                                       "icon":  "fa-list",
+                                                                       "path":  "Base/Management/List.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Library",
+                                                                       "nameEs":  "Biblioteca",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Bibliotecas de lÃ³gica",
+                                                                       "icon":  "fa-book",
+                                                                       "path":  "Base/Management/Library.html"
+                                                                   }
+                                                               ]
+                                             }
+                                         ]
+                     },
+                     {
+                         "name":  "Clinical",
+                         "nameEs":  "ClÃ­nico",
+                         "icon":  "fa-stethoscope",
+                         "order":  3,
+                         "subsections":  [
+                                             {
+                                                 "name":  "Summary",
+                                                 "nameEs":  "Resumen ClÃ­nico",
+                                                 "icon":  "fa-clipboard-list",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "AllergyIntolerance",
+                                                                       "nameEs":  "Alergia",
+                                                                       "badge":  "3",
+                                                                       "desc":  "Alergias e intolerancias",
+                                                                       "icon":  "fa-allergies",
+                                                                       "path":  "Clinical/Summary/AllergyIntolerance.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "AdverseEvent",
+                                                                       "nameEs":  "Evento Adverso",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Eventos adversos",
+                                                                       "icon":  "fa-exclamation-triangle",
+                                                                       "path":  "Clinical/Summary/AdverseEvent.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Condition",
+                                                                       "nameEs":  "CondiciÃ³n",
+                                                                       "badge":  "5",
+                                                                       "desc":  "Condiciones y problemas",
+                                                                       "icon":  "fa-stethoscope",
+                                                                       "path":  "Clinical/Summary/Condition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Procedure",
+                                                                       "nameEs":  "Procedimiento",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Procedimientos mÃ©dicos",
+                                                                       "icon":  "fa-scalpel",
+                                                                       "path":  "Clinical/Summary/Procedure.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "FamilyMemberHistory",
+                                                                       "nameEs":  "Historial Familiar",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Historial mÃ©dico familiar",
+                                                                       "icon":  "fa-tree",
+                                                                       "path":  "Clinical/Summary/FamilyMemberHistory.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ClinicalImpression",
+                                                                       "nameEs":  "ImpresiÃ³n ClÃ­nica",
+                                                                       "badge":  "1",
+                                                                       "desc":  "ImpresiÃ³n clÃ­nica",
+                                                                       "icon":  "fa-file-waveform",
+                                                                       "path":  "Clinical/Summary/ClinicalImpression.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "DetectedIssue",
+                                                                       "nameEs":  "Problema Detectado",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Problemas detectados",
+                                                                       "icon":  "fa-bug",
+                                                                       "path":  "Clinical/Summary/DetectedIssue.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "Diagnostics",
+                                                 "nameEs":  "DiagnÃ³sticos",
+                                                 "icon":  "fa-microscope",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "Observation",
+                                                                       "nameEs":  "ObservaciÃ³n",
+                                                                       "badge":  "N",
+                                                                       "desc":  "Observaciones clÃ­nicas",
+                                                                       "icon":  "fa-chart-line",
+                                                                       "path":  "Clinical/Diagnostics/Observation.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "DocumentReference",
+                                                                       "nameEs":  "Referencia a Documento",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Referencia a documentos",
+                                                                       "icon":  "fa-file-medical",
+                                                                       "path":  "Clinical/Diagnostics/DocumentReference.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "DiagnosticReport",
+                                                                       "nameEs":  "Reporte DiagnÃ³stico",
+                                                                       "badge":  "3",
+                                                                       "desc":  "Reportes de laboratorio",
+                                                                       "icon":  "fa-file-alt",
+                                                                       "path":  "Clinical/Diagnostics/DiagnosticReport.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Specimen",
+                                                                       "nameEs":  "Muestra",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Muestras biolÃ³gicas",
+                                                                       "icon":  "fa-vial",
+                                                                       "path":  "Clinical/Diagnostics/Specimen.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "BodyStructure",
+                                                                       "nameEs":  "Estructura Corporal",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Estructuras anatÃ³micas",
+                                                                       "icon":  "fa-bone",
+                                                                       "path":  "Clinical/Diagnostics/BodyStructure.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ImagingSelection",
+                                                                       "nameEs":  "SelecciÃ³n de Imagen",
+                                                                       "badge":  "1",
+                                                                       "desc":  "SelecciÃ³n de imÃ¡genes",
+                                                                       "icon":  "fa-image",
+                                                                       "path":  "Clinical/Diagnostics/ImagingSelection.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ImagingStudy",
+                                                                       "nameEs":  "Estudio de Imagen",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Estudios de imÃ¡genes",
+                                                                       "icon":  "fa-x-ray",
+                                                                       "path":  "Clinical/Diagnostics/ImagingStudy.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "QuestionnaireResponse",
+                                                                       "nameEs":  "Respuesta a Cuestionario",
+                                                                       "badge":  "5",
+                                                                       "desc":  "Respuestas a cuestionarios",
+                                                                       "icon":  "fa-square-check",
+                                                                       "path":  "Clinical/Diagnostics/QuestionnaireResponse.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "MolecularSequence",
+                                                                       "nameEs":  "Secuencia Molecular",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Secuencias moleculares",
+                                                                       "icon":  "fa-dna",
+                                                                       "path":  "Clinical/Diagnostics/MolecularSequence.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "GenomicStudy",
+                                                                       "nameEs":  "Estudio GenÃ³mico",
+                                                                       "badge":  "0",
+                                                                       "desc":  "Estudios genÃ³micos",
+                                                                       "icon":  "fa-dna",
+                                                                       "path":  "Clinical/Diagnostics/GenomicStudy.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "Medications",
+                                                 "nameEs":  "Medicamentos",
+                                                 "icon":  "fa-capsules",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "MedicationRequest",
+                                                                       "nameEs":  "Solicitud de Medicamento",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Prescripciones",
+                                                                       "icon":  "fa-prescription-bottle",
+                                                                       "path":  "Clinical/Medications/MedicationRequest.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "MedicationAdministration",
+                                                                       "nameEs":  "AdministraciÃ³n",
+                                                                       "badge":  "2",
+                                                                       "desc":  "AdministraciÃ³n de medicamentos",
+                                                                       "icon":  "fa-syringe",
+                                                                       "path":  "Clinical/Medications/MedicationAdministration.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "MedicationDispense",
+                                                                       "nameEs":  "DispensaciÃ³n",
+                                                                       "badge":  "2",
+                                                                       "desc":  "DispensaciÃ³n de medicamentos",
+                                                                       "icon":  "fa-truck-fast",
+                                                                       "path":  "Clinical/Medications/MedicationDispense.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "MedicationStatement",
+                                                                       "nameEs":  "DeclaraciÃ³n",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Declaraciones de medicaciÃ³n",
+                                                                       "icon":  "fa-clipboard",
+                                                                       "path":  "Clinical/Medications/MedicationStatement.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Medication",
+                                                                       "nameEs":  "Medicamento",
+                                                                       "badge":  "4",
+                                                                       "desc":  "CatÃ¡logo de medicamentos",
+                                                                       "icon":  "fa-capsules",
+                                                                       "path":  "Clinical/Medications/Medication.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "MedicationKnowledge",
+                                                                       "nameEs":  "Conocimiento",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Conocimiento de medicamentos",
+                                                                       "icon":  "fa-book",
+                                                                       "path":  "Clinical/Medications/MedicationKnowledge.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Immunization",
+                                                                       "nameEs":  "InmunizaciÃ³n",
+                                                                       "badge":  "5",
+                                                                       "desc":  "Vacunas administradas",
+                                                                       "icon":  "fa-vaccine",
+                                                                       "path":  "Clinical/Medications/Immunization.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ImmunizationEvaluation",
+                                                                       "nameEs":  "EvaluaciÃ³n",
+                                                                       "badge":  "1",
+                                                                       "desc":  "EvaluaciÃ³n de inmunizaciÃ³n",
+                                                                       "icon":  "fa-chart-simple",
+                                                                       "path":  "Clinical/Medications/ImmunizationEvaluation.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ImmunizationRecommendation",
+                                                                       "nameEs":  "RecomendaciÃ³n",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Recomendaciones de vacunas",
+                                                                       "icon":  "fa-list",
+                                                                       "path":  "Foundation/Clinical/Medications/immunization_recommendation.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "FormularyItem",
+                                                                       "nameEs":  "Item de Formulario",
+                                                                       "badge":  "0",
+                                                                       "desc":  "Elementos de formulario",
+                                                                       "icon":  "fa-table-list",
+                                                                       "path":  "Clinical/Medications/FormularyItem.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "Care Provision",
+                                                 "nameEs":  "ProvisiÃ³n de Cuidado",
+                                                 "icon":  "fa-hand-holding-heart",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "CarePlan",
+                                                                       "nameEs":  "Plan de Cuidado",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Planes de cuidado",
+                                                                       "icon":  "fa-file-lines",
+                                                                       "path":  "Clinical/CareProvision/CarePlan.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "CareTeam",
+                                                                       "nameEs":  "Equipo de Cuidado",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Equipos de atenciÃ³n",
+                                                                       "icon":  "fa-people-group",
+                                                                       "path":  "Clinical/CareProvision/CareTeam.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Goal",
+                                                                       "nameEs":  "Objetivo",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Objetivos del paciente",
+                                                                       "icon":  "fa-bullseye",
+                                                                       "path":  "Clinical/CareProvision/Goal.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ServiceRequest",
+                                                                       "nameEs":  "Solicitud de Servicio",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Solicitudes de servicios",
+                                                                       "icon":  "fa-clipboard-list",
+                                                                       "path":  "Clinical/CareProvision/ServiceRequest.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "NutritionOrder",
+                                                                       "nameEs":  "Orden Nutricional",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Ã“rdenes de nutriciÃ³n",
+                                                                       "icon":  "fa-apple-alt",
+                                                                       "path":  "Clinical/CareProvision/NutritionOrder.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "NutritionIntake",
+                                                                       "nameEs":  "Ingesta Nutricional",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Registro de ingesta",
+                                                                       "icon":  "fa-utensils",
+                                                                       "path":  "Clinical/CareProvision/NutritionIntake.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "VisionPrescription",
+                                                                       "nameEs":  "PrescripciÃ³n Visual",
+                                                                       "badge":  "3",
+                                                                       "desc":  "Prescripciones oftalmolÃ³gicas",
+                                                                       "icon":  "fa-eye",
+                                                                       "path":  "Clinical/CareProvision/VisionPrescription.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "RiskAssessment",
+                                                                       "nameEs":  "EvaluaciÃ³n de Riesgo",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Evaluaciones de riesgo",
+                                                                       "icon":  "fa-chart-line",
+                                                                       "path":  "Clinical/CareProvision/RiskAssessment.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "RequestOrchestration",
+                                                                       "nameEs":  "OrquestaciÃ³n",
+                                                                       "badge":  "4",
+                                                                       "desc":  "OrquestaciÃ³n de solicitudes",
+                                                                       "icon":  "fa-diagram-project",
+                                                                       "path":  "Clinical/CareProvision/RequestOrchestration.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "Request \u0026 Response",
+                                                 "nameEs":  "Solicitud y Respuesta",
+                                                 "icon":  "fa-envelope",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "Communication",
+                                                                       "nameEs":  "ComunicaciÃ³n",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Comunicaciones",
+                                                                       "icon":  "fa-comment",
+                                                                       "path":  "Clinical/Request\u0026Response/Communication.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "CommunicationRequest",
+                                                                       "nameEs":  "Solicitud de ComunicaciÃ³n",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Solicitudes de comunicaciÃ³n",
+                                                                       "icon":  "fa-comment-dots",
+                                                                       "path":  "Clinical/Request\u0026Response/CommunicationRequest.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "DeviceRequest",
+                                                                       "nameEs":  "Solicitud de Dispositivo",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Solicitudes de dispositivos",
+                                                                       "icon":  "fa-microchip",
+                                                                       "path":  "Clinical/Request\u0026Response/DeviceRequest.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "DeviceDispense",
+                                                                       "nameEs":  "DispensaciÃ³n de Dispositivo",
+                                                                       "badge":  "0",
+                                                                       "desc":  "DispensaciÃ³n de dispositivos",
+                                                                       "icon":  "fa-truck",
+                                                                       "path":  "Clinical/Request\u0026Response/DeviceDispense.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "DeviceAssociation",
+                                                                       "nameEs":  "AsociaciÃ³n de Dispositivo",
+                                                                       "badge":  "0",
+                                                                       "desc":  "Asociaciones de dispositivos",
+                                                                       "icon":  "fa-link",
+                                                                       "path":  "Foundation/Clinical/RequestResponse/device_association.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "DeviceUsage",
+                                                                       "nameEs":  "Uso de Dispositivo",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Registro de uso",
+                                                                       "icon":  "fa-chart-line",
+                                                                       "path":  "Clinical/Request\u0026Response/DeviceUsage.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "BiologicallyDerivedProductDispense",
+                                                                       "nameEs":  "DispensaciÃ³n Producto BiolÃ³gico",
+                                                                       "badge":  "0",
+                                                                       "desc":  "DispensaciÃ³n de productos biolÃ³gicos",
+                                                                       "icon":  "fa-droplet",
+                                                                       "path":  "Foundation/Clinical/RequestResponse/biologically_derived_product_dispense.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "GuidanceResponse",
+                                                                       "nameEs":  "Respuesta de GuÃ­a",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Respuestas de guÃ­a clÃ­nica",
+                                                                       "icon":  "fa-lightbulb",
+                                                                       "path":  "Clinical/Request\u0026Response/GuidanceResponse.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "SupplyRequest",
+                                                                       "nameEs":  "Solicitud de Suministro",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Solicitudes de suministros",
+                                                                       "icon":  "fa-boxes",
+                                                                       "path":  "Clinical/Request\u0026Response/SupplyRequest.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "SupplyDelivery",
+                                                                       "nameEs":  "Entrega de Suministro",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Entregas de suministros",
+                                                                       "icon":  "fa-truck",
+                                                                       "path":  "Foundation/Clinical/RequestResponse/supply_delivery.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "InventoryItem",
+                                                                       "nameEs":  "Item de Inventario",
+                                                                       "badge":  "0",
+                                                                       "desc":  "Elementos de inventario",
+                                                                       "icon":  "fa-cubes",
+                                                                       "path":  "Foundation/Clinical/RequestResponse/inventory_item.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "InventoryReport",
+                                                                       "nameEs":  "Reporte de Inventario",
+                                                                       "badge":  "0",
+                                                                       "desc":  "Reportes de inventario",
+                                                                       "icon":  "fa-chart-bar",
+                                                                       "path":  "Foundation/Clinical/RequestResponse/inventory_report.html"
+                                                                   }
+                                                               ]
+                                             }
+                                         ]
+                     },
+                     {
+                         "name":  "Financial",
+                         "nameEs":  "Financiero",
+                         "icon":  "fa-coins",
+                         "order":  4,
+                         "subsections":  [
+                                             {
+                                                 "name":  "Support",
+                                                 "nameEs":  "Soporte",
+                                                 "icon":  "fa-handshake",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "Coverage",
+                                                                       "nameEs":  "Cobertura",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Cobertura de seguro",
+                                                                       "icon":  "fa-umbrella",
+                                                                       "path":  "Financial/Support/coverage.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "CoverageEligibilityRequest",
+                                                                       "nameEs":  "Solicitud de Elegibilidad",
+                                                                       "badge":  "4",
+                                                                       "desc":  "VerificaciÃ³n de elegibilidad",
+                                                                       "icon":  "fa-file-signature",
+                                                                       "path":  "Financial/Support/CoverageEligibilityRequest.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "CoverageEligibilityResponse",
+                                                                       "nameEs":  "Respuesta de Elegibilidad",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Resultado de elegibilidad",
+                                                                       "icon":  "fa-file-invoice",
+                                                                       "path":  "Financial/Support/CoverageEligibilityResponse.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "EnrollmentRequest",
+                                                                       "nameEs":  "Solicitud de InscripciÃ³n",
+                                                                       "badge":  "0",
+                                                                       "desc":  "InscripciÃ³n a planes",
+                                                                       "icon":  "fa-user-plus",
+                                                                       "path":  "Financial/Support/EnrollmentRequest.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "EnrollmentResponse",
+                                                                       "nameEs":  "Respuesta de InscripciÃ³n",
+                                                                       "badge":  "0",
+                                                                       "desc":  "Resultado de inscripciÃ³n",
+                                                                       "icon":  "fa-user-check",
+                                                                       "path":  "Financial/Support/EnrollmentResponse.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "Billing",
+                                                 "nameEs":  "FacturaciÃ³n",
+                                                 "icon":  "fa-receipt",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "Claim",
+                                                                       "nameEs":  "Reclamo",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Reclamos de facturaciÃ³n",
+                                                                       "icon":  "fa-file-invoice-dollar",
+                                                                       "path":  "Financial/Billing/Claim.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ClaimResponse",
+                                                                       "nameEs":  "Respuesta a Reclamo",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Respuesta a reclamos",
+                                                                       "icon":  "fa-reply-all",
+                                                                       "path":  "Financial/Billing/ClaimResponse.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Invoice",
+                                                                       "nameEs":  "Factura",
+                                                                       "badge":  "0",
+                                                                       "desc":  "FacturaciÃ³n",
+                                                                       "icon":  "fa-file-invoice",
+                                                                       "path":  "Financial/Billing/invoice.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "Payment",
+                                                 "nameEs":  "Pago",
+                                                 "icon":  "fa-credit-card",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "PaymentNotice",
+                                                                       "nameEs":  "Aviso de Pago",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Notificaciones de pago",
+                                                                       "icon":  "fa-bell",
+                                                                       "path":  "Financial/Payment/PaymentNotice.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "PaymentReconciliation",
+                                                                       "nameEs":  "ConciliaciÃ³n de Pago",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Conciliaciones de pago",
+                                                                       "icon":  "fa-calculator",
+                                                                       "path":  "Financial/Payment/PaymentReconciliation.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "General",
+                                                 "nameEs":  "General",
+                                                 "icon":  "fa-folder",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "Account",
+                                                                       "nameEs":  "Cuenta",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Cuentas financieras",
+                                                                       "icon":  "fa-building-columns",
+                                                                       "path":  "Financial/General/Account.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ChargeItem",
+                                                                       "nameEs":  "Item de Cargo",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Items facturables",
+                                                                       "icon":  "fa-tag",
+                                                                       "path":  "Financial/General/ChargeItem.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ChargeItemDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de Cargo",
+                                                                       "badge":  "1",
+                                                                       "desc":  "DefiniciÃ³n de items facturables",
+                                                                       "icon":  "fa-cube",
+                                                                       "path":  "Foundation/Financial/General/charge_item_definition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Contract",
+                                                                       "nameEs":  "Contrato",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Contratos y acuerdos",
+                                                                       "icon":  "fa-file-contract",
+                                                                       "path":  "Financial/General/Contract.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ExplanationOfBenefit",
+                                                                       "nameEs":  "ExplicaciÃ³n de Beneficio",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Detalle de beneficios",
+                                                                       "icon":  "fa-file-alt",
+                                                                       "path":  "Financial/General/ExplanationOfBenefit.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "InsurancePlan",
+                                                                       "nameEs":  "Plan de Seguro",
+                                                                       "badge":  "0",
+                                                                       "desc":  "Planes de seguro",
+                                                                       "icon":  "fa-shield",
+                                                                       "path":  "Foundation/Financial/General/insurance_plan.html"
+                                                                   }
+                                                               ]
+                                             }
+                                         ]
+                     },
+                     {
+                         "name":  "Specialized",
+                         "nameEs":  "Especializado",
+                         "icon":  "fa-flask",
+                         "order":  5,
+                         "subsections":  [
+                                             {
+                                                 "name":  "Public Health \u0026 Research",
+                                                 "nameEs":  "Salud PÃºblica e InvestigaciÃ³n",
+                                                 "icon":  "fa-microscope",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "ResearchStudy",
+                                                                       "nameEs":  "Estudio de InvestigaciÃ³n",
+                                                                       "badge":  "0",
+                                                                       "desc":  "Estudios clÃ­nicos",
+                                                                       "icon":  "fa-flask",
+                                                                       "path":  "Foundation/Specialized/Research/research_study.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ResearchSubject",
+                                                                       "nameEs":  "Sujeto de InvestigaciÃ³n",
+                                                                       "badge":  "0",
+                                                                       "desc":  "Participantes en estudios",
+                                                                       "icon":  "fa-user-graduate",
+                                                                       "path":  "Foundation/Specialized/Research/research_subject.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "Definitional Artifacts",
+                                                 "nameEs":  "Artefactos de DefiniciÃ³n",
+                                                 "icon":  "fa-cube",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "ActivityDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de Actividad",
+                                                                       "badge":  "4",
+                                                                       "desc":  "DefiniciÃ³n de actividades clÃ­nicas",
+                                                                       "icon":  "fa-calendar-alt",
+                                                                       "path":  "Specialized/DefinitionalArtifacts/ActivityDefinition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ConditionDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de CondiciÃ³n",
+                                                                       "badge":  "0",
+                                                                       "desc":  "DefiniciÃ³n de condiciones",
+                                                                       "icon":  "fa-stethoscope",
+                                                                       "path":  "Foundation/Specialized/Definitional/condition_definition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "DeviceDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de Dispositivo",
+                                                                       "badge":  "1",
+                                                                       "desc":  "DefiniciÃ³n de dispositivos",
+                                                                       "icon":  "fa-microchip",
+                                                                       "path":  "Foundation/Specialized/Definitional/device_definition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "EventDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de Evento",
+                                                                       "badge":  "0",
+                                                                       "desc":  "DefiniciÃ³n de eventos",
+                                                                       "icon":  "fa-calendar-day",
+                                                                       "path":  "Foundation/Specialized/Definitional/event_definition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ObservationDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de ObservaciÃ³n",
+                                                                       "badge":  "1",
+                                                                       "desc":  "DefiniciÃ³n de observaciones",
+                                                                       "icon":  "fa-chart-line",
+                                                                       "path":  "Foundation/Specialized/Definitional/observation_definition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "PlanDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de Plan",
+                                                                       "badge":  "4",
+                                                                       "desc":  "DefiniciÃ³n de planes clÃ­nicos",
+                                                                       "icon":  "fa-clipboard-list",
+                                                                       "path":  "Foundation/Specialized/Definitional/plan_definition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Questionnaire",
+                                                                       "nameEs":  "Cuestionario",
+                                                                       "badge":  "5",
+                                                                       "desc":  "Formularios y cuestionarios",
+                                                                       "icon":  "fa-square-poll-vertical",
+                                                                       "path":  "Specialized/DefinitionalArtifacts/questionnaire.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "SpecimenDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de Muestra",
+                                                                       "badge":  "1",
+                                                                       "desc":  "DefiniciÃ³n de muestras",
+                                                                       "icon":  "fa-vial",
+                                                                       "path":  "Foundation/Specialized/Definitional/specimen_definition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ExampleScenario",
+                                                                       "nameEs":  "Escenario de Ejemplo",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Escenarios de ejemplo",
+                                                                       "icon":  "fa-diagram-project",
+                                                                       "path":  "Foundation/Specialized/Definitional/example_scenario.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ActorDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de Actor",
+                                                                       "badge":  "1",
+                                                                       "desc":  "DefiniciÃ³n de actores",
+                                                                       "icon":  "fa-user",
+                                                                       "path":  "Foundation/Specialized/Definitional/actor_definition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Requirements",
+                                                                       "nameEs":  "Requisitos",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Requisitos del sistema",
+                                                                       "icon":  "fa-list-check",
+                                                                       "path":  "Foundation/Specialized/Definitional/requirements.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "Evidence-Based Medicine",
+                                                 "nameEs":  "Medicina Basada en Evidencia",
+                                                 "icon":  "fa-chart-simple",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "ArtifactAssessment",
+                                                                       "nameEs":  "EvaluaciÃ³n de Artefacto",
+                                                                       "badge":  "1",
+                                                                       "desc":  "EvaluaciÃ³n de artefactos",
+                                                                       "icon":  "fa-clipboard",
+                                                                       "path":  "Foundation/Specialized/Evidence/artifact_assessment.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Citation",
+                                                                       "nameEs":  "CitaciÃ³n",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Referencias bibliogrÃ¡ficas",
+                                                                       "icon":  "fa-quote-right",
+                                                                       "path":  "Foundation/Specialized/Evidence/citation.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Evidence",
+                                                                       "nameEs":  "Evidencia",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Evidencia clÃ­nica",
+                                                                       "icon":  "fa-flask",
+                                                                       "path":  "Specialized/EvidenceBasedMedicine/Evidence.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "EvidenceReport",
+                                                                       "nameEs":  "Reporte de Evidencia",
+                                                                       "badge":  "0",
+                                                                       "desc":  "Reportes de evidencia",
+                                                                       "icon":  "fa-file-alt",
+                                                                       "path":  "Foundation/Specialized/Evidence/evidence_report.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "EvidenceVariable",
+                                                                       "nameEs":  "Variable de Evidencia",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Variables de evidencia",
+                                                                       "icon":  "fa-variable",
+                                                                       "path":  "Foundation/Specialized/Evidence/evidence_variable.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "Quality Reporting \u0026 Testing",
+                                                 "nameEs":  "Reporte de Calidad y Pruebas",
+                                                 "icon":  "fa-chart-line",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "Measure",
+                                                                       "nameEs":  "Medida",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Medidas de calidad",
+                                                                       "icon":  "fa-chart-simple",
+                                                                       "path":  "Specialized/QualityReporting\u0026Testing/Measure.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "MeasureReport",
+                                                                       "nameEs":  "Reporte de Medida",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Reportes de medidas",
+                                                                       "icon":  "fa-file-chart-column",
+                                                                       "path":  "Foundation/Specialized/Quality/measure_report.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "TestPlan",
+                                                                       "nameEs":  "Plan de Prueba",
+                                                                       "badge":  "0",
+                                                                       "desc":  "Planes de prueba",
+                                                                       "icon":  "fa-list",
+                                                                       "path":  "Specialized/QualityReporting\u0026Testing/TestPlan.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "TestScript",
+                                                                       "nameEs":  "Script de Prueba",
+                                                                       "badge":  "4",
+                                                                       "desc":  "Scripts automatizados",
+                                                                       "icon":  "fa-code",
+                                                                       "path":  "Foundation/Specialized/Quality/test_script.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "TestReport",
+                                                                       "nameEs":  "Reporte de Prueba",
+                                                                       "badge":  "1",
+                                                                       "desc":  "Resultados de pruebas",
+                                                                       "icon":  "fa-file-lines",
+                                                                       "path":  "Foundation/Specialized/Quality/test_report.html"
+                                                                   }
+                                                               ]
+                                             },
+                                             {
+                                                 "name":  "Medication Definition",
+                                                 "nameEs":  "DefiniciÃ³n de Medicamentos",
+                                                 "icon":  "fa-capsules",
+                                                 "resources":  [
+                                                                   {
+                                                                       "name":  "MedicinalProductDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de Producto Medicinal",
+                                                                       "badge":  "3",
+                                                                       "desc":  "Productos medicinales",
+                                                                       "icon":  "fa-capsules",
+                                                                       "path":  "Specialized/MedicationDefinition/MedicinalProductDefinition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "PackagedProductDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de Producto Empaquetado",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Productos empaquetados",
+                                                                       "icon":  "fa-box",
+                                                                       "path":  "Foundation/Specialized/MedicationDefinition/packaged_product_definition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "AdministrableProductDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de Producto Administrable",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Productos administrables",
+                                                                       "icon":  "fa-syringe",
+                                                                       "path":  "Foundation/Specialized/MedicationDefinition/administrable_product_definition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ManufacturedItemDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de Item Fabricado",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Items fabricados",
+                                                                       "icon":  "fa-industry",
+                                                                       "path":  "Foundation/Specialized/MedicationDefinition/manufactured_item_definition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "Ingredient",
+                                                                       "nameEs":  "Ingrediente",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Ingredientes activos",
+                                                                       "icon":  "fa-flask",
+                                                                       "path":  "Foundation/Specialized/MedicationDefinition/ingredient.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "ClinicalUseDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de Uso ClÃ­nico",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Usos clÃ­nicos",
+                                                                       "icon":  "fa-stethoscope",
+                                                                       "path":  "Foundation/Specialized/MedicationDefinition/clinical_use_definition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "RegulatedAuthorization",
+                                                                       "nameEs":  "AutorizaciÃ³n Regulada",
+                                                                       "badge":  "2",
+                                                                       "desc":  "Autorizaciones sanitarias",
+                                                                       "icon":  "fa-file-certificate",
+                                                                       "path":  "Foundation/Specialized/MedicationDefinition/regulated_authorization.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "SubstanceDefinition",
+                                                                       "nameEs":  "DefiniciÃ³n de Sustancia",
+                                                                       "badge":  "1",
+                                                                       "desc":  "DefiniciÃ³n de sustancias",
+                                                                       "icon":  "fa-flask",
+                                                                       "path":  "Foundation/Specialized/MedicationDefinition/substance_definition.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "SubstanceNucleicAcid",
+                                                                       "nameEs":  "Ãcido Nucleico",
+                                                                       "badge":  "0",
+                                                                       "desc":  "Ãcidos nucleicos",
+                                                                       "icon":  "fa-dna",
+                                                                       "path":  "Foundation/Specialized/MedicationDefinition/substance_nucleic_acid.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "SubstancePolymer",
+                                                                       "nameEs":  "PolÃ­mero",
+                                                                       "badge":  "0",
+                                                                       "desc":  "PolÃ­meros",
+                                                                       "icon":  "fa-cubes",
+                                                                       "path":  "Foundation/Specialized/MedicationDefinition/substance_polymer.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "SubstanceProtein",
+                                                                       "nameEs":  "ProteÃ­na",
+                                                                       "badge":  "0",
+                                                                       "desc":  "ProteÃ­nas",
+                                                                       "icon":  "fa-dna",
+                                                                       "path":  "Foundation/Specialized/MedicationDefinition/substance_protein.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "SubstanceReferenceInformation",
+                                                                       "nameEs":  "InformaciÃ³n de Referencia",
+                                                                       "badge":  "0",
+                                                                       "desc":  "Referencias de sustancias",
+                                                                       "icon":  "fa-info-circle",
+                                                                       "path":  "Foundation/Specialized/MedicationDefinition/substance_reference_information.html"
+                                                                   },
+                                                                   {
+                                                                       "name":  "SubstanceSourceMaterial",
+                                                                       "nameEs":  "Material Fuente",
+                                                                       "badge":  "0",
+                                                                       "desc":  "Material de origen",
+                                                                       "icon":  "fa-leaf",
+                                                                       "path":  "Foundation/Specialized/MedicationDefinition/substance_source_material.html"
+                                                                   }
+                                                               ]
+                                             }
+                                         ]
+                     }
+                 ]
+}

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Profesional - FHIR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #0EA5E9;
+            --primary-hover: #0284C7;
+            --primary-dark: #0369A1;
+            --secondary: #38BDF8;
+            --dark: #0F172A;
+            --bg-gradient: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
+            --glass: rgba(255, 255, 255, 0.95);
+            --border: #BAE6FD;
+            --text-dark: #1E293B;
+            --text-muted: #64748B;
+            --focus-ring: rgba(14, 165, 233, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 3rem 1rem;
+            color: var(--text-dark);
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--glass);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            border: 1px solid white;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .form-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .form-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        form {
+            padding: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #E0F2FE;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 1rem;
+            background: white;
+            transition: all 0.2s ease;
+            color: var(--text-dark);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--focus-ring);
+        }
+
+        input::placeholder {
+            color: #94A3B8;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .btn-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1.2rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2);
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(14, 165, 233, 0.3);
+        }
+
+        /* Diploma section accent */
+        .diploma-section {
+            background: #F8FAFC;
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px dashed #CBD5E1;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 600px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            form { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <header class="form-header">
+            <h1><i class="fa-solid fa-user-doctor"></i> Registro de Profesional Médico</h1>
+            <p>Ingreso de credenciales y títulos (FHIR Practitioner)</p>
+        </header>
+
+        <form action="#" method="POST" id="practitionerForm">
+            
+            <!-- SECCIÓN: NOMBRES E IDENTIFICACIÓN -->
+            <h2 class="section-title"><i class="fa-solid fa-id-badge"></i> Identificación del Profesional</h2>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label for="prefix">Prefijo (Título)</label>
+                    <input type="text" id="prefix" name="prefix" placeholder="Ej. Dr, Dra, Enf." required>
+                </div>
+                <div class="form-group">
+                    <label for="identifier">Número de Colegiatura / ID</label>
+                    <input type="text" id="identifier" name="identifier" placeholder="Ej. 23" required>
+                </div>
+                <div class="form-group">
+                    <label for="given">Nombres</label>
+                    <input type="text" id="given" name="given" placeholder="Ej. Adam" required>
+                </div>
+                <div class="form-group">
+                    <label for="family">Apellido(s)</label>
+                    <input type="text" id="family" name="family" placeholder="Ej. Careful" required>
+                </div>
+            </div>
+
+            <!-- SECCIÓN: DIRECCIÓN -->
+            <h2 class="section-title"><i class="fa-solid fa-location-dot"></i> Dirección de Contacto</h2>
+            <div class="grid-2">
+                <div class="form-group full-width">
+                    <label for="addressLine">Calle y Número</label>
+                    <input type="text" id="addressLine" name="addressLine" placeholder="Ej. 534 Erewhon St">
+                </div>
+                <div class="form-group">
+                    <label for="city">Ciudad</label>
+                    <input type="text" id="city" name="city" placeholder="Ej. PleasantVille">
+                </div>
+                <div class="form-group">
+                    <label for="state">Estado / Región</label>
+                    <input type="text" id="state" name="state" placeholder="Ej. Vic">
+                </div>
+                <div class="form-group">
+                    <label for="postalCode">Código Postal</label>
+                    <input type="text" id="postalCode" name="postalCode" placeholder="Ej. 3999">
+                </div>
+            </div>
+
+            <!-- SECCIÓN: CUALIFICACIONES (DIPLOMA) -->
+            <div class="diploma-section">
+                <h2 class="section-title" style="border-bottom: none; margin-bottom: 1rem;"><i class="fa-solid fa-graduation-cap"></i> Titulación Principal (Qualification)</h2>
+                <div class="grid-2" style="margin-bottom: 0;">
+                    <div class="form-group full-width">
+                        <label for="qualificationName">Nombre del Título / Grado</label>
+                        <input type="text" id="qualificationName" name="qualificationName" placeholder="Ej. Bachelor of Science" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="issuer">Institución Otorgante</label>
+                        <input type="text" id="issuer" name="issuer" placeholder="Ej. Universidad de Chile" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Año de Titulación</label>
+                        <input type="number" id="year" name="year" placeholder="Ej. 1995" min="1900" max="2099" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="certId">ID del Certificado Universitario</label>
+                        <input type="text" id="certId" name="certId" placeholder="Ej. 12345">
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTÓN ENVIAR -->
+            <button type="submit" class="btn-submit">
+                <i class="fa-solid fa-save"></i> Guardar Profesional
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('practitionerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.querySelector('.btn-submit');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando en Offline DB...';
+            btn.style.background = '#10B981';
+            
+            // 1. Construir objeto JSON compatible con FHIR "Practitioner"
+            const fhirRecord = {
+                "resourceType": "Practitioner",
+                "id": "prac_" + Date.now().toString(36),
+                "identifier": [{
+                    "system": "http://www.acme.org/practitioners",
+                    "value": document.getElementById('identifier').value
+                }],
+                "active": true,
+                "name": [{
+                    "family": document.getElementById('family').value,
+                    "given": [document.getElementById('given').value],
+                    "prefix": [document.getElementById('prefix').value]
+                }],
+                "address": [{
+                    "use": "work",
+                    "line": [document.getElementById('addressLine').value],
+                    "city": document.getElementById('city').value,
+                    "state": document.getElementById('state').value,
+                    "postalCode": document.getElementById('postalCode').value
+                }],
+                "qualification": [{
+                    "identifier": [{
+                        "system": "http://example.org/UniversityIdentifier",
+                        "value": document.getElementById('certId').value
+                    }],
+                    "code": {
+                        "text": document.getElementById('qualificationName').value
+                    },
+                    "period": {
+                        "start": document.getElementById('year').value
+                    },
+                    "issuer": {
+                        "display": document.getElementById('issuer').value
+                    }
+                }]
+            };
+
+            // 2. Guardar en Base de Datos Offline (LocalStorage)
+            let offlineDb = JSON.parse(localStorage.getItem('fhir_practitioners_db')) || [];
+            offlineDb.push(fhirRecord);
+            localStorage.setItem('fhir_practitioners_db', JSON.stringify(offlineDb));
+            
+            // Mostrar en consola para validación
+            console.log("✅ Nuevo Registro Offline (Practitioner):", fhirRecord);
+            console.log("📦 Total registros en DB:", offlineDb.length);
+
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> ¡Profesional Registrado en Offline DB!';
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fa-solid fa-save"></i> Guardar Profesional';
+                    btn.style.background = 'var(--primary)';
+                    e.target.reset(); // reset form
+                }, 3000);
+            }, 800);
+        });
+    </script>
+</body>
+</html>

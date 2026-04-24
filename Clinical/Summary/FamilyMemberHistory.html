@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>FamilyMemberHistory - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-tree"></i> Historial Familiar</h1><p>Antecedentes médicos familiares (FHIR FamilyMemberHistory)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<h2 class="section-title"><i class="fa-solid fa-users"></i> Datos del Familiar</h2>
+<div class="grid-2">
+  <div class="form-group"><label>Paciente</label><input type="text" id="patient" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Nombre del Familiar</label><input type="text" id="name" placeholder="ej. Madre del paciente"></div>
+  <div class="form-group"><label>Relación</label><select id="relationship"><option value="MTH">Madre</option><option value="FTH">Padre</option><option value="BRO">Hermano</option><option value="SIS">Hermana</option><option value="GRMTH">Abuela</option><option value="GRFTH">Abuelo</option><option value="SPS">Conyugue</option></select></div>
+  <div class="form-group"><label>Sexo del Familiar</label><select id="sex"><option value="female">Femenino</option><option value="male">Masculino</option><option value="unknown">Desconocido</option></select></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="completed">Completo</option><option value="health-unknown">Salud desconocida</option><option value="entered-in-error">Error</option></select></div>
+  <div class="form-group"><label>Fecha de Registro</label><input type="date" id="date"></div>
+  <div class="form-group"><label>¿Fallecido?</label><select id="deceased"><option value="false">No</option><option value="true">Sí</option></select></div>
+  <div class="form-group"><label>Edad al Fallecer (aprox.)</label><input type="number" id="deceasedAge" placeholder="ej. 65" min="0" max="150"></div>
+  <div class="form-group full-width"><label>Condición / Enfermedad</label><input type="text" id="condition" placeholder="Diabetes mellitus, Hipertensión, CIE-10..."></div>
+  <div class="form-group full-width"><label>Notas</label><textarea id="note" placeholder="Observaciones sobre el historial familiar..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Historial Familiar</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"FamilyMemberHistory",id:"fmh_"+Date.now().toString(36),status:document.getElementById('status').value,patient:{reference:document.getElementById('patient').value},date:document.getElementById('date').value,name:document.getElementById('name').value,relationship:{coding:[{system:"http://terminology.hl7.org/CodeSystem/v3-RoleCode",code:document.getElementById('relationship').value}]},sex:{coding:[{code:document.getElementById('sex').value}]},deceasedBoolean:document.getElementById('deceased').value==='true',condition:[{code:{text:document.getElementById('condition').value}}],note:[{text:document.getElementById('note').value}]};let db=JSON.parse(localStorage.getItem('fhir_family_history_db'))||[];db.push(fhir);localStorage.setItem('fhir_family_history_db',JSON.stringify(db));console.log("✅ FamilyMemberHistory:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Historial Familiar';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script>
+</body></html>

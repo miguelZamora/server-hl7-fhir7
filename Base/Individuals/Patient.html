@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Paciente - FHIR</title>
+    <!-- Mismo diseño (Outfit Font, paleta Cyan) que el Practitioner Form -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #0EA5E9;
+            --primary-hover: #0284C7;
+            --primary-dark: #0369A1;
+            --secondary: #38BDF8;
+            --dark: #0F172A;
+            --bg-gradient: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
+            --glass: rgba(255, 255, 255, 0.95);
+            --border: #BAE6FD;
+            --text-dark: #1E293B;
+            --text-muted: #64748B;
+            --focus-ring: rgba(14, 165, 233, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 3rem 1rem;
+            color: var(--text-dark);
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--glass);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            border: 1px solid white;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .form-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .form-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        form {
+            padding: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #E0F2FE;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 1rem;
+            background: white;
+            transition: all 0.2s ease;
+            color: var(--text-dark);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--focus-ring);
+        }
+
+        input::placeholder {
+            color: #94A3B8;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .btn-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1.2rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2);
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(14, 165, 233, 0.3);
+        }
+
+        /* Sección Especial de Emergencia (Oscura pero alineada al diseño Cyan) */
+        .emergency-section {
+            background: linear-gradient(135deg, #0F172A, #1E293B);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .emergency-section .section-title {
+            color: #38BDF8;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .emergency-section label {
+            color: #E2E8F0;
+        }
+
+        .emergency-section input {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .emergency-section input:focus {
+            background: rgba(255,255,255,0.1);
+            border-color: #38BDF8;
+        }
+
+        @media (max-width: 600px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            form { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <header class="form-header">
+            <h1><i class="fa-solid fa-bed-pulse"></i> Formulario de Paciente</h1>
+            <p>Ingreso de datos demográficos (FHIR Patient)</p>
+        </header>
+
+        <form action="#" method="POST" id="patientForm">
+            
+            <!-- SECCIÓN: DATOS BIOGRÁFICOS -->
+            <h2 class="section-title"><i class="fa-solid fa-address-card"></i> Identificación del Paciente</h2>
+            <div class="grid-2">
+                <div class="form-group full-width">
+                    <label for="mrn">ID de Historia Clínica (MRN)</label>
+                    <input type="text" id="mrn" name="mrn" placeholder="Ej. 12345" required>
+                </div>
+                <div class="form-group">
+                    <label for="given">Nombres</label>
+                    <input type="text" id="given" name="given" placeholder="Ej. Peter James" required>
+                </div>
+                <div class="form-group">
+                    <label for="family">Apellido(s)</label>
+                    <input type="text" id="family" name="family" placeholder="Ej. Chalmers" required>
+                </div>
+                <div class="form-group">
+                    <label for="birthDate">Fecha de Nacimiento</label>
+                    <input type="date" id="birthDate" name="birthDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Género</label>
+                    <select id="gender" name="gender" required>
+                        <option value="" disabled selected>Seleccione género</option>
+                        <option value="male">Masculino</option>
+                        <option value="female">Femenino</option>
+                        <option value="other">Otro</option>
+                        <option value="unknown">Desconocido</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="maritalStatus">Estado Civil</label>
+                    <select id="maritalStatus" name="maritalStatus">
+                        <option value="S">Soltero(a)</option>
+                        <option value="M">Casado(a)</option>
+                        <option value="D">Divorciado(a)</option>
+                        <option value="W">Viudo(a)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="deceased">¿Paciente Fallecido?</label>
+                    <select id="deceased" name="deceased">
+                        <option value="false" selected>No (Vivo)</option>
+                        <option value="true">Sí (Fecha desconocida)</option>
+                        <option value="datetime">Sí (Ingresar Fecha/Hora exacta)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- SECCIÓN: CONTACTO Y UBICACIÓN -->
+            <h2 class="section-title"><i class="fa-solid fa-location-dot"></i> Contacto y Residencia</h2>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label for="phone">Teléfono Principal</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Ej. (03) 5555 6473">
+                </div>
+                <div class="form-group">
+                    <label for="language">Idioma Preferido</label>
+                    <select id="language" name="language">
+                        <option value="es" selected>Español</option>
+                        <option value="en">Inglés</option>
+                        <option value="pt">Portugués</option>
+                    </select>
+                </div>
+                <div class="form-group full-width">
+                    <label for="addressLine">Calle y Número</label>
+                    <input type="text" id="addressLine" name="addressLine" placeholder="Ej. 534 Erewhon St">
+                </div>
+                <div class="form-group">
+                    <label for="city">Ciudad</label>
+                    <input type="text" id="city" name="city" placeholder="Ej. PleasantVille">
+                </div>
+                <div class="form-group">
+                    <label for="postalCode">Código Postal</label>
+                    <input type="text" id="postalCode" name="postalCode" placeholder="Ej. 3999">
+                </div>
+            </div>
+
+            <!-- SECCIÓN: EMERGENCIA -->
+            <div class="emergency-section">
+                <h2 class="section-title"><i class="fa-solid fa-triangle-exclamation"></i> Familiar o Contacto de Emergencia</h2>
+                <div class="grid-2" style="margin-bottom: 0;">
+                    <div class="form-group">
+                        <label for="emergencyName">Nombre del Familiar</label>
+                        <input type="text" id="emergencyName" name="emergencyName" placeholder="Ej. Bénédicte du Marché">
+                    </div>
+                    <div class="form-group">
+                        <label for="emergencyPhone">Teléfono de Emergencia</label>
+                        <input type="tel" id="emergencyPhone" name="emergencyPhone" placeholder="Ej. +33 (237) 998327">
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTÓN ENVIAR -->
+            <button type="submit" class="btn-submit">
+                <i class="fa-solid fa-cloud-arrow-up"></i> Guardar Datos del Paciente
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('patientForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.querySelector('.btn-submit');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Grabando en Offline DB...';
+            btn.style.background = '#10B981';
+            
+            // 1. Construir objeto JSON compatible con FHIR "Patient"
+            const fhirRecord = {
+                "resourceType": "Patient",
+                "id": document.getElementById('mrn').value || "pat_" + Date.now().toString(36),
+                "identifier": [{
+                    "use": "usual",
+                    "system": "urn:oid:1.2.36.146.595.217.0.1",
+                    "value": document.getElementById('mrn').value
+                }],
+                "active": true,
+                "name": [{
+                    "use": "official",
+                    "family": document.getElementById('family').value,
+                    "given": [document.getElementById('given').value]
+                }],
+                "gender": document.getElementById('gender').value,
+                "birthDate": document.getElementById('birthDate').value,
+                "address": [{
+                    "use": "home",
+                    "line": [document.getElementById('addressLine').value],
+                    "city": document.getElementById('city').value,
+                    "postalCode": document.getElementById('postalCode').value
+                }],
+                "telecom": [{
+                    "system": "phone",
+                    "value": document.getElementById('phone').value,
+                    "use": "home"
+                }]
+            };
+
+            // 2. Guardar en Base de Datos Offline (LocalStorage)
+            let offlineDb = JSON.parse(localStorage.getItem('fhir_patients_db')) || [];
+            offlineDb.push(fhirRecord);
+            localStorage.setItem('fhir_patients_db', JSON.stringify(offlineDb));
+            
+            // Mostrar en consola para validación
+            console.log("✅ Nuevo Registro Offline (Patient):", fhirRecord);
+            console.log("📦 Total pacientes en DB:", offlineDb.length);
+
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> ¡Paciente Guardado Offline!';
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Guardar Datos del Paciente';
+                    btn.style.background = 'var(--primary)';
+                    e.target.reset(); // clear form
+                }, 3000);
+            }, 800);
+        });
+    </script>
+</body>
+</html>

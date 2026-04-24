@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutritionProduct - FHIR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/fhir-style.css">
+</head>
+<body>
+<div class="form-container">
+    <header class="form-header">
+        <h1><i class="fa-solid fa-apple-alt"></i> NutritionProduct</h1>
+        <p>Producto nutricional (FHIR NutritionProduct)</p>
+    </header>
+    <form action="#" method="POST" id="resourceForm">
+        <h2 class="section-title"><i class="fa-solid fa-tag"></i> Identificación</h2>
+        <div class="grid-2">
+            <div class="form-group"><label>Código SNOMED</label><input type="text" id="code" placeholder="227507002" required></div>
+            <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activo</option><option value="inactive">Inactivo</option></select></div>
+        </div>
+        <h2 class="section-title"><i class="fa-solid fa-folder"></i> Categoría</h2>
+        <div class="grid-2">
+            <div class="form-group"><label>Código Categoría SNOMED</label><input type="text" id="category" placeholder="227313005"></div>
+        </div>
+        <h2 class="section-title"><i class="fa-solid fa-barcode"></i> Instancia</h2>
+        <div class="grid-2">
+            <div class="form-group"><label>Identificador Instancia</label><input type="text" id="instanceId" placeholder="77239487"></div>
+        </div>
+        <button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar NutritionProduct</button>
+    </form>
+</div>
+<script>
+document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"NutritionProduct",id:"np_"+Date.now().toString(36),code:{coding:[{system:"http://snomed.info/sct",code:document.getElementById('code').value}]},status:document.getElementById('status').value,category:[{coding:[{system:"http://snomed.info/sct",code:document.getElementById('category').value}]}],instance:[{identifier:[{system:"http://example.org/foodserials",value:document.getElementById('instanceId').value}]}]};let db=JSON.parse(localStorage.getItem('fhir_nutritionproducts_db'))||[];db.push(fhir);localStorage.setItem('fhir_nutritionproducts_db',JSON.stringify(db));console.log("✅ NutritionProduct:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar NutritionProduct';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script>
+</body>
+</html>

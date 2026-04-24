@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>ImagingStudy - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-x-ray"></i> Estudio de Imagen</h1><p>Estudio radiológico (FHIR ImagingStudy)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<h2 class="section-title"><i class="fa-solid fa-image"></i> Datos del Estudio</h2>
+<div class="grid-2">
+  <div class="form-group"><label>Paciente</label><input type="text" id="subject" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Encuentro</label><input type="text" id="encounter" placeholder="Encounter/example"></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="registered">Registrado</option><option value="available">Disponible</option><option value="cancelled">Cancelado</option><option value="entered-in-error">Error</option></select></div>
+  <div class="form-group"><label>Modalidad</label><select id="modality"><option value="CT">Tomografía (CT)</option><option value="MR">Resonancia (MR)</option><option value="US">Ultrasonido (US)</option><option value="XA">Rayos X (XA)</option><option value="NM">Nuclear (NM)</option><option value="PT">PET</option></select></div>
+  <div class="form-group"><label>Fecha del Estudio</label><input type="datetime-local" id="started"></div>
+  <div class="form-group"><label>Número de Series</label><input type="number" id="numberOfSeries" min="1" placeholder="1"></div>
+  <div class="form-group"><label>Número de Instancias</label><input type="number" id="numberOfInstances" min="1" placeholder="1"></div>
+  <div class="form-group"><label>Referidor</label><input type="text" id="referrer" placeholder="Practitioner/example"></div>
+  <div class="form-group full-width"><label>Descripción</label><textarea id="description" placeholder="Descripción del estudio..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Estudio</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"ImagingStudy",id:"img_"+Date.now().toString(36),status:document.getElementById('status').value,subject:{reference:document.getElementById('subject').value},encounter:{reference:document.getElementById('encounter').value},started:document.getElementById('started').value,referrer:{reference:document.getElementById('referrer').value},numberOfSeries:parseInt(document.getElementById('numberOfSeries').value)||1,numberOfInstances:parseInt(document.getElementById('numberOfInstances').value)||1,description:document.getElementById('description').value,series:[{modality:{coding:[{system:"http://dicom.nema.org/resources/ontology/DCM",code:document.getElementById('modality').value}]},numberOfInstances:parseInt(document.getElementById('numberOfInstances').value)||1}]};let db=JSON.parse(localStorage.getItem('fhir_imaging_db'))||[];db.push(fhir);localStorage.setItem('fhir_imaging_db',JSON.stringify(db));console.log("✅ ImagingStudy:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Estudio';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script>
+</body></html>

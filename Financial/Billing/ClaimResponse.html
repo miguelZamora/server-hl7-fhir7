@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>ClaimResponse - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-file-circle-check"></i> Respuesta de Reclamación</h1><p>Resultado de adjudicación (FHIR ClaimResponse)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Reclamación (Claim)</label><input type="text" id="request" placeholder="Claim/example" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activa</option><option value="cancelled">Cancelada</option></select></div>
+  <div class="form-group"><label>Resultado Adjudicación</label><select id="outcome"><option value="queued">En cola</option><option value="complete">Completado</option><option value="error">Error</option><option value="partial">Parcial</option></select></div>
+  <div class="form-group"><label>Paciente</label><input type="text" id="patient" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Fecha de Emisión</label><input type="datetime-local" id="created"></div>
+  <div class="form-group"><label>Aseguradora</label><input type="text" id="insurer" placeholder="Organization/example" required></div>
+  <div class="form-group full-width"><label>Disposición / Resumen</label><textarea id="disposition" placeholder="Detalles de la aprobación o rechazo..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Respuesta</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"ClaimResponse",status:document.getElementById('status').value,outcome:document.getElementById('outcome').value,patient:{reference:document.getElementById('patient').value},created:document.getElementById('created').value,request:{reference:document.getElementById('request').value},insurer:{reference:document.getElementById('insurer').value},disposition:document.getElementById('disposition').value};console.log("✅ ClaimResponse:",fhir);});</script></body></html>

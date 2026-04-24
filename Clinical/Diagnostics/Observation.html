@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Observation - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-chart-line"></i> Observación Clínica</h1><p>Mediciones y hallazgos clínicos (FHIR Observation)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<h2 class="section-title"><i class="fa-solid fa-thermometer"></i> Datos de la Observación</h2>
+<div class="grid-2">
+  <div class="form-group"><label>Paciente</label><input type="text" id="subject" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Encuentro</label><input type="text" id="encounter" placeholder="Encounter/example"></div>
+  <div class="form-group"><label>Categoría</label><select id="category"><option value="vital-signs">Signos vitales</option><option value="laboratory">Laboratorio</option><option value="imaging">Imagen</option><option value="exam">Examen físico</option><option value="social-history">Historia social</option><option value="survey">Encuesta</option></select></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="final">Final</option><option value="preliminary">Preliminar</option><option value="amended">Enmendado</option><option value="entered-in-error">Error</option></select></div>
+  <div class="form-group"><label>Código LOINC / SNOMED</label><input type="text" id="code" placeholder="ej. 8480-6 - Systolic BP" required></div>
+  <div class="form-group"><label>Fecha/Hora Efectiva</label><input type="datetime-local" id="effectiveDateTime"></div>
+  <div class="form-group"><label>Valor</label><input type="number" id="valueQuantity" step="0.01" placeholder="ej. 120"></div>
+  <div class="form-group"><label>Unidad</label><input type="text" id="unit" placeholder="ej. mmHg, mg/dL, °C"></div>
+  <div class="form-group"><label>Intérprete</label><input type="text" id="performer" placeholder="Practitioner/example"></div>
+  <div class="form-group"><label>Interpretación</label><select id="interpretation"><option value="N">Normal</option><option value="H">Alto</option><option value="L">Bajo</option><option value="HH">Crítico Alto</option><option value="LL">Crítico Bajo</option></select></div>
+  <div class="form-group full-width"><label>Notas</label><textarea id="note" placeholder="Observaciones adicionales..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Observación</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"Observation",id:"obs_"+Date.now().toString(36),status:document.getElementById('status').value,category:[{coding:[{system:"http://terminology.hl7.org/CodeSystem/observation-category",code:document.getElementById('category').value}]}],code:{text:document.getElementById('code').value},subject:{reference:document.getElementById('subject').value},encounter:{reference:document.getElementById('encounter').value},effectiveDateTime:document.getElementById('effectiveDateTime').value,performer:[{reference:document.getElementById('performer').value}],valueQuantity:{value:parseFloat(document.getElementById('valueQuantity').value),unit:document.getElementById('unit').value},interpretation:[{coding:[{system:"http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",code:document.getElementById('interpretation').value}]}],note:[{text:document.getElementById('note').value}]};let db=JSON.parse(localStorage.getItem('fhir_observations_db'))||[];db.push(fhir);localStorage.setItem('fhir_observations_db',JSON.stringify(db));console.log("✅ Observation:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Observación';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script>
+</body></html>

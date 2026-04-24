@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Goal - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-bullseye"></i> Objetivo Clínico</h1><p>Objetivo de salud del paciente (FHIR Goal)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Paciente</label><input type="text" id="subject" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Estado del Ciclo de Vida</label><select id="lifecycleStatus"><option value="active">Activo</option><option value="proposed">Propuesto</option><option value="planned">Planificado</option><option value="accepted">Aceptado</option><option value="on-hold">En espera</option><option value="completed">Completado</option><option value="cancelled">Cancelado</option></select></div>
+  <div class="form-group"><label>Categoría</label><select id="category"><option value="dietary">Dietético</option><option value="safety">Seguridad</option><option value="behavioral">Conductual</option><option value="nursing">Enfermería</option><option value="physiotherapy">Fisioterapia</option></select></div>
+  <div class="form-group"><label>Prioridad</label><select id="priority"><option value="high-priority">Alta</option><option value="medium-priority">Media</option><option value="low-priority">Baja</option></select></div>
+  <div class="form-group full-width"><label>Descripción del Objetivo</label><input type="text" id="description" placeholder="ej. Reducir hemoglobina glicosilada a menos de 7%" required></div>
+  <div class="form-group"><label>Fecha de Inicio</label><input type="date" id="startDate"></div>
+  <div class="form-group"><label>Fecha Objetivo (Vencimiento)</label><input type="date" id="dueDate"></div>
+  <div class="form-group"><label>Expresado Por</label><input type="text" id="expressedBy" placeholder="Practitioner/example"></div>
+  <div class="form-group full-width"><label>Notas</label><textarea id="note" placeholder="Observaciones sobre el objetivo..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Objetivo</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"Goal",id:"goal_"+Date.now().toString(36),lifecycleStatus:document.getElementById('lifecycleStatus').value,category:[{coding:[{code:document.getElementById('category').value}]}],priority:{coding:[{code:document.getElementById('priority').value}]},description:{text:document.getElementById('description').value},subject:{reference:document.getElementById('subject').value},startDate:document.getElementById('startDate').value,target:[{dueDate:document.getElementById('dueDate').value}],expressedBy:{reference:document.getElementById('expressedBy').value},note:[{text:document.getElementById('note').value}]};let db=JSON.parse(localStorage.getItem('fhir_goals_db'))||[];db.push(fhir);localStorage.setItem('fhir_goals_db',JSON.stringify(db));console.log("✅ Goal:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Objetivo';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script></body></html>

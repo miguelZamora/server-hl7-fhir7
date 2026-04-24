@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Medication - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-pills"></i> Medicamento</h1><p>Definición de producto medicinal (FHIR Medication)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Código (RxNorm / SNOMED)</label><input type="text" id="code" placeholder="ej. 313782 (Acetaminophen 500 MG Oral Tablet)" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activo</option><option value="inactive">Inactivo</option><option value="entered-in-error">Error</option></select></div>
+  <div class="form-group"><label>Fabricante</label><input type="text" id="manufacturer" placeholder="Organization/example"></div>
+  <div class="form-group"><label>Forma Farmacéutica</label><input type="text" id="form" placeholder="ej. Tablet, Injection"></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Medicamento</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"Medication",status:document.getElementById('status').value,code:{text:document.getElementById('code').value},manufacturer:{reference:document.getElementById('manufacturer').value},form:{text:document.getElementById('form').value}};console.log("✅ Medication:",fhir);});</script></body></html>

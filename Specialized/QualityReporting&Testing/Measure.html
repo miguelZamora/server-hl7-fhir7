@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Measure - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-gauge-high"></i> Métrica / Medida</h1><p>Definición de indicadores de calidad (FHIR Measure)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>URL</label><input type="text" id="url" placeholder="http://hl7.org/fhir/Measure/example" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activo</option><option value="draft">Borrador</option></select></div>
+  <div class="form-group"><label>Título</label><input type="text" id="title" placeholder="Prevalencia de Diabetes" required></div>
+  <div class="form-group"><label>Tipo</label><select id="type"><option value="outcome">Resultado</option><option value="process">Proceso</option></select></div>
+  <div class="form-group full-width"><label>Descripción</label><textarea id="description" placeholder="Descripción de la métrica..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Métrica</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"Measure",status:document.getElementById('status').value,url:document.getElementById('url').value,title:document.getElementById('title').value,type:[{coding:[{code:document.getElementById('type').value}]}],description:document.getElementById('description').value};console.log("✅ Measure:",fhir);});</script></body></html>

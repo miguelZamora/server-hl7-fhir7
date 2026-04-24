@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FHIR Resource Manager - Menú Principal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/fhir-style.css">
+    <style>
+        .stats { background: var(--glass); border-radius: 16px; padding: 1rem 1.5rem; margin-bottom: 2rem; display: flex; gap: 2rem; flex-wrap: wrap; border: 1px solid white; }
+        .stat { display: flex; align-items: center; gap: 0.75rem; }
+        .stat-number { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
+        .stat-label { color: var(--text-muted); }
+        .section { margin-bottom: 2.5rem; }
+        .section-title { font-size: 1.4rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+        .grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+        .card { background: var(--glass); border-radius: 12px; padding: 0.75rem 1rem; transition: all 0.2s ease; border: 1px solid var(--border); text-decoration: none; color: var(--text-dark); display: flex; align-items: center; gap: 1rem; }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-color: var(--primary); }
+        .card-icon { width: 42px; height: 42px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; }
+        .card-info h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.2rem; }
+        .card-info p { font-size: 0.7rem; color: var(--text-muted); }
+        .badge { background: var(--border); border-radius: 20px; padding: 0.15rem 0.5rem; font-size: 0.65rem; font-weight: 600; color: var(--primary-dark); margin-left: 0.5rem; }
+        .footer { margin-top: 3rem; text-align: center; color: var(--text-muted); font-size: 0.8rem; padding: 1rem; border-top: 1px solid var(--border); }
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        @media (max-width: 768px) { .container { padding: 1rem; } .grid-cards { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--primary-dark); display: flex; align-items: center; gap: 1rem;">
+        <i class="fa-solid fa-database" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; color: transparent;"></i> 
+        FHIR Resource Manager
+    </h1>
+    <div class="subtitle" style="color: var(--text-muted); margin-bottom: 2rem; border-left: 4px solid var(--primary); padding-left: 1rem;">
+        Gestión de recursos FHIR - Formularios de ingreso de datos
+    </div>
+    
+    <div class="stats">
+        <div class="stat"><span class="stat-number" id="totalCount">0</span><span class="stat-label">Recursos disponibles</span></div>
+        <div class="stat"><i class="fa-solid fa-check-circle" style="color:#10B981;"></i><span class="stat-label">Todos con HTML, SQL y JS</span></div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SECCIÓN: INDIVIDUALS -->
+    <!-- ============================================== -->
+    <div class="section">
+        <div class="section-title"><i class="fa-solid fa-user"></i> Individuals</div>
+        <div class="grid-cards">
+            <a href="Base/Individuals/paciente.html" class="card"><div class="card-icon"><i class="fa-solid fa-bed-pulse"></i></div><div class="card-info"><h3>Patient <span class="badge">N</span></h3><p>Pacientes</p></div></a>
+            <a href="Base/Individuals/practitioner.html" class="card"><div class="card-icon"><i class="fa-solid fa-user-doctor"></i></div><div class="card-info"><h3>Practitioner <span class="badge">5</span></h3><p>Profesionales de salud</p></div></a>
+            <a href="Base/Individuals/practitioner_role.html" class="card"><div class="card-icon"><i class="fa-solid fa-user-tag"></i></div><div class="card-info"><h3>PractitionerRole <span class="badge">4</span></h3><p>Roles del profesional</p></div></a>
+            <a href="Base/Individuals/related_person.html" class="card"><div class="card-icon"><i class="fa-solid fa-family"></i></div><div class="card-info"><h3>RelatedPerson <span class="badge">5</span></h3><p>Familiares/Contactos</p></div></a>
+            <a href="Base/Individuals/person.html" class="card"><div class="card-icon"><i class="fa-solid fa-users"></i></div><div class="card-info"><h3>Person <span class="badge">4</span></h3><p>Personas (registro general)</p></div></a>
+            <a href="Base/Individuals/group.html" class="card"><div class="card-icon"><i class="fa-solid fa-users-rectangle"></i></div><div class="card-info"><h3>Group <span class="badge">3</span></h3><p>Grupos de entidades</p></div></a>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SECCIÓN: ENTITIES #1 -->
+    <!-- ============================================== -->
+    <div class="section">
+        <div class="section-title"><i class="fa-solid fa-building"></i> Entities #1</div>
+        <div class="grid-cards">
+            <a href="Base/Entities1/organization.html" class="card"><div class="card-icon"><i class="fa-solid fa-building"></i></div><div class="card-info"><h3>Organization <span class="badge">5</span></h3><p>Organizaciones</p></div></a>
+            <a href="Base/Entities1/organization_affiliation.html" class="card"><div class="card-icon"><i class="fa-solid fa-handshake"></i></div><div class="card-info"><h3>OrganizationAffiliation <span class="badge">1</span></h3><p>Afiliaciones</p></div></a>
+            <a href="Base/Entities1/healthcare_service.html" class="card"><div class="card-icon"><i class="fa-solid fa-hospital"></i></div><div class="card-info"><h3>HealthcareService <span class="badge">4</span></h3><p>Servicios de salud</p></div></a>
+            <a href="Base/Entities1/endpoint.html" class="card"><div class="card-icon"><i class="fa-solid fa-plug"></i></div><div class="card-info"><h3>Endpoint <span class="badge">2</span></h3><p>Puntos de conexión</p></div></a>
+            <a href="Base/Entities1/location.html" class="card"><div class="card-icon"><i class="fa-solid fa-location-dot"></i></div><div class="card-info"><h3>Location <span class="badge">5</span></h3><p>Ubicaciones físicas</p></div></a>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SECCIÓN: ENTITIES #2 -->
+    <!-- ============================================== -->
+    <div class="section">
+        <div class="section-title"><i class="fa-solid fa-flask"></i> Entities #2</div>
+        <div class="grid-cards">
+            <a href="Base/Entities2/substance.html" class="card"><div class="card-icon"><i class="fa-solid fa-flask"></i></div><div class="card-info"><h3>Substance <span class="badge">2</span></h3><p>Sustancias</p></div></a>
+            <a href="Base/Entities2/biologically_derived_product.html" class="card"><div class="card-icon"><i class="fa-solid fa-droplet"></i></div><div class="card-info"><h3>BiologicallyDerivedProduct <span class="badge">2</span></h3><p>Productos biológicos</p></div></a>
+            <a href="Base/Entities2/device.html" class="card"><div class="card-icon"><i class="fa-solid fa-microchip"></i></div><div class="card-info"><h3>Device <span class="badge">2</span></h3><p>Dispositivos médicos</p></div></a>
+            <a href="Base/Entities2/device_metric.html" class="card"><div class="card-icon"><i class="fa-solid fa-chart-simple"></i></div><div class="card-info"><h3>DeviceMetric <span class="badge">1</span></h3><p>Métricas de dispositivos</p></div></a>
+            <a href="Base/Entities2/nutrition_product.html" class="card"><div class="card-icon"><i class="fa-solid fa-apple-alt"></i></div><div class="card-info"><h3>NutritionProduct <span class="badge">1</span></h3><p>Productos nutricionales</p></div></a>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SECCIÓN: WORKFLOW -->
+    <!-- ============================================== -->
+    <div class="section">
+        <div class="section-title"><i class="fa-solid fa-diagram-project"></i> Workflow</div>
+        <div class="grid-cards">
+            <a href="Base/Workflow/task.html" class="card"><div class="card-icon"><i class="fa-solid fa-list-check"></i></div><div class="card-info"><h3>Task <span class="badge">3</span></h3><p>Tareas/Órdenes</p></div></a>
+            <a href="Base/Workflow/transport.html" class="card"><div class="card-icon"><i class="fa-solid fa-truck"></i></div><div class="card-info"><h3>Transport <span class="badge">1</span></h3><p>Transporte</p></div></a>
+            <a href="Base/Workflow/appointment.html" class="card"><div class="card-icon"><i class="fa-solid fa-calendar-check"></i></div><div class="card-info"><h3>Appointment <span class="badge">3</span></h3><p>Citas médicas</p></div></a>
+            <a href="Base/Workflow/appointment_response.html" class="card"><div class="card-icon"><i class="fa-solid fa-reply"></i></div><div class="card-info"><h3>AppointmentResponse <span class="badge">3</span></h3><p>Respuestas a citas</p></div></a>
+            <a href="Base/Workflow/schedule.html" class="card"><div class="card-icon"><i class="fa-solid fa-calendar-week"></i></div><div class="card-info"><h3>Schedule <span class="badge">3</span></h3><p>Horarios base</p></div></a>
+            <a href="Base/Workflow/slot.html" class="card"><div class="card-icon"><i class="fa-solid fa-clock"></i></div><div class="card-info"><h3>Slot <span class="badge">3</span></h3><p>Espacios de agenda</p></div></a>
+            <a href="Base/Workflow/verification_result.html" class="card"><div class="card-icon"><i class="fa-solid fa-certificate"></i></div><div class="card-info"><h3>VerificationResult <span class="badge">1</span></h3><p>Resultados verificación</p></div></a>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SECCIÓN: MANAGEMENT -->
+    <!-- ============================================== -->
+    <div class="section">
+        <div class="section-title"><i class="fa-solid fa-chart-simple"></i> Management</div>
+        <div class="grid-cards">
+            <a href="Base/Management/encounter.html" class="card"><div class="card-icon"><i class="fa-solid fa-hospital-user"></i></div><div class="card-info"><h3>Encounter <span class="badge">4</span></h3><p>Encuentros clínicos</p></div></a>
+            <a href="Base/Management/encounter_history.html" class="card"><div class="card-icon"><i class="fa-solid fa-clock-rotate-left"></i></div><div class="card-info"><h3>EncounterHistory <span class="badge">0</span></h3><p>Historial de encuentros</p></div></a>
+            <a href="Base/Management/episode_of_care.html" class="card"><div class="card-icon"><i class="fa-solid fa-chart-line"></i></div><div class="card-info"><h3>EpisodeOfCare <span class="badge">2</span></h3><p>Episodios de atención</p></div></a>
+            <a href="Base/Management/flag.html" class="card"><div class="card-icon"><i class="fa-solid fa-flag"></i></div><div class="card-info"><h3>Flag <span class="badge">1</span></h3><p>Alertas/Banderas</p></div></a>
+            <a href="Base/Management/list.html" class="card"><div class="card-icon"><i class="fa-solid fa-list"></i></div><div class="card-info"><h3>List <span class="badge">4</span></h3><p>Listas de recursos</p></div></a>
+            <a href="Base/Management/library.html" class="card"><div class="card-icon"><i class="fa-solid fa-book"></i></div><div class="card-info"><h3>Library <span class="badge">4</span></h3><p>Bibliotecas lógicas</p></div></a>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SECCIÓN: CONFORMANCE -->
+    <!-- ============================================== -->
+    <div class="section">
+        <div class="section-title"><i class="fa-solid fa-check-double"></i> Conformance</div>
+        <div class="grid-cards">
+            <a href="Foundation/Conformance/capability_statement.html" class="card"><div class="card-icon"><i class="fa-solid fa-server"></i></div><div class="card-info"><h3>CapabilityStatement <span class="badge">N</span></h3><p>Declaración de capacidades</p></div></a>
+            <a href="Foundation/Conformance/structure_definition.html" class="card"><div class="card-icon"><i class="fa-solid fa-cube"></i></div><div class="card-info"><h3>StructureDefinition <span class="badge">N</span></h3><p>Definición de estructuras</p></div></a>
+            <a href="Foundation/Conformance/implementation_guide.html" class="card"><div class="card-icon"><i class="fa-solid fa-book-open"></i></div><div class="card-info"><h3>ImplementationGuide <span class="badge">4</span></h3><p>Guías de implementación</p></div></a>
+            <a href="Foundation/Conformance/search_parameter.html" class="card"><div class="card-icon"><i class="fa-solid fa-search"></i></div><div class="card-info"><h3>SearchParameter <span class="badge">5</span></h3><p>Parámetros de búsqueda</p></div></a>
+            <a href="Foundation/Conformance/message_definition.html" class="card"><div class="card-icon"><i class="fa-solid fa-envelope"></i></div><div class="card-info"><h3>MessageDefinition <span class="badge">1</span></h3><p>Definición de mensajes</p></div></a>
+            <a href="Foundation/Conformance/operation_definition.html" class="card"><div class="card-icon"><i class="fa-solid fa-cogs"></i></div><div class="card-info"><h3>OperationDefinition <span class="badge">N</span></h3><p>Definición de operaciones</p></div></a>
+            <a href="Foundation/Conformance/compartment_definition.html" class="card"><div class="card-icon"><i class="fa-solid fa-layer-group"></i></div><div class="card-info"><h3>CompartmentDefinition <span class="badge">3</span></h3><p>Compartimentos</p></div></a>
+            <a href="Foundation/Conformance/structure_map.html" class="card"><div class="card-icon"><i class="fa-solid fa-code-branch"></i></div><div class="card-info"><h3>StructureMap <span class="badge">4</span></h3><p>Mapa de estructuras</p></div></a>
+            <a href="Foundation/Conformance/graph_definition.html" class="card"><div class="card-icon"><i class="fa-solid fa-project-diagram"></i></div><div class="card-info"><h3>GraphDefinition <span class="badge">2</span></h3><p>Definición de grafos</p></div></a>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SECCIÓN: TERMINOLOGY -->
+    <!-- ============================================== -->
+    <div class="section">
+        <div class="section-title"><i class="fa-solid fa-tag"></i> Terminology</div>
+        <div class="grid-cards">
+            <a href="Foundation/Terminology/code_system.html" class="card"><div class="card-icon"><i class="fa-solid fa-code"></i></div><div class="card-info"><h3>CodeSystem <span class="badge">N</span></h3><p>Sistema de códigos</p></div></a>
+            <a href="Foundation/Terminology/value_set.html" class="card"><div class="card-icon"><i class="fa-solid fa-list-ul"></i></div><div class="card-info"><h3>ValueSet <span class="badge">N</span></h3><p>Conjunto de valores</p></div></a>
+            <a href="Foundation/Terminology/concept_map.html" class="card"><div class="card-icon"><i class="fa-solid fa-map"></i></div><div class="card-info"><h3>ConceptMap <span class="badge">3</span></h3><p>Mapa de conceptos</p></div></a>
+            <a href="Foundation/Terminology/naming_system.html" class="card"><div class="card-icon"><i class="fa-solid fa-tag"></i></div><div class="card-info"><h3>NamingSystem <span class="badge">4</span></h3><p>Sistema de nomenclatura</p></div></a>
+            <a href="Foundation/Terminology/terminology_capabilities.html" class="card"><div class="card-icon"><i class="fa-solid fa-cogs"></i></div><div class="card-info"><h3>TerminologyCapabilities <span class="badge">1</span></h3><p>Capacidades terminológicas</p></div></a>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SECCIÓN: SECURITY -->
+    <!-- ============================================== -->
+    <div class="section">
+        <div class="section-title"><i class="fa-solid fa-shield-haltered"></i> Security</div>
+        <div class="grid-cards">
+            <a href="Foundation/Security/provenance.html" class="card"><div class="card-icon"><i class="fa-solid fa-history"></i></div><div class="card-info"><h3>Provenance <span class="badge">4</span></h3><p>Procedencia/Trazabilidad</p></div></a>
+            <a href="Foundation/Security/audit_event.html" class="card"><div class="card-icon"><i class="fa-solid fa-clipboard-list"></i></div><div class="card-info"><h3>AuditEvent <span class="badge">4</span></h3><p>Eventos de auditoría</p></div></a>
+            <a href="Foundation/Security/consent.html" class="card"><div class="card-icon"><i class="fa-solid fa-file-signature"></i></div><div class="card-info"><h3>Consent <span class="badge">2</span></h3><p>Consentimientos</p></div></a>
+            <a href="Foundation/Security/permission.html" class="card"><div class="card-icon"><i class="fa-solid fa-lock"></i></div><div class="card-info"><h3>Permission <span class="badge">0</span></h3><p>Permisos</p></div></a>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SECCIÓN: DOCUMENTS -->
+    <!-- ============================================== -->
+    <div class="section">
+        <div class="section-title"><i class="fa-solid fa-file-alt"></i> Documents</div>
+        <div class="grid-cards">
+            <a href="Foundation/Documents/Composition.html" class="card"><div class="card-icon"><i class="fa-solid fa-file"></i></div><div class="card-info"><h3>Composition <span class="badge">4</span></h3><p>Composición documental</p></div></a>
+            <a href="Foundation/Documents/DocumentReference.html" class="card"><div class="card-icon"><i class="fa-solid fa-file-medical"></i></div><div class="card-info"><h3>DocumentReference <span class="badge">4</span></h3><p>Referencia a documentos</p></div></a>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- SECCIÓN: OTHER -->
+    <!-- ============================================== -->
+    <div class="section">
+        <div class="section-title"><i class="fa-solid fa-ellipsis-h"></i> Other</div>
+        <div class="grid-cards">
+            <a href="Foundation/Other/Basic.html" class="card"><div class="card-icon"><i class="fa-solid fa-circle"></i></div><div class="card-info"><h3>Basic <span class="badge">3</span></h3><p>Recurso genérico</p></div></a>
+            <a href="Foundation/Other/Binary.html" class="card"><div class="card-icon"><i class="fa-solid fa-file-code"></i></div><div class="card-info"><h3>Binary <span class="badge">N</span></h3><p>Datos binarios</p></div></a>
+            <a href="Foundation/Other/Bundle.html" class="card"><div class="card-icon"><i class="fa-solid fa-layer-group"></i></div><div class="card-info"><h3>Bundle <span class="badge">N</span></h3><p>Conjunto de recursos</p></div></a>
+            <a href="Foundation/Other/Linkage.html" class="card"><div class="card-icon"><i class="fa-solid fa-link"></i></div><div class="card-info"><h3>Linkage <span class="badge">0</span></h3><p>Enlaces entre recursos</p></div></a>
+            <a href="Foundation/Other/MessageHeader.html" class="card"><div class="card-icon"><i class="fa-solid fa-envelope-open-text"></i></div><div class="card-info"><h3>MessageHeader <span class="badge">4</span></h3><p>Cabecera de mensaje</p></div></a>
+            <a href="Foundation/Other/OperationOutcome.html" class="card"><div class="card-icon"><i class="fa-solid fa-exclamation-triangle"></i></div><div class="card-info"><h3>OperationOutcome <span class="badge">N</span></h3><p>Resultado de operación</p></div></a>
+            <a href="Foundation/Other/Parameters.html" class="card"><div class="card-icon"><i class="fa-solid fa-sliders-h"></i></div><div class="card-info"><h3>Parameters <span class="badge">N</span></h3><p>Parámetros</p></div></a>
+            <a href="Foundation/Other/Subscription.html" class="card"><div class="card-icon"><i class="fa-solid fa-bell"></i></div><div class="card-info"><h3>Subscription <span class="badge">3</span></h3><p>Suscripciones</p></div></a>
+            <a href="Foundation/Other/SubscriptionStatus.html" class="card"><div class="card-icon"><i class="fa-solid fa-bell-slash"></i></div><div class="card-info"><h3>SubscriptionStatus <span class="badge">2</span></h3><p>Estado de suscripción</p></div></a>
+            <a href="Foundation/Other/SubscriptionTopic.html" class="card"><div class="card-icon"><i class="fa-solid fa-topic"></i></div><div class="card-info"><h3>SubscriptionTopic <span class="badge">2</span></h3><p>Tema de suscripción</p></div></a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <i class="fa-solid fa-database"></i> FHIR Resource Manager | 
+        <i class="fa-solid fa-folder-tree"></i> Estructura Base + Foundation | 
+        <i class="fa-solid fa-table"></i> SQL: data/SQL/todos_los_recursos.sql | 
+        <i class="fa-solid fa-code"></i> JS: data/MONGODB/todos_los_inserts.js
+    </div>
+</div>
+
+<script>
+    document.getElementById('totalCount').innerText = document.querySelectorAll('.card').length;
+</script>
+</body>
+</html>

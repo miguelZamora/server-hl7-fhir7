@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>DeviceDispense - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-box-open"></i> Entrega de Dispositivo</h1><p>Registro de dispensación (FHIR DeviceDispense)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Paciente</label><input type="text" id="patient" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="completed">Entregado</option><option value="in-progress">En proceso</option></select></div>
+  <div class="form-group"><label>Dispositivo</label><input type="text" id="device" placeholder="ej. Nebulizador" required></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Entrega</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"DeviceDispense",status:document.getElementById('status').value,device:{concept:{text:document.getElementById('device').value}},subject:{reference:document.getElementById('patient').value}};console.log("✅ DeviceDispense:",fhir);});</script></body></html>

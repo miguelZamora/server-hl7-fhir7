@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>CarePlan - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-file-lines"></i> Plan de Cuidado</h1><p>Plan de atención del paciente (FHIR CarePlan)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<h2 class="section-title"><i class="fa-solid fa-heart-pulse"></i> Datos del Plan</h2>
+<div class="grid-2">
+  <div class="form-group"><label>Paciente</label><input type="text" id="subject" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Encuentro</label><input type="text" id="encounter" placeholder="Encounter/example"></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activo</option><option value="draft">Borrador</option><option value="on-hold">En espera</option><option value="completed">Completado</option><option value="revoked">Revocado</option></select></div>
+  <div class="form-group"><label>Intención</label><select id="intent"><option value="plan">Plan</option><option value="order">Orden</option><option value="proposal">Propuesta</option><option value="option">Opción</option></select></div>
+  <div class="form-group"><label>Fecha de Inicio</label><input type="date" id="periodStart"></div>
+  <div class="form-group"><label>Fecha de Fin</label><input type="date" id="periodEnd"></div>
+  <div class="form-group"><label>Autor</label><input type="text" id="author" placeholder="Practitioner/example"></div>
+  <div class="form-group"><label>Título</label><input type="text" id="title" placeholder="Plan terapéutico integral"></div>
+  <div class="form-group full-width"><label>Descripción</label><textarea id="description" placeholder="Descripción detallada del plan de cuidado..."></textarea></div>
+  <div class="form-group full-width"><label>Diagnóstico Asociado</label><input type="text" id="addresses" placeholder="Condition/example o texto libre"></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Plan de Cuidado</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"CarePlan",id:"cp_"+Date.now().toString(36),status:document.getElementById('status').value,intent:document.getElementById('intent').value,title:document.getElementById('title').value,description:document.getElementById('description').value,subject:{reference:document.getElementById('subject').value},encounter:{reference:document.getElementById('encounter').value},period:{start:document.getElementById('periodStart').value,end:document.getElementById('periodEnd').value},author:{reference:document.getElementById('author').value},addresses:[{reference:{reference:document.getElementById('addresses').value}}]};let db=JSON.parse(localStorage.getItem('fhir_care_plans_db'))||[];db.push(fhir);localStorage.setItem('fhir_care_plans_db',JSON.stringify(db));console.log("✅ CarePlan:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Plan de Cuidado';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});
+</script></body></html>

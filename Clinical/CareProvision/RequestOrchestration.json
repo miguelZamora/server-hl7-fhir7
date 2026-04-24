@@ -1,0 +1,16 @@
+{
+  "resourceType": "RequestOrchestration",
+  "id": "example-orch",
+  "status": "active",
+  "intent": "plan",
+  "subject": {
+    "reference": "Patient/example"
+  },
+  "action": [{
+    "title": "Initial Assessment",
+    "description": "Evaluate patient condition",
+    "resource": {
+      "reference": "ServiceRequest/example-service"
+    }
+  }]
+}

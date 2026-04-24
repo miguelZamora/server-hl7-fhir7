@@ -1,0 +1,192 @@
+{
+  "resourceType": "AdverseEvent",
+  "id": "example",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Adverse Event</b></p><p><b>Status:</b> completed</p><p><b>Actuality:</b> actual</p><p><b>Category:</b> medication-mishap</p><p><b>Code:</b> 293003 - Allergic reaction to antibiotic</p><p><b>Subject:</b> Patient/example - Peter James Chalmers</p><p><b>Occurred:</b> 2024-03-15T10:30:00Z</p><p><b>Seriousness:</b> Severe</p><p><b>Outcome:</b> Resolved</p><p><b>Recorder:</b> Practitioner/example - Dr Adam Careful</p></div>"
+  },
+  "identifier": [
+    {
+      "system": "http://hospital.org/adverse-events",
+      "value": "AE-2024-001234"
+    }
+  ],
+  "status": "completed",
+  "actuality": "actual",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/adverse-event-category",
+          "code": "medication-mishap",
+          "display": "Medication Mishap"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "293003",
+        "display": "Allergic reaction to antibiotic"
+      }
+    ],
+    "text": "Allergic reaction to Penicillin"
+  },
+  "subject": {
+    "reference": "Patient/example",
+    "display": "Peter James Chalmers"
+  },
+  "encounter": {
+    "reference": "Encounter/example",
+    "display": "Inpatient Encounter"
+  },
+  "occurrenceDateTime": "2024-03-15T10:30:00Z",
+  "detected": "2024-03-15T10:35:00Z",
+  "recordedDate": "2024-03-15T10:45:00Z",
+  "resultingEffect": [
+    {
+      "reference": "Condition/allergic-reaction",
+      "display": "Urticaria and Dyspnea"
+    }
+  ],
+  "location": {
+    "reference": "Location/1",
+    "display": "South Wing, second floor"
+  },
+  "seriousness": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/adverse-event-seriousness",
+        "code": "severe",
+        "display": "Severe"
+      }
+    ]
+  },
+  "outcome": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/adverse-event-outcome",
+          "code": "resolved",
+          "display": "Resolved"
+        }
+      ]
+    }
+  ],
+  "recorder": {
+    "reference": "Practitioner/example",
+    "display": "Dr Adam Careful"
+  },
+  "participant": [
+    {
+      "function": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "223364009",
+            "display": "Prescribing physician"
+          }
+        ]
+      },
+      "actor": {
+        "reference": "Practitioner/example",
+        "display": "Dr Adam Careful"
+      }
+    },
+    {
+      "function": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "224787002",
+            "display": "Administering nurse"
+          }
+        ]
+      },
+      "actor": {
+        "reference": "Practitioner/nurse",
+        "display": "Nurse Jane Smith"
+      }
+    }
+  ],
+  "suspectEntity": [
+    {
+      "instanceReference": {
+        "reference": "Medication/example",
+        "display": "Penicillin G 1M IU injection"
+      },
+      "causality": {
+        "assessmentMethod": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/adverse-event-causality-assess",
+              "code": "who-up",
+              "display": "WHO-UMC causality assessment"
+            }
+          ]
+        },
+        "entityRelatedness": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/adverse-event-causality",
+              "code": "probable",
+              "display": "Probable/Likely"
+            }
+          ]
+        },
+        "author": {
+          "reference": "Practitioner/example",
+          "display": "Dr Adam Careful"
+        }
+      }
+    }
+  ],
+  "contributingFactor": [
+    {
+      "itemReference": {
+        "reference": "AllergyIntolerance/example",
+        "display": "Known allergy to Penicillin"
+      }
+    }
+  ],
+  "mitigatingAction": [
+    {
+      "itemCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "2387006",
+            "display": "Administration of antihistamine"
+          }
+        ],
+        "text": "Diphenhydramine 50mg IV administered"
+      }
+    }
+  ],
+  "supportingInfo": [
+    {
+      "itemReference": {
+        "reference": "Observation/blood-pressure",
+        "display": "Hypotension recorded"
+      }
+    },
+    {
+      "itemReference": {
+        "reference": "DocumentReference/clinical-note",
+        "display": "Clinical note of reaction"
+      }
+    }
+  ],
+  "note": [
+    {
+      "authorReference": {
+        "reference": "Practitioner/example",
+        "display": "Dr Adam Careful"
+      },
+      "time": "2024-03-15T11:00:00Z",
+      "text": "Patient developed urticaria and mild dyspnea 15 minutes after Penicillin administration. Treated with antihistamines. Symptoms resolved within 2 hours. Penicillin allergy flagged in patient record."
+    }
+  ]
+}

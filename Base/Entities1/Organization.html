@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><title>Organization - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-building"></i> Organization</h1><p>Organización (FHIR Organization)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2"><div class="form-group full-width"><label>Nombre</label><input type="text" id="name" placeholder="Health Level Seven International" required></div></div>
+<div class="grid-2"><div class="form-group full-width"><label>Alias</label><input type="text" id="alias" placeholder="HL7 International"></div></div>
+<div class="grid-2"><div class="form-group"><label>Dirección</label><input type="text" id="address" placeholder="3300 Washtenaw Avenue"></div><div class="form-group"><label>Ciudad</label><input type="text" id="city" placeholder="Ann Arbor"></div></div>
+<div class="grid-2"><div class="form-group"><label>Teléfono</label><input type="text" id="phone" placeholder="(+1) 734-677-7777"></div><div class="form-group"><label>Email</label><input type="email" id="email" placeholder="hq@HL7.org"></div></div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Organization</button></form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const btn=document.querySelector('.btn-submit');btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';btn.style.background='#10B981';const fhir={resourceType:"Organization",id:"org_"+Date.now().toString(36),name:document.getElementById('name').value,alias:[document.getElementById('alias').value],contact:[{telecom:[{system:"phone",value:document.getElementById('phone').value},{system:"email",value:document.getElementById('email').value}],address:{line:[document.getElementById('address').value],city:document.getElementById('city').value}}]};let db=JSON.parse(localStorage.getItem('fhir_organizations_db'))||[];db.push(fhir);localStorage.setItem('fhir_organizations_db',JSON.stringify(db));console.log("✅ Organization:",fhir);setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-check"></i> ¡Guardado!';setTimeout(()=>{btn.innerHTML='<i class="fa-solid fa-save"></i> Guardar Organization';btn.style.background='var(--primary)';e.target.reset();},3000);},800);});</script>
+</body></html>

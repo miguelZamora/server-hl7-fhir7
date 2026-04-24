@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignación de Rol Médico - FHIR</title>
+    <!-- Mismo diseño Cyan/Glassmorphism -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #0EA5E9;
+            --primary-hover: #0284C7;
+            --primary-dark: #0369A1;
+            --secondary: #38BDF8;
+            --dark: #0F172A;
+            --bg-gradient: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
+            --glass: rgba(255, 255, 255, 0.95);
+            --border: #BAE6FD;
+            --text-dark: #1E293B;
+            --text-muted: #64748B;
+            --focus-ring: rgba(14, 165, 233, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { background: var(--bg-gradient); min-height: 100vh; display: flex; justify-content: center; padding: 3rem 1rem; color: var(--text-dark); }
+        .form-container { width: 100%; max-width: 900px; background: var(--glass); border-radius: 20px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05); overflow: hidden; border: 1px solid white; }
+        .form-header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 2.5rem; text-align: center; }
+        .form-header h1 { font-size: 2rem; margin-bottom: 0.5rem; font-weight: 700; letter-spacing: -0.5px; }
+        .form-header p { color: rgba(255, 255, 255, 0.9); font-size: 1rem; font-weight: 300; }
+        form { padding: 3rem; }
+        .section-title { font-size: 1.2rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid #E0F2FE; display: flex; align-items: center; gap: 0.5rem; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        label { font-size: 0.9rem; font-weight: 600; color: var(--text-dark); }
+        input, select { width: 100%; padding: 0.875rem 1rem; border: 1px solid var(--border); border-radius: 10px; font-size: 1rem; background: white; transition: all 0.2s ease; color: var(--text-dark); }
+        input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px var(--focus-ring); }
+        input::placeholder { color: #94A3B8; }
+        .full-width { grid-column: span 2; }
+        
+        .btn-submit { background: var(--primary); color: white; border: none; padding: 1.2rem 2rem; font-size: 1.1rem; font-weight: 600; border-radius: 12px; cursor: pointer; width: 100%; transition: all 0.3s ease; display: flex; justify-content: center; align-items: center; gap: 0.75rem; margin-top: 1rem; box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2); }
+        .btn-submit:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 12px 25px rgba(14, 165, 233, 0.3); }
+
+        /* Schedule Box (Different style for availability) */
+        .schedule-box { background: #F8FAFC; padding: 1.5rem; border-radius: 12px; border: 1px solid #E2E8F0; margin-bottom: 2rem; }
+        .schedule-box label { color: #475569; }
+
+        @media (max-width: 600px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            form { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <header class="form-header">
+            <h1><i class="fa-solid fa-user-tag"></i> Asignación de Rol y Consultorio</h1>
+            <p>Configuración de Disponibilidad y Ubicación (FHIR PractitionerRole)</p>
+        </header>
+
+        <form action="#" method="POST" id="practitionerRoleForm">
+            
+            <!-- VÍNCULO A ROOT ENTITIES -->
+            <h2 class="section-title"><i class="fa-solid fa-link"></i> Asociaciones</h2>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label for="practitionerId">ID del Profesional (Practitioner)</label>
+                    <input type="text" id="practitionerId" name="practitionerId" placeholder="Ej. Practitioner/example" required>
+                </div>
+                <div class="form-group">
+                    <label for="practitionerName">Nombre del Profesional a Mostrar</label>
+                    <input type="text" id="practitionerName" name="practitionerName" placeholder="Ej. Dr Adam Careful" required>
+                </div>
+                <div class="form-group">
+                    <label for="organizationId">ID de la Institución (Organization)</label>
+                    <input type="text" id="organizationId" name="organizationId" placeholder="Ej. Organization/f001" required>
+                </div>
+                <div class="form-group">
+                    <label for="locationId">Ubicación / Consultorio (Location)</label>
+                    <input type="text" id="locationId" name="locationId" placeholder="Ej. Location/1">
+                </div>
+            </div>
+
+            <!-- DETALLES DEL ROL -->
+            <h2 class="section-title"><i class="fa-solid fa-stethoscope"></i> Especialidad y Rol</h2>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label for="roleCode">Código de Rol</label>
+                    <select id="roleCode" name="roleCode">
+                        <option value="RP">Referring Practitioner (RP)</option>
+                        <option value="NP">Nurse Practitioner (NP)</option>
+                        <option value="PHARM">Pharmacist</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="specialtyText">Especialidad</label>
+                    <select id="specialtyText" name="specialtyText">
+                        <option value="General medical practice">Medicina General</option>
+                        <option value="Cardiology">Cardiología</option>
+                        <option value="Pediatrics">Pediatría</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Teléfono de Trabajo para este Rol</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Ej. (03) 5555 6473">
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail de Trabajo</label>
+                    <input type="email" id="email" name="email" placeholder="Ej. adam.southern@example.org">
+                </div>
+            </div>
+
+            <!-- HORARIO DISPONIBLE -->
+            <h2 class="section-title"><i class="fa-solid fa-clock"></i> Disponibilidad (Standard)</h2>
+            <div class="schedule-box">
+                <div class="grid-2" style="margin-bottom: 0;">
+                    <div class="form-group full-width">
+                        <label>Días de la Semana</label>
+                        <input type="text" id="days" name="days" placeholder="Ej. mon, tue, wed" value="mon, tue, wed, thu, fri">
+                    </div>
+                    <div class="form-group">
+                        <label for="startTime">Hora de Inicio</label>
+                        <input type="time" id="startTime" name="startTime" value="09:00" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endTime">Hora de Fin</label>
+                        <input type="time" id="endTime" name="endTime" value="17:00" required>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                <i class="fa-solid fa-clipboard-check"></i> Asignar Rol en el Sistema
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('practitionerRoleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.querySelector('.btn-submit');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Registrando Rol (Offline DB)...';
+            btn.style.background = '#10B981';
+            
+            // 1. Array de días limpio
+            const daysArr = document.getElementById('days').value.split(',').map(d => d.trim().toLowerCase());
+
+            // 2. Construir el PractitionerRole JSON FHIR
+            const fhirRole = {
+                "resourceType": "PractitionerRole",
+                "id": "role_" + Date.now().toString(36),
+                "active": true,
+                "practitioner": {
+                    "reference": document.getElementById('practitionerId').value,
+                    "display": document.getElementById('practitionerName').value
+                },
+                "organization": {
+                    "reference": document.getElementById('organizationId').value
+                },
+                "code": [{
+                    "coding": [{
+                        "system": "http://terminology.hl7.org/CodeSystem/v2-0286",
+                        "code": document.getElementById('roleCode').value
+                    }]
+                }],
+                "specialty": [{
+                    "coding": [{
+                        "system": "http://snomed.info/sct",
+                        "display": document.getElementById('specialtyText').options[document.getElementById('specialtyText').selectedIndex].text
+                    }]
+                }],
+                "location": [{
+                    "reference": document.getElementById('locationId').value
+                }],
+                "contact": [{
+                    "telecom": [{
+                        "system": "phone",
+                        "value": document.getElementById('phone').value,
+                        "use": "work"
+                    }, {
+                        "system": "email",
+                        "value": document.getElementById('email').value,
+                        "use": "work"
+                    }]
+                }],
+                "availability": [{
+                    "availableTime": [{
+                        "daysOfWeek": daysArr,
+                        "availableStartTime": document.getElementById('startTime').value + ":00",
+                        "availableEndTime": document.getElementById('endTime').value + ":00"
+                    }]
+                }]
+            };
+
+            // 3. Guardar offline (Simulando)
+            let offlineDb = JSON.parse(localStorage.getItem('fhir_practitioner_roles_db')) || [];
+            offlineDb.push(fhirRole);
+            localStorage.setItem('fhir_practitioner_roles_db', JSON.stringify(offlineDb));
+            
+            console.log("✅ Nuevo Rol Asignado Offline:", fhirRole);
+
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> ¡Rol Configurado Correctamente!';
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fa-solid fa-clipboard-check"></i> Asignar Rol en el Sistema';
+                    btn.style.background = 'var(--primary)';
+                    e.target.reset(); // clear
+                }, 3000);
+            }, 800);
+        });
+    </script>
+</body>
+</html>

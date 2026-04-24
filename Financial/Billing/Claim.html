@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Claim - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-file-medical-alt"></i> Reclamación Completa</h1><p>Solicitud de cobro detallada (FHIR Claim)</p></header>
+<form action="#" method="POST" id="resourceForm">
+  
+  <h2 class="section-title"><i class="fa-solid fa-clipboard-list"></i> Datos de la Reclamación</h2>
+  <div class="grid-2">
+    <div class="form-group"><label>Paciente</label><input type="text" id="patient" placeholder="Patient/example" required></div>
+    <div class="form-group"><label>Estado</label><select id="status"><option value="active">Activo</option><option value="cancelled">Cancelado</option></select></div>
+    <div class="form-group"><label>Tipo de Reclamación</label><select id="type"><option value="oral">Dental / Oral</option><option value="institutional">Institucional</option><option value="pharmacy">Farmacia</option><option value="professional">Profesional</option></select></div>
+    <div class="form-group"><label>Uso</label><select id="use"><option value="claim">Cobro (Claim)</option><option value="preauthorization">Pre-autorización</option></select></div>
+    <div class="form-group"><label>Fecha de Creación</label><input type="date" id="created"></div>
+    <div class="form-group"><label>Prioridad</label><select id="priority"><option value="normal">Normal</option><option value="urgent">Urgente</option></select></div>
+  </div>
+
+  <h2 class="section-title"><i class="fa-solid fa-hospital-user"></i> Entidades Involucradas</h2>
+  <div class="grid-2">
+    <div class="form-group"><label>Aseguradora (Insurer)</label><input type="text" id="insurer" placeholder="Organization/example" required></div>
+    <div class="form-group"><label>Proveedor (Provider)</label><input type="text" id="provider" placeholder="Organization/provider" required></div>
+    <div class="form-group"><label>Payee (Cobrante)</label><select id="payeeType"><option value="provider">Proveedor</option><option value="subscriber">Suscriptor</option></select></div>
+    <div class="form-group"><label>Referencia de Cobertura</label><input type="text" id="coverage" placeholder="Coverage/example" required></div>
+  </div>
+
+  <h2 class="section-title"><i class="fa-solid fa-notes-medical"></i> Diagnóstico e Ítems</h2>
+  <div class="grid-2">
+    <div class="form-group"><label>Código de Diagnóstico (CIE-10)</label><input type="text" id="diagnosis" placeholder="ej. 123456"></div>
+    <div class="form-group"><label>Código de Servicio (Product/Service)</label><input type="text" id="serviceCode" placeholder="ej. 1200 - Consulta General"></div>
+    <div class="form-group"><label>Precio Unitario</label><input type="number" id="unitPrice" step="0.01" placeholder="0.00"></div>
+    <div class="form-group"><label>Moneda</label><select id="currency"><option value="USD">Dólar (USD)</option><option value="EUR">Euro (EUR)</option><option value="PEN">Sol (PEN)</option></select></div>
+  </div>
+
+  <button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Reclamación Detallada</button>
+</form></div>
+
+<script>
+document.getElementById('resourceForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.querySelector('.btn-submit');
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
+    
+    const fhir = {
+        resourceType: "Claim",
+        id: "clm_" + Date.now().toString(36),
+        status: document.getElementById('status').value,
+        type: { coding: [{ code: document.getElementById('type').value }] },
+        use: document.getElementById('use').value,
+        patient: { reference: document.getElementById('patient').value },
+        created: document.getElementById('created').value,
+        insurer: { reference: document.getElementById('insurer').value },
+        provider: { reference: document.getElementById('provider').value },
+        priority: { coding: [{ code: document.getElementById('priority').value }] },
+        payee: { type: { coding: [{ code: document.getElementById('payeeType').value }] } },
+        diagnosis: [{ sequence: 1, diagnosisCodeableConcept: { coding: [{ code: document.getElementById('diagnosis').value }] } }],
+        insurance: [{ sequence: 1, focal: true, coverage: { reference: document.getElementById('coverage').value } }],
+        item: [{
+            sequence: 1,
+            productOrService: { coding: [{ code: document.getElementById('serviceCode').value }] },
+            unitPrice: { value: parseFloat(document.getElementById('unitPrice').value), currency: document.getElementById('currency').value },
+            net: { value: parseFloat(document.getElementById('unitPrice').value), currency: document.getElementById('currency').value }
+        }]
+    };
+
+    let db = JSON.parse(localStorage.getItem('fhir_claims_db')) || [];
+    db.push(fhir);
+    localStorage.setItem('fhir_claims_db', JSON.stringify(db));
+    
+    console.log("✅ Claim Detallada:", fhir);
+    
+    setTimeout(() => {
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> ¡Guardado!';
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fa-solid fa-save"></i> Guardar Reclamación Detallada';
+            e.target.reset();
+        }, 3000);
+    }, 800);
+});
+</script>
+</body></html>

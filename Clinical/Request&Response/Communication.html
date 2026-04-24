@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Communication - FHIR</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><link rel="stylesheet" href="../../css/fhir-style.css"></head>
+<body>
+<div class="form-container"><header class="form-header"><h1><i class="fa-solid fa-comment-medical"></i> Comunicación</h1><p>Registro de mensajes clínicos (FHIR Communication)</p></header>
+<form action="#" method="POST" id="resourceForm">
+<div class="grid-2">
+  <div class="form-group"><label>Paciente / Sujeto</label><input type="text" id="patient" placeholder="Patient/example" required></div>
+  <div class="form-group"><label>Estado</label><select id="status"><option value="completed">Completado</option><option value="in-progress">En curso</option></select></div>
+  <div class="form-group"><label>Categoría</label><select id="category"><option value="notification">Notificación</option><option value="alert">Alerta</option><option value="reminder">Recordatorio</option></select></div>
+  <div class="form-group"><label>Fecha Envío</label><input type="datetime-local" id="sent"></div>
+  <div class="form-group full-width"><label>Mensaje (Payload)</label><textarea id="payload" placeholder="Contenido del mensaje..."></textarea></div>
+</div>
+<button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Comunicación</button>
+</form></div>
+<script>document.getElementById('resourceForm').addEventListener('submit',function(e){e.preventDefault();const fhir={resourceType:"Communication",status:document.getElementById('status').value,subject:{reference:document.getElementById('patient').value},category:[{text:document.getElementById('category').value}],sent:document.getElementById('sent').value,payload:[{contentString:document.getElementById('payload').value}]};console.log("✅ Communication:",fhir);});</script></body></html>

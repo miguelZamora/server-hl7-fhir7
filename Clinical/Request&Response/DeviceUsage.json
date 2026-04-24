@@ -1,0 +1,13 @@
+{
+  "resourceType": "DeviceUsage",
+  "id": "example-usage",
+  "status": "active",
+  "patient": {
+    "reference": "Patient/example"
+  },
+  "device": {
+    "concept": {
+      "text": "CPAP Machine"
+    }
+  }
+}

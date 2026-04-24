@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic - FHIR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/fhir-style.css">
+</head>
+<body>
+<div class="form-container">
+    <header class="form-header">
+        <h1><i class="fa-solid fa-circle"></i> Basic</h1>
+        <p>Recurso genérico (FHIR Basic)</p>
+    </header>
+    <form action="#" method="POST" id="resourceForm">
+        <h2 class="section-title"><i class="fa-solid fa-tag"></i> Identificación</h2>
+        <div class="grid-2">
+            <div class="form-group"><label>ID</label><input type="text" id="basicId" placeholder="referral" required></div>
+            <div class="form-group"><label>Identificador</label><input type="text" id="identifier" placeholder="19283746"></div>
+        </div>
+        <h2 class="section-title"><i class="fa-solid fa-code"></i> Código</h2>
+        <div class="grid-2">
+            <div class="form-group full-width"><label>Código (tipo de recurso)</label><input type="text" id="code" placeholder="referral" required></div>
+        </div>
+        <h2 class="section-title"><i class="fa-solid fa-user"></i> Sujeto</h2>
+        <div class="grid-2">
+            <div class="form-group"><label>Referencia Sujeto</label><input type="text" id="subjectRef" placeholder="Patient/f201" required></div>
+            <div class="form-group"><label>Nombre Sujeto</label><input type="text" id="subjectDisplay" placeholder="Roel"></div>
+        </div>
+        <h2 class="section-title"><i class="fa-solid fa-calendar"></i> Fechas y Autor</h2>
+        <div class="grid-2">
+            <div class="form-group"><label>Creado</label><input type="date" id="created" required></div>
+            <div class="form-group"><label>Autor Ref</label><input type="text" id="authorRef" placeholder="Practitioner/example"></div>
+        </div>
+        <h2 class="section-title"><i class="fa-solid fa-puzzle-piece"></i> Extensiones</h2>
+        <div class="grid-2">
+            <div class="form-group full-width"><label>Extensiones (url|tipo|valor, separadas por coma)</label><textarea id="extensions" rows="3" placeholder="http://example.org/fhir-extensions/referral#requestingPractitioner|reference|Practitioner/f201|Dokter Bronsig, http://example.org/fhir-extensions/referral#notes|string|The patient had fever peaks..."></textarea></div>
+        </div>
+        <button type="submit" class="btn-submit"><i class="fa-solid fa-save"></i> Guardar Basic</button>
+    </form>
+</div>
+<script>
+document.getElementById('resourceForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.querySelector('.btn-submit');
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
+    btn.style.background = '#10B981';
+    
+    const extensions = document.getElementById('extensions').value.split(',').filter(ext => ext.trim());
+    const extensionArr = extensions.map(ext => {
+        const parts = ext.split('|');
+        const url = parts[0]?.trim();
+        const type = parts[1]?.trim();
+        let value = null;
+        if (type === 'reference') {
+            value = { reference: parts[2]?.trim(), display: parts[3]?.trim() };
+        } else if (type === 'string') {
+            value = parts[2]?.trim();
+        } else if (type === 'code') {
+            value = parts[2]?.trim();
+        }
+        return { url, valueReference: type === 'reference' ? value : undefined, valueString: type === 'string' ? value : undefined };
+    });
+    
+    const fhir = {
+        resourceType: "Basic",
+        id: document.getElementById('basicId').value || "basic_" + Date.now().toString(36),
+        identifier: [{ value: document.getElementById('identifier').value }],
+        code: { coding: [{ code: document.getElementById('code').value }] },
+        subject: { reference: document.getElementById('subjectRef').value, display: document.getElementById('subjectDisplay').value },
+        created: document.getElementById('created').value,
+        author: { reference: document.getElementById('authorRef').value },
+        extension: extensionArr
+    };
+    
+    let db = JSON.parse(localStorage.getItem('fhir_basics_db')) || [];
+    db.push(fhir);
+    localStorage.setItem('fhir_basics_db', JSON.stringify(db));
+    console.log("✅ Basic:", fhir);
+    
+    setTimeout(() => {
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> ¡Guardado!';
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fa-solid fa-save"></i> Guardar Basic';
+            btn.style.background = 'var(--primary)';
+            e.target.reset();
+        }, 3000);
+    }, 800);
+});
+</script>
+</body>
+</html>

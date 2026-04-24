@@ -1,0 +1,193 @@
+This resource provides eligibility and plan details from the processing of an CoverageEligibilityRequest resource.
+
+13.3.1 Scope and Usage 
+The CoverageEligibilityResponse resource provides eligibility and plan details from the processing of an CoverageEligibilityRequest resource. It combines key information from a payor as to whether a Coverage is in-force, and optionally the nature of the Policy benefit details as well as the ability for the insurer to indicate whether the insurance provides benefits for requested types of services or requires preauthorization and if so what supporting information may be required.
+
+The CoverageEligibilityResponse resource is a "event" resource from a FHIR workflow perspective - see Workflow Event.
+
+13.3.1.1 Additional Information 
+Additional information regarding electronic coverage eligibility content and usage may be found at:
+
+Financial Resource Status Lifecycle: how .status is used in the financial resources.
+Subrogation: how eClaims may handle patient insurance coverages when another insurer rather than the provider will settle the claim and potentially recover costs against specified coverages.
+Coordination of Benefit: how eClaims may handle multiple patient insurance coverages.
+Batches: how eClaims may handle batches of eligibility, claims and responses.
+Attachments and Supporting Information: how eClaims may handle the provision of supporting information, whether provided by content or reference, within the eClaim resource when submitted to the payor or later in a resource which refers to the subject eClaim resource. This includes how payors how request additional supporting information from providers.
+13.3.2 Boundaries and Relationships 
+CoverageEligibilityResponse should be used to respond to a request on whether the patient's coverage is inforce, whether it is valid at this or a specified date, or to report the benefit details or preauthorization requirements associated with a coverage.
+
+When requesting whether the patient's coverage is inforce, whether it is valid at this or a specified date, or requesting the benefit details or preauthorization requirements associated with a coverage CoverageEligibilityRequest should be used instead.
+
+The ClaimResponse resource is an insurer's adjudication and/or authorization of a set of healthcare-related goods and services for a patient against the patient's insurance coverages.
+
+For reporting out to patients or transferring data to patient centered applications, such as patient health Record (PHR) application, the ExplanationOfBenefit should be used .
+
+The Coverage resource contains the information typically found on the health insurance card for an individual used to identify the covered individual to the insurer and is referred to by the CoverageEligibilityResponse.
+
+The eClaim domain includes a number of related resources
+
+CoverageEligibilityResponse	Patient and insurance coverage information provided to an insurer for them to respond, in the form of an CoverageEligibilityResponse, with information regarding whether the stated coverage is valid and in-force and optionally to provide the insurance details of the policy.
+ClaimResponse	A payor's adjudication and/or authorization response to the suite of services provided in a Claim. Typically the ClaimResponse references the Claim but does not duplicate the clinical or financial information provided in the claim.
+CoverageEligibilityRequest	Patient and insurance coverage information provided to an insurer for them to respond, in the form of an CoverageEligibilityResponse, with information regarding whether the stated coverage is valid and in-force and optionally to provide the insurance details of the policy.
+Coverage	Provides the high-level identifiers and descriptors of an insurance plan, typically the information which would appear on an insurance card, which may be used to pay, in part or in whole, for the provision of health care products and services.
+ExplanationOfBenefit	This resource combines the information from the Claim and the ClaimResponse, stripping out any provider or payor proprietary information, into a unified information model suitable for use for: patient reporting; transferring information to a Patient Health Record system; and, supporting complete claim and adjudication information exchange with regulatory and analytics organizations and other parts of the provider's organization.
+13.3.3 References to this Resource 
+Implements: Event
+13.3.4 Resource Content 
+StructureUMLXMLJSONTurtleR4 DiffAll
+Structure
+
+Name	Flags	Card.	Type	Description & Constraintsdoco
+.. CoverageEligibilityResponse	TU		DomainResource	CoverageEligibilityResponse resource
+
+Elements defined in Ancestors: id, meta, implicitRules, language, text, contained, extension, modifierExtension
+... identifier		0..*	Identifier	Business Identifier for coverage eligiblity request
+
+... status	?!Σ	1..1	code	active | cancelled | draft | entered-in-error
+Binding: Financial Resource Status Codes (Required)
+... purpose	Σ	1..*	code	auth-requirements | benefits | discovery | validation
+Binding: Eligibility Response Purpose (Required)
+
+... patient	Σ	1..1	Reference(Patient)	Intended recipient of products and services
+... event		0..*	BackboneElement	Event information
+
+.... type		1..1	CodeableConcept	Specific event
+Binding: Dates Type Codes (Example)
+.... when[x]		1..1		Occurance date or period
+..... whenDateTime			dateTime	
+..... whenPeriod			Period	
+... serviced[x]		0..1		Estimated date or dates of service
+.... servicedDate			date	
+.... servicedPeriod			Period	
+... created	Σ	1..1	dateTime	Response creation date
+... requestor		0..1	Reference(Practitioner | PractitionerRole | Organization)	Party responsible for the request
+... request	Σ	1..1	Reference(CoverageEligibilityRequest)	Eligibility request reference
+... outcome	Σ	1..1	code	queued | complete | error | partial
+Binding: Eligibility Outcome (Required)
+... disposition		0..1	string	Disposition Message
+... insurer	Σ	1..1	Reference(Organization)	Coverage issuer
+... insurance		0..*	BackboneElement	Patient insurance information
+
+.... coverage	Σ	1..1	Reference(Coverage)	Insurance information
+.... inforce		0..1	boolean	Coverage inforce indicator
+.... benefitPeriod		0..1	Period	When the benefits are applicable
+.... item	C	0..*	BackboneElement	Benefits and authorization details
++ Rule: SHALL contain a category or a billcode but not both.
+
+..... category	C	0..1	CodeableConcept	Benefit classification
+Binding: Benefit Category Codes (Example)
+..... productOrService	C	0..1	CodeableConcept	Billing, service, product, or drug code
+Binding: USCLS Codes (Example)
+..... modifier		0..*	CodeableConcept	Product or service billing modifiers
+Binding: Modifier type Codes (Example)
+
+..... provider		0..1	Reference(Practitioner | PractitionerRole)	Performing practitioner
+..... excluded		0..1	boolean	Excluded from the plan
+..... name		0..1	string	Short name for the benefit
+..... description		0..1	string	Description of the benefit or services covered
+..... network		0..1	CodeableConcept	In or out of network
+Binding: Network Type Codes (Example)
+..... unit		0..1	CodeableConcept	Individual or family
+Binding: Unit Type Codes (Example)
+..... term		0..1	CodeableConcept	Annual or lifetime
+Binding: Benefit Term Codes (Example)
+..... benefit		0..*	BackboneElement	Benefit Summary
+
+...... type		1..1	CodeableConcept	Benefit classification
+Binding: Benefit Type Codes (Example)
+...... allowed[x]		0..1		Benefits allowed
+....... allowedUnsignedInt			unsignedInt	
+....... allowedString			string	
+....... allowedMoney			Money	
+...... used[x]		0..1		Benefits used
+....... usedUnsignedInt			unsignedInt	
+....... usedString			string	
+....... usedMoney			Money	
+..... authorizationRequired		0..1	boolean	Authorization required flag
+..... authorizationSupporting		0..*	CodeableConcept	Type of required supporting materials
+Binding: CoverageEligibilityResponse Auth Support Codes (Example)
+
+..... authorizationUrl		0..1	uri	Preauthorization requirements endpoint
+... preAuthRef		0..1	string	Preauthorization reference
+... form		0..1	CodeableConcept	Printed form identifier
+Binding: Form Codes (Example)
+... error		0..*	BackboneElement	Processing errors
+
+.... code	Σ	1..1	CodeableConcept	Error code detailing processing issues
+Binding: Adjudication Error Codes (Example)
+.... expression	Σ	0..*	string	FHIRPath of element(s) related to issue
+
+
+doco Documentation for this format icon
+See the Extensions for this resource
+
+ 
+
+Additional definitions: Master Definition XML + JSON, XML Schema/Schematron + JSON Schema, ShEx (for Turtle) + see the extensions, the spreadsheet version & the dependency analysis
+
+13.3.4.1 Terminology Bindings 
+Path	ValueSet	Type	Documentation
+CoverageEligibilityResponse.status	FinancialResourceStatusCodes	Required	
+This value set includes Status codes.
+
+CoverageEligibilityResponse.purpose	EligibilityResponsePurpose	Required	
+A code specifying the types of information being requested.
+
+CoverageEligibilityResponse.event.type	DatesTypeCodes (a valid code from Dates Event Type Codes)	Example	
+This value set includes sample Dates Type codes.
+
+CoverageEligibilityResponse.outcome	EligibilityOutcome (a valid code from Claim Processing Codes)	Required	
+The outcome of the processing.
+
+CoverageEligibilityResponse.insurance.item.category	BenefitCategoryCodes	Example	
+This value set includes examples of Benefit Category codes.
+
+CoverageEligibilityResponse.insurance.item.productOrService	USCLSCodes	Example	
+This value set includes a smattering of USCLS codes.
+
+CoverageEligibilityResponse.insurance.item.modifier	ModifierTypeCodes	Example	
+This value set includes sample Modifier type codes.
+
+CoverageEligibilityResponse.insurance.item.network	NetworkTypeCodes	Example	
+This value set includes a smattering of Network type codes.
+
+CoverageEligibilityResponse.insurance.item.unit	UnitTypeCodes	Example	
+This value set includes a smattering of Unit type codes.
+
+CoverageEligibilityResponse.insurance.item.term	BenefitTermCodes	Example	
+This value set includes a smattering of Benefit Term codes.
+
+CoverageEligibilityResponse.insurance.item.benefit.type	BenefitTypeCodes	Example	
+This value set includes a smattering of Benefit type codes.
+
+CoverageEligibilityResponse.insurance.item.authorizationSupporting	CoverageEligibilityResponseAuthSupportCodes	Example	
+This value set includes CoverageEligibilityResponse Auth Support codes.
+
+CoverageEligibilityResponse.form	FormCodes	Example	
+This value set includes a sample set of Forms codes.
+
+CoverageEligibilityResponse.error.code	AdjudicationErrorCodes	Example	
+This value set includes a smattering of adjudication codes.
+
+
+13.3.4.2 Constraints 
+UniqueKey	Level	Location	Description	Expression
+img ces-1	Rule	CoverageEligibilityResponse.insurance.item	SHALL contain a category or a billcode but not both.	category.exists() xor productOrService.exists()
+
+13.3.5 Search Parameters 
+Search parameters for this resource. See also the full list of search parameters for this resource, and check the Extensions registry for search parameters on extensions related to this resource. The common parameters also apply. See Searching for more information about searching in REST, messaging, and services.
+
+Name	Type	Description	Expression	In Common
+created	date	The creation date	CoverageEligibilityResponse.created	
+disposition	string	The contents of the disposition message	CoverageEligibilityResponse.disposition	
+identifier	token	The business identifier	CoverageEligibilityResponse.identifier	65 Resources
+insurer	reference	The organization which generated this resource	CoverageEligibilityResponse.insurer
+(Organization)	
+outcome	token	The processing outcome	CoverageEligibilityResponse.outcome	
+patient	reference	The reference to the patient	CoverageEligibilityResponse.patient
+(Patient)	66 Resources
+request	reference	The EligibilityRequest reference	CoverageEligibilityResponse.request
+(CoverageEligibilityRequest)	
+requestor	reference	The EligibilityRequest provider	CoverageEligibilityResponse.requestor
+(Practitioner, Organization, PractitionerRole)	
+status	token	The EligibilityRequest status	CoverageEligibilityResponse.status	

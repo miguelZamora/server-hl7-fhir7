@@ -1,0 +1,14 @@
+{
+  "resourceType": "Contract",
+  "id": "example-contract",
+  "status": "active",
+  "subject": [{
+    "reference": "Patient/example"
+  }],
+  "type": {
+    "text": "Legal Service Contract"
+  },
+  "term": [{
+    "text": "Monthly payment for clinical services"
+  }]
+}
