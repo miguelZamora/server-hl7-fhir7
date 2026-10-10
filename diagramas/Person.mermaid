@@ -1,0 +1,25 @@
+erDiagram
+    person ||--o{ person_identifier : "0..*"
+    person ||--o{ person_name : "0..*"
+    person ||--o{ person_telecom : "0..*"
+    person ||--o{ person_address : "0..*"
+    person ||--o{ person_photo : "0..*"
+    person ||--o{ person_communication : "0..*"
+    person ||--o{ person_link : "0..*"
+
+    person {
+        bigint id PK
+        text fhir_id
+        boolean active
+        text gender
+        date birth_date
+        text managing_organization_reference
+    }
+
+    person_link {
+        bigint id PK
+        bigint person_id FK
+        text target_reference
+        text target_type
+        text assurance
+    }

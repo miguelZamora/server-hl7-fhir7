@@ -1,0 +1,56 @@
+erDiagram
+    value_set ||--o{ vs_identifier : "0..*"
+    value_set ||--o{ vs_contact : "0..*"
+    value_set ||--o{ vs_jurisdiction : "0..*"
+    value_set ||--o| vs_compose : "0..1"
+    value_set ||--o| vs_expansion : "0..1"
+
+    vs_compose ||--o{ vs_compose_include : "1..*"
+    vs_compose ||--o{ vs_compose_exclude : "0..*"
+    vs_compose ||--o{ vs_compose_property : "0..*"
+
+    vs_compose_include ||--o{ vs_compose_include_concept : "0..*"
+    vs_compose_include ||--o{ vs_compose_include_filter : "0..*"
+    vs_compose_include ||--o{ vs_compose_include_valueset : "0..*"
+
+    vs_compose_include_concept ||--o{ vs_compose_include_concept_designation : "0..*"
+    vs_compose_include_concept_designation ||--o{ vs_compose_include_concept_designation_additional_use : "0..*"
+
+    vs_expansion ||--o{ vs_expansion_parameter : "0..*"
+    vs_expansion ||--o{ vs_expansion_property : "0..*"
+    vs_expansion ||--o{ vs_expansion_contains : "0..*"
+
+    vs_expansion_contains ||--o{ vs_expansion_contains : "recursivo"
+    vs_expansion_contains ||--o{ vs_expansion_contains_property : "0..*"
+    vs_expansion_contains_property ||--o{ vs_expansion_contains_subproperty : "0..*"
+
+    value_set {
+        bigint id PK
+        text fhir_id
+        text url
+        text version
+        text name
+        text status
+    }
+
+    vs_compose {
+        bigint id PK
+        bigint value_set_id FK
+        date locked_date
+        boolean inactive
+    }
+
+    vs_expansion {
+        bigint id PK
+        bigint value_set_id FK
+        timestamptz timestamp
+        int total
+    }
+
+    vs_expansion_contains {
+        bigint id PK
+        bigint expansion_id FK
+        bigint parent_id FK
+        text code
+        text display
+    }

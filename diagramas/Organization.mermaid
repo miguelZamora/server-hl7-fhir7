@@ -1,0 +1,19 @@
+erDiagram
+    organization ||--o{ org_identifier : "0..*"
+    organization ||--o{ org_type : "0..*"
+    organization ||--o{ org_alias : "0..*"
+    organization ||--o{ org_contact : "0..*"
+    organization ||--o{ org_endpoint : "0..*"
+    organization ||--o{ org_qualification : "0..*"
+
+    org_contact ||--o{ org_contact_telecom : "0..*"
+    org_contact ||--o| org_contact_address : "0..1"
+    org_qualification ||--o{ org_qualification_identifier : "0..*"
+
+    organization {
+        bigint id PK
+        text fhir_id
+        boolean active
+        text name
+        text part_of_reference
+    }

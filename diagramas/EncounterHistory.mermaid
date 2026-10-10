@@ -1,0 +1,17 @@
+erDiagram
+    encounter_history ||--o{ eh_identifier : "0..*"
+    encounter_history ||--o{ eh_type : "0..*"
+    encounter_history ||--o{ eh_service_type : "0..*"
+    encounter_history ||--o{ eh_location : "0..*"
+
+    encounter_history {
+        bigint id PK
+        text fhir_id
+        text encounter_reference
+        text status
+        bigint class_coding_id FK
+        text subject_reference
+        bigint subject_status_coding_id FK
+        timestamptz actual_period_start
+        timestamptz actual_period_end
+    }

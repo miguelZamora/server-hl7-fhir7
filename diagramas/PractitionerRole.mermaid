@@ -1,0 +1,23 @@
+erDiagram
+    practitioner_role ||--o{ pr_identifier : "0..*"
+    practitioner_role ||--o{ pr_code : "0..*"
+    practitioner_role ||--o{ pr_specialty : "0..*"
+    practitioner_role ||--o{ pr_location : "0..*"
+    practitioner_role ||--o{ pr_healthcare_service : "0..*"
+    practitioner_role ||--o{ pr_contact : "0..*"
+    practitioner_role ||--o{ pr_characteristic : "0..*"
+    practitioner_role ||--o{ pr_communication : "0..*"
+    practitioner_role ||--o{ pr_availability : "0..*"
+    practitioner_role ||--o{ pr_endpoint : "0..*"
+
+    pr_contact ||--o{ pr_contact_telecom : "0..*"
+    pr_availability ||--o{ pr_availability_available_time : "0..*"
+    pr_availability ||--o{ pr_availability_not_available : "0..*"
+
+    practitioner_role {
+        bigint id PK
+        text fhir_id
+        boolean active
+        text practitioner_reference
+        text organization_reference
+    }

@@ -1,0 +1,24 @@
+erDiagram
+    schedule ||--o{ sch_identifier : "0..*"
+    schedule ||--o{ sch_service_category : "0..*"
+    schedule ||--o{ sch_service_type : "0..*"
+    schedule ||--o{ sch_specialty : "0..*"
+    schedule ||--o{ sch_actor : "1..*"
+
+    schedule {
+        bigint id PK
+        text fhir_id
+        boolean active
+        text name
+        text comment
+        timestamptz planning_horizon_start
+        timestamptz planning_horizon_end
+    }
+
+    sch_actor {
+        bigint id PK
+        bigint schedule_id FK
+        text reference
+        text type
+        text display
+    }

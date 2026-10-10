@@ -1,0 +1,37 @@
+erDiagram
+    appointment ||--o{ app_identifier : "0..*"
+    appointment ||--o{ app_class : "0..*"
+    appointment ||--o{ app_service_category : "0..*"
+    appointment ||--o{ app_service_type : "0..*"
+    appointment ||--o{ app_specialty : "0..*"
+    appointment ||--o{ app_reason : "0..*"
+    appointment ||--o{ app_replaces : "0..*"
+    appointment ||--o{ app_supporting_information : "0..*"
+    appointment ||--o{ app_virtual_service : "0..*"
+    appointment ||--o{ app_requested_period : "0..*"
+    appointment ||--o{ app_slot : "0..*"
+    appointment ||--o{ app_account : "0..*"
+    appointment ||--o{ app_note : "0..*"
+    appointment ||--o{ app_based_on : "0..*"
+    appointment ||--o{ app_patient_instruction : "0..*"
+    appointment ||--o{ app_participant : "1..*"
+    appointment ||--o{ app_recurrence_template : "0..*"
+
+    app_participant ||--o{ app_participant_type : "0..*"
+    app_recurrence_template ||--o{ app_recurrence_occurrence_date : "0..*"
+    app_recurrence_template ||--o| app_recurrence_weekly_template : "0..1"
+    app_recurrence_template ||--o| app_recurrence_monthly_template : "0..1"
+    app_recurrence_template ||--o| app_recurrence_yearly_template : "0..1"
+    app_recurrence_template ||--o{ app_recurrence_excluding_date : "0..*"
+    app_recurrence_template ||--o{ app_recurrence_excluding_id : "0..*"
+
+    appointment {
+        bigint id PK
+        text fhir_id
+        text status
+        text intent
+        text priority
+        text subject_reference
+        timestamptz start_time
+        timestamptz end_time
+    }

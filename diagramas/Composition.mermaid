@@ -1,0 +1,32 @@
+erDiagram
+    composition ||--o{ comp_identifier : "0..*"
+    composition ||--o{ comp_category : "0..*"
+    composition ||--o{ comp_subject : "0..*"
+    composition ||--o{ comp_use_context : "0..*"
+    composition ||--o{ comp_author : "1..*"
+    composition ||--o{ comp_note : "0..*"
+    composition ||--o{ comp_attester : "0..*"
+    composition ||--o{ comp_relates_to : "0..*"
+    composition ||--o{ comp_event : "0..*"
+    composition ||--o{ comp_section : "0..*"
+
+    comp_event ||--o{ comp_event_detail : "0..*"
+    comp_section ||--o{ comp_section : "recursivo"
+    comp_section ||--o{ comp_section_author : "0..*"
+    comp_section ||--o{ comp_section_entry : "0..*"
+
+    composition {
+        bigint id PK
+        text fhir_id
+        text status
+        text title
+        timestamptz date
+    }
+
+    comp_section {
+        bigint id PK
+        bigint composition_id FK
+        bigint parent_section_id FK
+        text title
+        text text_status
+    }

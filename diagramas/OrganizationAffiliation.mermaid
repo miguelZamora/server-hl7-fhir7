@@ -1,0 +1,20 @@
+erDiagram
+    organization_affiliation ||--o{ oa_identifier : "0..*"
+    organization_affiliation ||--o{ oa_network : "0..*"
+    organization_affiliation ||--o{ oa_code : "0..*"
+    organization_affiliation ||--o{ oa_specialty : "0..*"
+    organization_affiliation ||--o{ oa_location : "0..*"
+    organization_affiliation ||--o{ oa_healthcare_service : "0..*"
+    organization_affiliation ||--o{ oa_contact : "0..*"
+    organization_affiliation ||--o{ oa_endpoint : "0..*"
+
+    oa_contact ||--o{ oa_contact_telecom : "0..*"
+    oa_contact ||--o| oa_contact_address : "0..1"
+
+    organization_affiliation {
+        bigint id PK
+        text fhir_id
+        boolean active
+        text organization_reference
+        text participating_organization_reference
+    }

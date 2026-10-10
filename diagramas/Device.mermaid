@@ -1,0 +1,26 @@
+erDiagram
+    device ||--o{ dev_identifier : "0..*"
+    device ||--o{ dev_udi_carrier : "0..*"
+    device ||--o{ dev_name : "0..*"
+    device ||--o{ dev_category : "0..*"
+    device ||--o{ dev_type : "0..*"
+    device ||--o{ dev_version : "0..*"
+    device ||--o{ dev_conforms_to : "0..*"
+    device ||--o{ dev_property : "0..*"
+    device ||--o{ dev_contact : "0..*"
+    device ||--o{ dev_endpoint : "0..*"
+    device ||--o{ dev_gateway : "0..*"
+    device ||--o{ dev_note : "0..*"
+    device ||--o{ dev_safety : "0..*"
+
+    device {
+        bigint id PK
+        text fhir_id
+        text display_name
+        bigint definition_coding_id FK
+        text definition_reference
+        text status
+        text manufacturer
+        text serial_number
+        text parent_reference
+    }

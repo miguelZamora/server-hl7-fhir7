@@ -1,0 +1,44 @@
+erDiagram
+    audit_event ||--o{ ae_category : "0..*"
+    audit_event ||--o| ae_code : "1"
+    audit_event ||--o| ae_outcome : "0..1"
+    audit_event ||--o{ ae_authorization : "0..*"
+    audit_event ||--o{ ae_based_on : "0..*"
+    audit_event ||--o{ ae_agent : "1..*"
+    audit_event ||--o| ae_source : "1"
+    audit_event ||--o{ ae_entity : "0..*"
+
+    ae_outcome ||--o{ ae_outcome_detail : "0..*"
+    ae_agent ||--o{ ae_agent_role : "0..*"
+    ae_agent ||--o{ ae_agent_policy : "0..*"
+    ae_agent ||--o{ ae_agent_authorization : "0..*"
+    ae_source ||--o{ ae_source_type : "0..*"
+    ae_entity ||--o{ ae_entity_security_label : "0..*"
+    ae_entity ||--o{ ae_entity_detail : "0..*"
+    ae_entity ||--o{ ae_entity_agent : "0..*"
+
+    ae_entity_agent ||--o{ ae_entity_agent_role : "0..*"
+    ae_entity_agent ||--o{ ae_entity_agent_policy : "0..*"
+    ae_entity_agent ||--o{ ae_entity_agent_authorization : "0..*"
+
+    audit_event {
+        bigint id PK
+        text fhir_id
+        text action
+        text severity
+        timestamptz recorded
+    }
+
+    ae_agent {
+        bigint id PK
+        bigint audit_event_id FK
+        text who_reference
+        boolean requestor
+    }
+
+    ae_entity {
+        bigint id PK
+        bigint audit_event_id FK
+        text what_reference
+        text role_code
+    }

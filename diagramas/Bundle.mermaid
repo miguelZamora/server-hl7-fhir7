@@ -1,0 +1,27 @@
+erDiagram
+    bundle ||--o{ bundle_identifier : "0..1"
+    bundle ||--o{ bundle_link : "0..*"
+    bundle ||--o{ bundle_entry : "0..*"
+    bundle ||--o{ bundle_signature : "0..1"
+
+    bundle_entry ||--o{ bundle_entry_link : "0..*"
+    bundle_entry ||--o| bundle_entry_search : "0..1"
+    bundle_entry ||--o| bundle_entry_request : "0..1"
+    bundle_entry ||--o| bundle_entry_response : "0..1"
+
+    bundle {
+        bigint id PK
+        text fhir_id
+        text type
+        timestamptz timestamp
+        int total
+        text issues_reference
+    }
+
+    bundle_entry {
+        bigint id PK
+        bigint bundle_id FK
+        text full_url
+        text resource_ref
+        text resource_type
+    }

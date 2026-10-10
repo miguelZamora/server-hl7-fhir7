@@ -1,0 +1,17 @@
+erDiagram
+    linkage ||--o{ lnk_item : "1..*"
+
+    linkage {
+        bigint id PK
+        text fhir_id
+        boolean active
+        text author_reference
+    }
+
+    lnk_item {
+        bigint id PK
+        bigint linkage_id FK
+        text type
+        text resource_reference
+        text resource_type
+    }

@@ -1,0 +1,26 @@
+erDiagram
+    practitioner ||--o{ prac_identifier : "0..*"
+    practitioner ||--o{ prac_name : "0..*"
+    practitioner ||--o{ prac_telecom : "0..*"
+    practitioner ||--o{ prac_address : "0..*"
+    practitioner ||--o{ prac_photo : "0..*"
+    practitioner ||--o{ prac_qualification : "0..*"
+    practitioner ||--o{ prac_communication : "0..*"
+
+    prac_qualification ||--o{ prac_qualification_identifier : "0..*"
+
+    practitioner {
+        bigint id PK
+        text fhir_id
+        boolean active
+        text gender
+        date birth_date
+    }
+
+    prac_qualification {
+        bigint id PK
+        bigint practitioner_id FK
+        bigint code_coding_id FK
+        text code_text
+        text issuer_reference
+    }

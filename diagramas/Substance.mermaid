@@ -1,0 +1,24 @@
+erDiagram
+    substance ||--o{ sub_identifier : "0..*"
+    substance ||--o{ sub_category : "0..*"
+    substance ||--o{ sub_ingredient : "0..*"
+
+    substance {
+        bigint id PK
+        text fhir_id
+        boolean instance
+        text status
+        bigint code_coding_id FK
+        text code_text
+        text code_reference
+        timestamptz expiry
+        numeric quantity_value
+    }
+
+    sub_ingredient {
+        bigint id PK
+        bigint substance_id FK
+        numeric quantity_numerator_value
+        bigint substance_coding_id FK
+        text substance_reference
+    }

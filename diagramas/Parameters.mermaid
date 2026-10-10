@@ -1,0 +1,20 @@
+erDiagram
+    parameters ||--o{ param_parameter : "0..*"
+
+    param_parameter ||--o{ param_parameter : "recursivo"
+
+    parameters {
+        bigint id PK
+        text fhir_id
+    }
+
+    param_parameter {
+        bigint id PK
+        bigint parameters_id FK
+        bigint parent_parameter_id FK
+        text name
+        text value_string
+        text value_reference
+        bigint value_coding_id FK
+        jsonb value_json
+    }

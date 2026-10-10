@@ -1,0 +1,30 @@
+erDiagram
+    group ||--o{ grp_identifier : "0..*"
+    group ||--o{ grp_characteristic : "0..*"
+    group ||--o{ grp_member : "0..*"
+
+    group {
+        bigint id PK
+        text fhir_id
+        boolean active
+        text type
+        text membership
+        text name
+        int quantity
+        text managing_entity_reference
+    }
+
+    grp_member {
+        bigint id PK
+        bigint group_id FK
+        text entity_reference
+        text entity_type
+        boolean inactive
+    }
+
+    grp_characteristic {
+        bigint id PK
+        bigint group_id FK
+        text code_coding_id FK
+        boolean exclude
+    }

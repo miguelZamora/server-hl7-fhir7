@@ -1,0 +1,17 @@
+erDiagram
+    related_person ||--o{ rel_identifier : "0..*"
+    related_person ||--o{ rel_relationship : "0..*"
+    related_person ||--o{ rel_name : "0..*"
+    related_person ||--o{ rel_telecom : "0..*"
+    related_person ||--o{ rel_address : "0..*"
+    related_person ||--o{ rel_photo : "0..*"
+    related_person ||--o{ rel_communication : "0..*"
+
+    related_person {
+        bigint id PK
+        text fhir_id
+        boolean active
+        text patient_reference
+        text gender
+        date birth_date
+    }

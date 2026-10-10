@@ -1,0 +1,19 @@
+erDiagram
+    operation_outcome ||--o{ oo_issue : "1..*"
+
+    oo_issue ||--o{ oo_issue_location : "0..*"
+    oo_issue ||--o{ oo_issue_expression : "0..*"
+
+    operation_outcome {
+        bigint id PK
+        text fhir_id
+    }
+
+    oo_issue {
+        bigint id PK
+        bigint operation_outcome_id FK
+        text severity
+        text code
+        bigint details_coding_id FK
+        text diagnostics
+    }

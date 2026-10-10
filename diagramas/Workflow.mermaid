@@ -1,0 +1,27 @@
+erDiagram
+    task ||--o{ task_identifier : "0..*"
+    task ||--o{ task_part_of : "0..*"
+    task ||--o{ task_based_on : "0..*"
+    task ||--o{ task_requested_performer : "0..*"
+    task ||--o{ task_performer : "0..*"
+    task ||--o{ task_reason : "0..*"
+    task ||--o{ task_insurance : "0..*"
+    task ||--o{ task_note : "0..*"
+    task ||--o{ task_relevant_history : "0..*"
+    task ||--o| task_restriction : "0..1"
+    task ||--o{ task_input : "0..*"
+    task ||--o{ task_output : "0..*"
+
+    task_restriction ||--o{ task_restriction_recipient : "0..*"
+
+    task {
+        bigint id PK
+        text fhir_id
+        text status
+        text intent
+        text priority
+        boolean do_not_perform
+        text focus_reference
+        text for_reference
+        text encounter_reference
+    }

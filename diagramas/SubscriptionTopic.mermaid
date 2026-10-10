@@ -1,0 +1,29 @@
+erDiagram
+    subscription_topic ||--o{ st_identifier : "0..*"
+    subscription_topic ||--o{ st_derived_from : "0..*"
+    subscription_topic ||--o{ st_contact : "0..*"
+    subscription_topic ||--o{ st_jurisdiction : "0..*"
+    subscription_topic ||--o{ st_resource_trigger : "0..*"
+    subscription_topic ||--o{ st_event_trigger : "0..*"
+    subscription_topic ||--o{ st_can_filter_by : "0..*"
+    subscription_topic ||--o{ st_notification_shape : "0..*"
+
+    st_resource_trigger ||--o{ st_resource_trigger_interaction : "0..*"
+    st_can_filter_by ||--o{ st_can_filter_by_comparator : "0..*"
+    st_can_filter_by ||--o{ st_can_filter_by_modifier : "0..*"
+    st_notification_shape ||--o{ st_notification_shape_include : "0..*"
+    st_notification_shape ||--o{ st_notification_shape_revinclude : "0..*"
+
+    subscription_topic {
+        bigint id PK
+        text fhir_id
+        text url
+        text status
+    }
+
+    st_resource_trigger {
+        bigint id PK
+        bigint subscription_topic_id FK
+        text resource
+        text fhir_path_criteria
+    }

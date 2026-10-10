@@ -1,0 +1,22 @@
+erDiagram
+    subscription_status ||--o{ sst_notification_event : "0..*"
+    subscription_status ||--o{ sst_error : "0..*"
+
+    sst_notification_event ||--o{ sst_notification_event_context : "0..*"
+
+    subscription_status {
+        bigint id PK
+        text fhir_id
+        text status
+        text type
+        bigint events_since_subscription_start
+        text subscription_reference
+    }
+
+    sst_notification_event {
+        bigint id PK
+        bigint subscription_status_id FK
+        bigint event_number
+        timestamptz timestamp
+        text focus_reference
+    }

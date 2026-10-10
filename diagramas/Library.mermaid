@@ -1,0 +1,33 @@
+erDiagram
+    library ||--o{ lib_identifier : "0..*"
+    library ||--o{ lib_contact : "0..*"
+    library ||--o{ lib_use_context : "0..*"
+    library ||--o{ lib_jurisdiction : "0..*"
+    library ||--o{ lib_topic : "0..*"
+    library ||--o{ lib_author : "0..*"
+    library ||--o{ lib_editor : "0..*"
+    library ||--o{ lib_reviewer : "0..*"
+    library ||--o{ lib_endorser : "0..*"
+    library ||--o{ lib_related_artifact : "0..*"
+    library ||--o{ lib_parameter : "0..*"
+    library ||--o{ lib_data_requirement : "0..*"
+    library ||--o{ lib_content : "0..*"
+
+    lib_contact ||--o{ lib_contact_telecom : "0..*"
+    lib_author ||--o{ lib_author_telecom : "0..*"
+    lib_editor ||--o{ lib_editor_telecom : "0..*"
+    lib_reviewer ||--o{ lib_reviewer_telecom : "0..*"
+    lib_endorser ||--o{ lib_endorser_telecom : "0..*"
+
+    library {
+        bigint id PK
+        text fhir_id
+        text url
+        text version
+        text name
+        text title
+        text status
+        bigint type_coding_id FK
+        timestamptz date
+        text publisher
+    }

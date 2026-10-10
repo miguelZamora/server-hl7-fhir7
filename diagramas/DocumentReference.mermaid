@@ -1,0 +1,31 @@
+erDiagram
+    document_reference ||--o{ docref_identifier : "0..*"
+    document_reference ||--o{ docref_based_on : "0..*"
+    document_reference ||--o{ docref_modality : "0..*"
+    document_reference ||--o{ docref_category : "0..*"
+    document_reference ||--o{ docref_context : "0..*"
+    document_reference ||--o{ docref_event : "0..*"
+    document_reference ||--o{ docref_body_site : "0..*"
+    document_reference ||--o{ docref_author : "0..*"
+    document_reference ||--o{ docref_attester : "0..*"
+    document_reference ||--o{ docref_relates_to : "0..*"
+    document_reference ||--o{ docref_security_label : "0..*"
+    document_reference ||--o{ docref_content : "1..*"
+
+    docref_content ||--o{ docref_content_profile : "0..*"
+
+    document_reference {
+        bigint id PK
+        text fhir_id
+        text status
+        text doc_status
+        timestamptz date
+    }
+
+    docref_content {
+        bigint id PK
+        bigint document_reference_id FK
+        text attachment_content_type
+        text attachment_url
+        text attachment_title
+    }

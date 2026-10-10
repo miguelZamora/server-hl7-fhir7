@@ -1,0 +1,29 @@
+erDiagram
+    message_header ||--o{ mh_destination : "0..*"
+    message_header ||--o| mh_source : "1"
+    message_header ||--o| mh_response : "0..1"
+    message_header ||--o{ mh_focus : "0..*"
+
+    message_header {
+        bigint id PK
+        text fhir_id
+        bigint event_coding_id FK
+        text event_canonical
+        text sender_reference
+    }
+
+    mh_destination {
+        bigint id PK
+        bigint message_header_id FK
+        text endpoint_url
+        text endpoint_reference
+        text name
+    }
+
+    mh_source {
+        bigint id PK
+        bigint message_header_id FK
+        text name
+        text software
+        text version
+    }

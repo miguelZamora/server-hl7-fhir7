@@ -1,0 +1,19 @@
+erDiagram
+    list_resource ||--o{ lst_identifier : "0..*"
+    list_resource ||--o{ lst_subject : "0..*"
+    list_resource ||--o{ lst_note : "0..*"
+    list_resource ||--o{ lst_entry : "0..*"
+
+    lst_entry ||--o{ lst_entry_flag : "0..*"
+
+    list_resource {
+        bigint id PK
+        text fhir_id
+        text status
+        text mode
+        text title
+        bigint code_coding_id FK
+        text encounter_reference
+        text source_reference
+        bigint empty_reason_coding_id FK
+    }

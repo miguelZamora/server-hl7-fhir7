@@ -1,0 +1,25 @@
+erDiagram
+    episode_of_care ||--o{ eoc_identifier : "0..*"
+    episode_of_care ||--o{ eoc_status_history : "0..*"
+    episode_of_care ||--o{ eoc_type : "0..*"
+    episode_of_care ||--o{ eoc_reason : "0..*"
+    episode_of_care ||--o{ eoc_diagnosis : "0..*"
+    episode_of_care ||--o{ eoc_referral_request : "0..*"
+    episode_of_care ||--o{ eoc_care_team : "0..*"
+    episode_of_care ||--o{ eoc_account : "0..*"
+
+    eoc_reason ||--o{ eoc_reason_use : "0..*"
+    eoc_reason ||--o{ eoc_reason_value : "0..*"
+    eoc_diagnosis ||--o{ eoc_diagnosis_condition : "0..*"
+    eoc_diagnosis ||--o{ eoc_diagnosis_use : "0..*"
+
+    episode_of_care {
+        bigint id PK
+        text fhir_id
+        text status
+        text patient_reference
+        text managing_organization_reference
+        text care_manager_reference
+        timestamptz period_start
+        timestamptz period_end
+    }

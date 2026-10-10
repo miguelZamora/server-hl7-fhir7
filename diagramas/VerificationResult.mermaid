@@ -1,0 +1,24 @@
+erDiagram
+    verification_result ||--o{ vr_target : "0..*"
+    verification_result ||--o{ vr_target_location : "0..*"
+    verification_result ||--o{ vr_validation_process : "0..*"
+    verification_result ||--o{ vr_primary_source : "0..*"
+    verification_result ||--o| vr_attestation : "0..1"
+    verification_result ||--o{ vr_validator : "0..*"
+
+    vr_primary_source ||--o{ vr_primary_source_type : "0..*"
+    vr_primary_source ||--o{ vr_primary_source_comm_method : "0..*"
+    vr_primary_source ||--o{ vr_primary_source_push_type : "0..*"
+    vr_attestation ||--o{ vr_attestation_signature : "0..*"
+
+    verification_result {
+        bigint id PK
+        text fhir_id
+        bigint need_coding_id FK
+        text status
+        timestamptz status_date
+        bigint validation_type_coding_id FK
+        timestamptz last_performed
+        date next_scheduled
+        bigint failure_action_coding_id FK
+    }

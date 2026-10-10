@@ -1,0 +1,39 @@
+erDiagram
+    code_system ||--o{ csys_identifier : "0..*"
+    code_system ||--o{ csys_contact : "0..*"
+    code_system ||--o{ csys_jurisdiction : "0..*"
+    code_system ||--o{ csys_filter : "0..*"
+    code_system ||--o{ csys_property : "0..*"
+    code_system ||--o{ csys_concept : "0..*"
+
+    csys_concept ||--o{ csys_concept : "recursivo"
+    csys_concept ||--o{ csys_concept_designation : "0..*"
+    csys_concept ||--o{ csys_concept_property : "0..*"
+    csys_concept_designation ||--o{ csys_concept_designation_additional_use : "0..*"
+
+    csys_filter ||--o{ csys_filter_operator : "0..*"
+
+    code_system {
+        bigint id PK
+        text fhir_id
+        text url
+        text name
+        text status
+        text content
+        int count
+    }
+
+    csys_concept {
+        bigint id PK
+        bigint code_system_id FK
+        bigint parent_concept_id FK
+        text code
+        text display
+    }
+
+    csys_property {
+        bigint id PK
+        bigint code_system_id FK
+        text code
+        text type
+    }

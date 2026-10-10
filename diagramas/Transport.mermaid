@@ -1,0 +1,24 @@
+erDiagram
+    transport ||--o{ tr_identifier : "0..*"
+    transport ||--o{ tr_part_of : "0..*"
+    transport ||--o{ tr_based_on : "0..*"
+    transport ||--o{ tr_performer_type : "0..*"
+    transport ||--o{ tr_insurance : "0..*"
+    transport ||--o{ tr_note : "0..*"
+    transport ||--o{ tr_relevant_history : "0..*"
+    transport ||--o| tr_restriction : "0..1"
+    transport ||--o{ tr_input : "0..*"
+    transport ||--o{ tr_output : "0..*"
+
+    tr_restriction ||--o{ tr_restriction_recipient : "0..*"
+
+    transport {
+        bigint id PK
+        text fhir_id
+        text status
+        text intent
+        text priority
+        text requested_location_reference
+        text current_location_reference
+        text history_reference
+    }

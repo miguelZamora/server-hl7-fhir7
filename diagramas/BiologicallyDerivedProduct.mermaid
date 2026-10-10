@@ -1,0 +1,18 @@
+erDiagram
+    biologically_derived_product ||--o{ bdp_identifier : "0..*"
+    biologically_derived_product ||--o{ bdp_parent : "0..*"
+    biologically_derived_product ||--o{ bdp_request : "0..*"
+    biologically_derived_product ||--o{ bdp_processing_facility : "0..*"
+    biologically_derived_product ||--o| bdp_collection : "0..1"
+    biologically_derived_product ||--o{ bdp_property : "0..*"
+
+    biologically_derived_product {
+        bigint id PK
+        text fhir_id
+        bigint product_category_coding_id FK
+        bigint product_code_coding_id FK
+        text product_code_text
+        text division
+        bigint product_status_coding_id FK
+        timestamptz expiration_date
+    }

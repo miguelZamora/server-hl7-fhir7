@@ -1,0 +1,21 @@
+erDiagram
+    basic ||--o{ basic_identifier : "0..*"
+    basic ||--o{ basic_author : "0..*"
+
+    basic {
+        bigint id PK
+        text fhir_id
+        bigint code_coding_id FK
+        text code_text
+        text subject_reference
+        timestamptz created
+        text author_reference
+    }
+
+    basic_identifier {
+        bigint id PK
+        bigint basic_id FK
+        text use
+        text system
+        text value
+    }

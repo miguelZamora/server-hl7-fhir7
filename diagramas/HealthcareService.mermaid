@@ -1,0 +1,32 @@
+erDiagram
+    healthcare_service ||--o{ hs_identifier : "0..*"
+    healthcare_service ||--o{ hs_offered_in : "0..*"
+    healthcare_service ||--o{ hs_category : "0..*"
+    healthcare_service ||--o{ hs_type : "0..*"
+    healthcare_service ||--o{ hs_specialty : "0..*"
+    healthcare_service ||--o{ hs_location : "0..*"
+    healthcare_service ||--o| hs_photo : "0..1"
+    healthcare_service ||--o{ hs_contact : "0..*"
+    healthcare_service ||--o{ hs_coverage_area : "0..*"
+    healthcare_service ||--o{ hs_service_provision_code : "0..*"
+    healthcare_service ||--o{ hs_eligibility : "0..*"
+    healthcare_service ||--o{ hs_program : "0..*"
+    healthcare_service ||--o{ hs_characteristic : "0..*"
+    healthcare_service ||--o{ hs_communication : "0..*"
+    healthcare_service ||--o{ hs_referral_method : "0..*"
+    healthcare_service ||--o{ hs_availability : "0..*"
+    healthcare_service ||--o{ hs_endpoint : "0..*"
+
+    hs_contact ||--o{ hs_contact_telecom : "0..*"
+    hs_contact ||--o| hs_contact_address : "0..1"
+    hs_availability ||--o{ hs_availability_available_time : "0..*"
+    hs_availability ||--o{ hs_availability_not_available : "0..*"
+
+    healthcare_service {
+        bigint id PK
+        text fhir_id
+        boolean active
+        text provided_by_reference
+        text name
+        boolean appointment_required
+    }

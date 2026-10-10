@@ -1,0 +1,17 @@
+erDiagram
+    appointment_response ||--o{ apr_identifier : "0..*"
+    appointment_response ||--o{ apr_participant_type : "0..*"
+
+    appointment_response {
+        bigint id PK
+        text fhir_id
+        text appointment_reference
+        boolean proposed_new_time
+        timestamptz start_time
+        timestamptz end_time
+        text actor_reference
+        text participant_status
+        boolean recurring
+        date occurrence_date
+        int recurrence_id
+    }

@@ -1,0 +1,26 @@
+erDiagram
+    location ||--o{ loc_identifier : "0..*"
+    location ||--o{ loc_alias : "0..*"
+    location ||--o{ loc_type : "0..*"
+    location ||--o{ loc_contact : "0..*"
+    location ||--o{ loc_endpoint : "0..*"
+    location ||--o{ loc_characteristic : "0..*"
+    location ||--o{ loc_hours_of_operation : "0..*"
+    location ||--o{ loc_virtual_service : "0..*"
+
+    loc_contact ||--o{ loc_contact_telecom : "0..*"
+    loc_contact ||--o| loc_contact_address : "0..1"
+    loc_hours_of_operation ||--o{ loc_hours_available_time : "0..*"
+    loc_hours_of_operation ||--o{ loc_hours_not_available : "0..*"
+
+    location {
+        bigint id PK
+        text fhir_id
+        text status
+        text name
+        text mode
+        text address_city
+        numeric position_longitude
+        numeric position_latitude
+        text part_of_reference
+    }

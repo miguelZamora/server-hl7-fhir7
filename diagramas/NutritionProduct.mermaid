@@ -1,0 +1,21 @@
+erDiagram
+    nutrition_product ||--o{ np_category : "0..*"
+    nutrition_product ||--o{ np_manufacturer : "0..*"
+    nutrition_product ||--o{ np_nutrient : "0..*"
+    nutrition_product ||--o{ np_ingredient : "0..*"
+    nutrition_product ||--o{ np_known_allergen : "0..*"
+    nutrition_product ||--o{ np_characteristic : "0..*"
+    nutrition_product ||--o{ np_instance : "0..*"
+    nutrition_product ||--o{ np_note : "0..*"
+
+    np_nutrient ||--o{ np_nutrient_amount : "0..*"
+    np_ingredient ||--o{ np_ingredient_amount : "0..*"
+    np_instance ||--o{ np_instance_identifier : "0..*"
+
+    nutrition_product {
+        bigint id PK
+        text fhir_id
+        bigint code_coding_id FK
+        text code_text
+        text status
+    }

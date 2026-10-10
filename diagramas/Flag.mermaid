@@ -1,0 +1,16 @@
+erDiagram
+    flag ||--o{ flag_identifier : "0..*"
+    flag ||--o{ flag_category : "0..*"
+
+    flag {
+        bigint id PK
+        text fhir_id
+        text status
+        bigint code_coding_id FK
+        text code_text
+        text subject_reference
+        timestamptz period_start
+        timestamptz period_end
+        text encounter_reference
+        text author_reference
+    }

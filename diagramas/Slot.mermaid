@@ -1,0 +1,16 @@
+erDiagram
+    slot ||--o{ slot_identifier : "0..*"
+    slot ||--o{ slot_service_category : "0..*"
+    slot ||--o{ slot_service_type : "0..*"
+    slot ||--o{ slot_specialty : "0..*"
+    slot ||--o{ slot_appointment_type : "0..*"
+
+    slot {
+        bigint id PK
+        text fhir_id
+        text schedule_reference
+        text status
+        timestamptz start_time
+        timestamptz end_time
+        boolean overbooked
+    }

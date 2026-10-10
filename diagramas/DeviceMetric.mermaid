@@ -1,0 +1,14 @@
+erDiagram
+    device_metric ||--o{ dm_identifier : "0..*"
+    device_metric ||--o{ dm_calibration : "0..*"
+
+    device_metric {
+        bigint id PK
+        text fhir_id
+        bigint type_coding_id FK
+        bigint unit_coding_id FK
+        text device_reference
+        text operational_status
+        text color
+        text category
+    }

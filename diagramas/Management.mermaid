@@ -1,0 +1,38 @@
+erDiagram
+    encounter ||--o{ enc_identifier : "0..*"
+    encounter ||--o{ enc_class : "0..*"
+    encounter ||--o{ enc_type : "0..*"
+    encounter ||--o{ enc_service_type : "0..*"
+    encounter ||--o{ enc_episode_of_care : "0..*"
+    encounter ||--o{ enc_based_on : "0..*"
+    encounter ||--o{ enc_care_team : "0..*"
+    encounter ||--o{ enc_participant : "0..*"
+    encounter ||--o{ enc_appointment : "0..*"
+    encounter ||--o{ enc_virtual_service : "0..*"
+    encounter ||--o{ enc_reason : "0..*"
+    encounter ||--o{ enc_diagnosis : "0..*"
+    encounter ||--o{ enc_account : "0..*"
+    encounter ||--o{ enc_diet_preference : "0..*"
+    encounter ||--o{ enc_special_arrangement : "0..*"
+    encounter ||--o{ enc_special_courtesy : "0..*"
+    encounter ||--o| enc_admission : "0..1"
+    encounter ||--o{ enc_location : "0..*"
+
+    enc_participant ||--o{ enc_participant_type : "0..*"
+    enc_reason ||--o{ enc_reason_use : "0..*"
+    enc_reason ||--o{ enc_reason_value : "0..*"
+    enc_diagnosis ||--o{ enc_diagnosis_condition : "0..*"
+    enc_diagnosis ||--o{ enc_diagnosis_use : "0..*"
+
+    encounter {
+        bigint id PK
+        text fhir_id
+        text status
+        bigint priority_coding_id FK
+        text subject_reference
+        bigint subject_status_coding_id FK
+        text part_of_reference
+        text service_provider_reference
+        timestamptz actual_period_start
+        timestamptz actual_period_end
+    }

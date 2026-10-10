@@ -1,0 +1,32 @@
+erDiagram
+    patient ||--o{ pat_identifier : "0..*"
+    patient ||--o{ pat_name : "0..*"
+    patient ||--o{ pat_telecom : "0..*"
+    patient ||--o{ pat_address : "0..*"
+    patient ||--o{ pat_photo : "0..*"
+    patient ||--o{ pat_contact : "0..*"
+    patient ||--o{ pat_communication : "0..*"
+    patient ||--o{ pat_general_practitioner : "0..*"
+    patient ||--o{ pat_link : "0..*"
+
+    pat_contact ||--o{ pat_contact_relationship : "0..*"
+    pat_contact ||--o{ pat_contact_telecom : "0..*"
+    pat_contact ||--o| pat_contact_address : "0..1"
+
+    patient {
+        bigint id PK
+        text fhir_id
+        boolean active
+        text gender
+        date birth_date
+        boolean deceased_boolean
+        timestamptz deceased_datetime
+    }
+
+    pat_name {
+        bigint id PK
+        bigint patient_id FK
+        text use
+        text family
+        text given
+    }

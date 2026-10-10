@@ -1,0 +1,24 @@
+erDiagram
+    endpoint ||--o{ ep_identifier : "0..*"
+    endpoint ||--o{ ep_connection_type : "0..*"
+    endpoint ||--o{ ep_environment_type : "0..*"
+    endpoint ||--o{ ep_contact : "0..*"
+    endpoint ||--o{ ep_payload : "0..*"
+    endpoint ||--o{ ep_header : "0..*"
+
+    ep_payload ||--o{ ep_payload_type : "0..*"
+    ep_payload ||--o{ ep_payload_mime : "0..*"
+
+    endpoint {
+        bigint id PK
+        text fhir_id
+        text status
+        text name
+        text address
+        text managing_organization_reference
+    }
+
+    ep_payload {
+        bigint id PK
+        bigint endpoint_id FK
+    }
